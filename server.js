@@ -168,9 +168,9 @@ function remove(res,criteria) {
 function findRestaurants(db,criteria,max,callback) {
 	var restaurants = [];
 	if (max > 0) {
-		cursor = db.collection('restaurant').find(criteria).limit(max); 		
+		cursor = db.collection('restaurants').find(criteria).limit(max); 		
 	} else {
-		cursor = db.collection('restaurant').find(criteria); 				
+		cursor = db.collection('restaurants').find(criteria); 				
 	}
 	cursor.each(function(err, doc) {
 		assert.equal(err, null); 
@@ -227,7 +227,7 @@ app.get('/',function(req,res) {
 		res.redirect('/login');
 	} else {
 		res.status(200);
-		res.render('restaurants',{name:req.session.username});
+		res.redirect('/read',{name:req.session.username});
 	}
 });
 
