@@ -76,16 +76,16 @@ app.post('/create',function(req,res) {
 		assert.equal(err,null);
 		
 		db.collection('restaurants').insertOne( {
-			"_id":2, 
-			"name":"Steve", 
-			"cuisine":"Jobs",
-			"street":"Jobs2",
-			"building":"Jobs3",
-			"zipcode":000000,
-			"gps1":000,
-			"gps2":000,
-			"photo":"Jobs"
-		});
+			    "_id": "2",
+			    "name": "ajbc",
+			    "cuisine": "abhjc",
+			    "street": "ahjbc",
+			    "building": "ahjbc",
+			    "zipcode": "000000",
+			    "gps1": "0",
+			    "gps2": "0",
+			    "photo": "jsdhjhjhjhjiashd"
+			});
 		});
 	res.redirect('/');
 });
