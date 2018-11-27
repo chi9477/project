@@ -78,3 +78,5 @@ app.post('/create',function(req,res) {
 
 
 app.listen(process.env.PORT || 8099);
+MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
