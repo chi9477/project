@@ -9,6 +9,11 @@ var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
 var mongourl = 'mongodb://doublechi123:doublechi123@ds149682.mlab.com:49682/chi94';  // use your mlab database
 
+var products = [
+	{name: 'Apple iPad Pro', stock: 100, price: 7000, id:'001'},
+	{name: 'Apple iPhone 7', stock: 50, price: 7800, id:'002'},
+	{name: 'Apple Macbook', stock: 70, price: 11000, id: '003'}
+];
 
 app = express();
 app.set('view engine','ejs');
@@ -46,7 +51,7 @@ app.get('/read',function(req,res) {
 		res.redirect('/login');
 	} 
 	else {
-		res.render('restaurants',{name:req.session.username});										
+		res.render('restaurants',{name:req.session.username},{c: products});										
 	}
 });
 
