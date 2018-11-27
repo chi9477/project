@@ -33,6 +33,16 @@ app.get('/',function(req,res) {
 	}
 });
 
+app.get('/create',function(req,res) {
+	console.log(req.session);
+	if (!req.session.authenticated) {
+		res.redirect('/login');
+	} else {
+		res.status(200);
+		res.render('create',{name:req.session.username});
+	}
+});
+
 app.get('/login',function(req,res) {
 	res.sendFile(__dirname + '/login.html');
 });
