@@ -7,6 +7,17 @@ var assert = require('assert');
 var ObjectID = require('mongodb').ObjectID;
 
 var mongourl = "mongodb://chi94:doublechi123@ds149682.mlab.com:49682/chi94";
+
+ mongoClient.connect(mongourl, function(error, db) {
+    if(error)
+    console.log("Error while connecting to database: ", error);
+    else
+    console.log("Connection established successfully");
+
+    //perform operations here
+
+    db.close();
+ });
 app = express();
 app.set('view engine','ejs');
 
@@ -68,11 +79,5 @@ app.get('/logout',function(req,res) {
 });
 
 
-app.post('/create',function(req,res) {
-	db.collection('restaurants',function(err,collection){
-    collection.insert({ id:1, name:'Steve', cuisine:'Jobs',street:'Jobs2',building:'Jobs3',zipcode:'0000000',gps1:'000',gps2:'000',photo:'Jobs', });
-    });
-	res.redirect('/');
-});
 
 app.listen(process.env.PORT || 8099);
