@@ -155,7 +155,7 @@ app.post('/update',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
 		
-			db.collection('restaurants').update({req.query.id}, {
+			db.collection('restaurants').update({_id: req.query.id}, {
 			    "name": req.body.name,
 			    "borough": req.body.borough,
 			    "cuisine": req.body.cuisine,
