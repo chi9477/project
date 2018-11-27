@@ -7,6 +7,25 @@ var MongoClient = require('mongodb').MongoClient;
 
 
 var mongourl = "mongodb://chi94:doublechi123@ds149682.mlab.com:49682/chi94";
+MongoClient.connect(mongourl, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("chi94");
+  var myobj = { id:'2', 
+			name:'Steve', 
+			cuisine:'Jobs',
+			street:'Jobs2',
+			building:'Jobs3',
+			zipcode:'0000000',
+			gps1:'000',
+			gps2:'000',
+			photo:'Jobs'
+ };
+  dbo.collection("restaurants").insertOne(myobj, function(err, res) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    db.close();
+  });
+});
 
  
 app = express();
@@ -69,28 +88,7 @@ app.get('/logout',function(req,res) {
 	res.redirect('/');
 });
 
-app.post('/create',function(req,res) {
-MongoClient.connect(mongourl, function(err, db) {
-  if (err) throw err;
-  var dbo = db.db("chi94");
-  var myobj = { id:'2', 
-			name:'Steve', 
-			cuisine:'Jobs',
-			street:'Jobs2',
-			building:'Jobs3',
-			zipcode:'0000000',
-			gps1:'000',
-			gps2:'000',
-			photo:'Jobs'
- };
-  dbo.collection("restaurants").insertOne(myobj, function(err, res) {
-    if (err) throw err;
-    console.log("1 document inserted");
-    db.close();
-  });
-});
-	res.redirect('/');
-});
+
 
 
 app.listen(process.env.PORT || 8099);
