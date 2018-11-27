@@ -120,15 +120,8 @@ app.get('/showdetails', function(req,res) {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
         	db.collection("restaurants").find().toArray(function(err,items){
-		var item = null;
 		for (i in items) {		
-				item = items[i]
-				break;
-			}
-		if (item) {
 			res.render('details', {name:req.session.username,r:items[i]});							
-		} else {
-			res.status(500).end('id missing!');
 		}
 		});
 		});
