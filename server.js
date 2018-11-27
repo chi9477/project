@@ -90,5 +90,23 @@ app.get('/logout',function(req,res) {
 });
 
 
+app.post('/create',function(req,res) {
+	MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+		
+		db.collection('restaurants').insertOne( {
+			    "_id": "2",
+			    "name": "ajbc",
+			    "cuisine": "abhjc",
+			    "street": "ahjbc",
+			    "building": "ahjbc",
+			    "zipcode": "000000",
+			    "gps1": "0",
+			    "gps2": "0",
+			    "photo": "jsdhjhjhjhjiashd"
+			});
+		});
+	res.redirect('/');
+});
 app.listen(process.env.PORT || 8099);
 
