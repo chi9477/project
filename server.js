@@ -96,7 +96,8 @@ app.post('/create',function(req,res) {
 				"street": "sdkfjkjs",
 				"building": "dkjfb",
 				"zipcode": "00000",
-				"coord": "1239898"
+				"gps1": "1239898",
+				"gps2": "12345678"
 			    },
 			    "grades": {
 				"user": "dsjfk",
