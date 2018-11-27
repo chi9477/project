@@ -192,7 +192,6 @@ app.post('/update',function(req,res) {
 				"score": null
 			    },
 			    "owner":req.session.username
-			});
 		});
 	});
 	res.redirect('/');
