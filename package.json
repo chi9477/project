@@ -8,9 +8,9 @@
         "ejs": "*",
         "body-parser": "*",
         "cookie-session": "*",
-        "mongodb": "^2.2.31"
+        "mongodb": "2.2.36"
     },
-    "engine": "node >= 6.0.0",
+    "engine": "node >= 0.10.0",
     "scripts": {
         "start": "node server"
     }
