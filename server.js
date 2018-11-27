@@ -6,6 +6,7 @@ var app = express();
 app = express();
 app.set('view engine','ejs');
 
+
 var users = new Array(
 	{name: 'demo', password: ''},
 	{name: 'guest', password: 'guest'}
@@ -14,7 +15,7 @@ var users = new Array(
 app.set('view engine','ejs');
 
 app.use(session({
-  name: 'session',
+  name: 'session'
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
