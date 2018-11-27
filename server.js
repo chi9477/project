@@ -24,9 +24,9 @@ var users = new Array(
 function findRestaurants(db,criteria,max,callback) {
 	var restaurants = [];
 	if (max > 0) {
-		cursor = db.collection('restaurant').find(criteria).limit(max); 		
+		cursor = db.collection('restaurants').find(criteria).limit(max); 		
 	} else {
-		cursor = db.collection('restaurant').find(criteria); 				
+		cursor = db.collection('restaurants').find(criteria); 				
 	}
 	cursor.each(function(err, doc) {
 		assert.equal(err, null); 
