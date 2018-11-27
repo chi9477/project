@@ -37,10 +37,8 @@ app.get('/',function(req,res) {
 	if (!req.session.authenticated) {
 		res.redirect('/login');
 	} else {
-		app.get('/read',function(req,res) {
 		res.status(200);
 		res.render('restaurants',{name:req.session.username});
-		}
 	}
 });
 		
