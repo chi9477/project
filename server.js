@@ -8,16 +8,7 @@ var ObjectID = require('mongodb').ObjectID;
 
 var mongourl = "mongodb://chi94:doublechi123@ds149682.mlab.com:49682/chi94";
 
- mongoClient.connect(mongourl, function(error, db) {
-    if(error)
-    console.log("Error while connecting to database: ", error);
-    else
-    console.log("Connection established successfully");
-
-    //perform operations here
-
-    db.close();
- });
+ 
 app = express();
 app.set('view engine','ejs');
 
