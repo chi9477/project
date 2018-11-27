@@ -147,7 +147,7 @@ app.get('/update',function(req,res) {
 		res.redirect('/login');
 	} else {
 		res.status(200);
-		res.render('update',{name:req.session.username});
+		res.render('update',{name:req.session.username,r: items[i]});
 	}
 });
 
@@ -155,7 +155,7 @@ app.post('/update',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
 		
-			db.collection('restaurants').update({ObjectId("5bfd1c6d57fe200014163ba7")}, {
+			db.collection('restaurants').update({_id: items[i]._id}, {
 			    "name": req.body.name,
 			    "borough": req.body.borough,
 			    "cuisine": req.body.cuisine,
