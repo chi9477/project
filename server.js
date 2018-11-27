@@ -120,10 +120,22 @@ app.get('/showdetails', function(req,res) {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
         	db.collection("restaurants").find().toArray(function(err,items){
-		for (i in items) {		
-			res.render('details', {name:req.session.username,r:items[i]});							
+		var item = null;
+		if (req.query.id) {
+		for (i in items) {
+			if (items[i]._id == req.query.id) {
+				item = items[i]
+				break;
+			}
 		}
-		});
+		if (item) {
+			res.render('details', {r: items[i]});							
+		} else {
+			res.status(500).end(req.query.id + ' not found!');
+		}
+	} else {
+		res.status(500).end('id missing!');
+			});
 		});
 	}
 });
