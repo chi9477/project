@@ -2,7 +2,11 @@ var express = require('express');
 var session = require('cookie-session');
 var bodyParser = require('body-parser');
 var app = express();
+var MongoClient = require('mongodb').MongoClient; 
+var assert = require('assert');
+var ObjectId = require('mongodb').ObjectID;
 
+var mongourl = 'mongodb://localhost:27017/test';  // use your mlab database
 
 app = express();
 app.set('view engine','ejs');
