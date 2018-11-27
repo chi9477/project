@@ -5,7 +5,6 @@ var app = express();
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
-var mongourl = 'mongodb://chi94:doublechi123@ds149682.mlab.com:49682/chi94';
 
 
 
@@ -20,10 +19,10 @@ var SECRETKEY2 = 'Keep this to yourself';
 var MongoClient = require('mongodb').MongoClient;
 
 // Connect to the db
-MongoClient.connect("mongodb://kwanyuhung:Kwan1314@ds151382.mlab.com:51382/abc", function(err, db) {
+MongoClient.connect("mongodb://chi94:doublechi123@ds149682.mlab.com:49682/chi94", function(err, db) {
   if(err) { return console.dir(err); }
 
-  var collection = db.collection('restaurant');
+  var collection = db.collection('restaurants');
   var doc1 = {'hello':'doc1'};
   var doc2 = {'hello':'doc2'};
   var lotsOfDocs = [{'hello':'doc3'}, {'hello':'doc4'}];
