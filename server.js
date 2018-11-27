@@ -29,11 +29,6 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-MongoClient.connect(mongourl, function(err, db) {
-	assert.equal(err,null);
-	var products = db.connection.('restaurants').find({ borough: "NY"});
-});
-
 app.get('/',function(req,res) {
 	console.log(req.session);
 	if (!req.session.authenticated) {
@@ -49,7 +44,7 @@ app.get('/read',function(req,res) {
 		res.redirect('/login');
 	} 
 	else {
-		res.render('restaurants',{name:req.session.username, c: products});										
+		res.render('restaurants',{name:req.session.username});										
 	}
 });
 
