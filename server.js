@@ -67,6 +67,18 @@ app.get('/logout',function(req,res) {
 	res.redirect('/');
 });
 
+app.get('/restaurants',function(req,res) {
+	console.log(req.session);
+	if (!req.session.authenticated) {
+		res.redirect('/login');
+	} else {
+		res.status(200);
+		res.render('restaurants',{name:req.session.username});
+	}
+	
+	db.restaurants.find()
+});
+
 
 
 app.listen(process.env.PORT || 8099);
