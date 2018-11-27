@@ -29,11 +29,6 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-var products = [
-	{name: 'Apple iPad Pro', stock: 100, price: 7000, id:'001'},
-	{name: 'Apple iPhone 7', stock: 50, price: 7800, id:'002'},
-	{name: 'Apple Macbook', stock: 70, price: 11000, id: '003'}
-];
 
 app.get('/',function(req,res) {
 	console.log(req.session);
@@ -50,7 +45,7 @@ app.get('/read',function(req,res) {
 		res.redirect('/login');
 	} 
 	else {
-		res.render('restaurants',{name:req.session.username, c:products});										
+		res.render('restaurants',{name:req.session.username});										
 	}
 });
 
@@ -88,27 +83,10 @@ app.post('/create',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
 		
-		db.collection('restaurants').insertOne( {
-			    "name": req.body.name,
-			    "borough": req.body.bouough,
-			    "cuisine": req.body.cuisine,
-			    "photo": "no.jpg",
-			    "photo mimetype": "KASDKJ",
-			    "address": {
-				"street": req.body.street,
-				"building": req.body.building,
-				"zipcode": req.body.zipcode,
-				"gps1": req.body.gps1,
-				"gps2": req.body.gps2
-			    },
-			    "grades": {
-				"user": null,
-				"score": null
-			    },
-			    "owner":req.session.username
-			});
+		var try = db.collection('restaurants').find();
+		res.render('read', {c:try, name:req.session.username});
 		});
-	res.redirect('/');
+
 });
 	
 
