@@ -16,25 +16,6 @@ app.set('view engine','ejs');
 var SECRETKEY1 = 'I want to pass COMPS381F';
 var SECRETKEY2 = 'Keep this to yourself';
 
-var MongoClient = require('mongodb').MongoClient;
-
-// Connect to the db
-MongoClient.connect("mongodb://doublechi123:doublechi123@ds149682.mlab.com:49682/chi94", function(err, db) {
-  if(err) { return console.dir(err); }
-
-  var collection = db.collection('restaurants');
-  var doc1 = {'hello':'doc1'};
-  var doc2 = {'hello':'doc2'};
-  var lotsOfDocs = [{'hello':'doc3'}, {'hello':'doc4'}];
-
-  collection.insert(doc1);
-
-  collection.insert(doc2, {w:1}, function(err, result) {});
-
-  collection.insert(lotsOfDocs, {w:1}, function(err, result) {});
-
-});
-
 var users = new Array(
 	{name: 'demo', password: ''},
 	{name: 'guest', password: 'guest'}
