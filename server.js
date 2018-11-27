@@ -2,13 +2,6 @@ var express = require('express');
 var session = require('cookie-session');
 var bodyParser = require('body-parser');
 var app = express();
-var http = require('http');
-var url  = require('url');
-var MongoClient = require('mongodb').MongoClient; 
-var ObjectId = require('mongodb').ObjectID;
-var assert = require('assert');
-
-var mongourl = 'mongodb://chi94:doublechi123@ds149682.mlab.com:49682/chi94';  // use your mlab database
 
 
 app = express();
