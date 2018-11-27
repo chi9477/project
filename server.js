@@ -2,6 +2,14 @@ var express = require('express');
 var session = require('cookie-session');
 var bodyParser = require('body-parser');
 var app = express();
+var http = require('http');
+var url  = require('url');
+var MongoClient = require('mongodb').MongoClient; 
+var ObjectId = require('mongodb').ObjectID;
+var assert = require('assert');
+
+var mongourl = 'mongodb://chi94:doublechi123@ds149682.mlab.com:49682/chi94';  // use your mlab database
+
 
 app = express();
 app.set('view engine','ejs');
@@ -60,6 +68,13 @@ app.post('/login',function(req,res) {
 
 app.get('/logout',function(req,res) {
 	req.session = null;
+	res.redirect('/');
+});
+
+app.post('/create',function(req,res) {
+	db.collection('Persons',function(err,collection){
+    collection.insert({ id:1, name:'Steve', cuisine:'Jobs',street:'Jobs2',building:'Jobs3',zipcode:'0000000',gps1:'000',gps2:'000',photo:'Jobs', });
+    
 	res.redirect('/');
 });
 
