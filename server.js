@@ -73,8 +73,7 @@ app.post('/create',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
 		
-		db.collection('restaurants',function(err,collection){
-    		collection.insertOne({ 
+		db.people.insertOne({ 
 			id:'2', 
 			name:'Steve', 
 			cuisine:'Jobs',
@@ -84,7 +83,6 @@ app.post('/create',function(req,res) {
 			gps1:'000',
 			gps2:'000',
 			photo:'Jobs'
-		});
 		});
 		});
 	res.redirect('/');
