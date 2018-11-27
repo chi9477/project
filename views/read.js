@@ -1,53 +1,52 @@
-var MongoClient = require('mongodb').MongoClient;
-var assert = require('assert');
-var ObjectId = require('mongodb').ObjectID;
-var mongourl = 'mongodb://doublechi123:doublechi123@ds149682.mlab.com:49682/chi94';  // use your mlab database
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-var max = (queryAsObject.max) ? Number(queryAsObject.max) : 20;
-			console.log('/read max = ' + max);			
-			read_n_print(res,{},max);
-			break;
-      
-function read_n_print(res,criteria,max) {
-	MongoClient.connect(mongourl, function(err, db) {
-		assert.equal(err,null);
-		console.log('Connected to MongoDB\n');
-		findRestaurants(db,criteria,max,function(restaurants) {
-			db.close();
-			console.log('Disconnected MongoDB\n');
-			if (restaurants.length == 0) {
-				res.writeHead(500, {"Content-Type": "text/plain"});
-				res.end('Not found!');
-			} else {
-				res.writeHead(200, {"Content-Type": "text/html"});			
-				res.write('<html><head><title>Restaurant</title></head>');
-				res.write('<body><H1>Restaurants</H1>');
-				res.write('<H3>Showing '+restaurants.length+' document(s)</H3>');
-				res.write('<ol>');
-				for (var i in restaurants) {
-					res.write('<li>'+restaurants[i].name+'</li>');
-				}
-				res.write('</ol>');
-				res.end('</body></html>');
-				return(restaurants);
-			}
-		}); 
-	});
-}
+  <title>Restaurant</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-function findRestaurants(db,criteria,max,callback) {
-	var restaurants = [];
-	if (max > 0) {
-		cursor = db.collection('restaurants').find(criteria).limit(max); 		
-	} else {
-		cursor = db.collection('restaurants').find(criteria); 				
-	}
-	cursor.each(function(err, doc) {
-		assert.equal(err, null); 
-		if (doc != null) {
-			restaurants.push(doc);
-		} else {
-			callback(restaurants); 
-		}
-	});
-}
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<style type="text/css">
+  .well {
+      background: none;
+      height: 320px;
+  }
+
+  .table-scroll tbody {
+      position: absolute;
+      overflow-y: scroll;
+      height: 250px;
+  }
+
+  .table-scroll tr {
+      width: 100%;
+      table-layout: fixed;
+      display: inline-table;
+  }
+
+  .table-scroll thead > tr > th {
+      border: none;
+  }
+</style>
+
+   <body>
+    <div class="jumbotron text-center container=fluid">
+      <H1>Showing <%= c.length %> Products</H1>
+<p><a href=/shoppingcart>shopping cart</a></p>
+<ol>
+  <% c.forEach(function(cafe) { %>
+  <li><%= cafe.name %></li>
+  <% });                        %>
+</ol>
+<p>User: <%= name %></p>
+      </div>
+   </body>
+</html>
