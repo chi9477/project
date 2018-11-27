@@ -85,7 +85,8 @@ app.post('/create',function(req,res) {
 			gps2:'000',
 			photo:'Jobs'
 		});
-	});
+		});
+		});
 	res.redirect('/');
 });
 
