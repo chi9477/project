@@ -3,8 +3,8 @@ var session = require('cookie-session');
 var bodyParser = require('body-parser');
 var app = express();
 var MongoClient = require('mongodb').MongoClient;
-var assert = require('assert');
-var ObjectID = require('mongodb').ObjectID;
+
+
 
 var mongourl = "mongodb://chi94:doublechi123@ds149682.mlab.com:49682/chi94";
 
@@ -70,11 +70,10 @@ app.get('/logout',function(req,res) {
 });
 
 app.post('/create',function(req,res) {
-	MongoClient.connect(mongourl, function(err, db) {
-		assert.equal(err,null);
-		
-		db.people.insertOne({ 
-			id:'2', 
+MongoClient.connect(mongourl, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("chi94");
+  var myobj = { id:'2', 
 			name:'Steve', 
 			cuisine:'Jobs',
 			street:'Jobs2',
@@ -83,8 +82,13 @@ app.post('/create',function(req,res) {
 			gps1:'000',
 			gps2:'000',
 			photo:'Jobs'
-		});
-		});
+ };
+  dbo.collection("restaurants").insertOne(myobj, function(err, res) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    db.close();
+  });
+});
 	res.redirect('/');
 });
 
