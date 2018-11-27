@@ -117,17 +117,12 @@ app.get('/logout',function(req,res) {
 });
 
 app.get('/restaurants',function(req,res) {
-	var criteria = {};
-			for (key in queryAsObject) {
-				criteria[key] = queryAsObject[key];
-			}
-			console.log('/restaurants criteria = '+JSON.stringify(criteria));
-	
-	console.log(req.session);
+		
 	if (!req.session.authenticated) {
 		res.redirect('/login');
 	} else {
-		
+		var max = (queryAsObject.max) ? Number(queryAsObject.max) : 20;
+			console.log('/read max = ' + max);
 		MongoClient.connect(mongourl, function(err, db) {
 			
 		assert.equal(err,null);
