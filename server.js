@@ -17,6 +17,25 @@ app.set('view engine','ejs');
 var SECRETKEY1 = 'I want to pass COMPS381F';
 var SECRETKEY2 = 'Keep this to yourself';
 
+var MongoClient = require('mongodb').MongoClient;
+
+// Connect to the db
+MongoClient.connect("mongodb://kwanyuhung:Kwan1314@ds151382.mlab.com:51382/abc", function(err, db) {
+  if(err) { return console.dir(err); }
+
+  var collection = db.collection('restaurant');
+  var doc1 = {'hello':'doc1'};
+  var doc2 = {'hello':'doc2'};
+  var lotsOfDocs = [{'hello':'doc3'}, {'hello':'doc4'}];
+
+  collection.insert(doc1);
+
+  collection.insert(doc2, {w:1}, function(err, result) {});
+
+  collection.insert(lotsOfDocs, {w:1}, function(err, result) {});
+
+});
+
 var users = new Array(
 	{name: 'demo', password: ''},
 	{name: 'guest', password: 'guest'}
@@ -71,15 +90,6 @@ app.get('/logout',function(req,res) {
 	res.redirect('/');
 });
 
-app.post('/create',function(req,res) {
-	MongoClient.connect(mongourl, function(err, db) {
-		assert.equal(err,null);
-		
-		 response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.end('Hello World\n');
-		});
-	res.redirect('/');
-});
 
 app.listen(process.env.PORT || 8099);
 
