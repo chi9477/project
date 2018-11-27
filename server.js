@@ -154,7 +154,14 @@ app.get('/update',function(req,res) {
 app.post('/update',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-		
+		db.collection("restaurants").find().toArray(function(err,items){
+			var item = null;
+			for (i in items) {
+				if (items[i]._id == req.query.id) {
+					item = items[i]
+					break;
+				}
+			}
 			db.collection('restaurants').update({_id: items[i]._id}, {
 			    "name": req.body.name,
 			    "borough": req.body.borough,
@@ -175,6 +182,7 @@ app.post('/update',function(req,res) {
 			    "owner":req.session.username
 			});
 		});
+	});
 	res.redirect('/');
 });
 
