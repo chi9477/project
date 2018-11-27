@@ -76,15 +76,15 @@ app.post('/create',function(req,res) {
 		assert.equal(err,null);
 		
 		db.collection('restaurants').insertOne( {
-			id:'2', 
-			name:'Steve', 
-			cuisine:'Jobs',
-			street:'Jobs2',
-			building:'Jobs3',
-			zipcode:'0000000',
-			gps1:'000',
-			gps2:'000',
-			photo:'Jobs'
+			"_id":'2', 
+			"name"":'Steve', 
+			"cuisine":'Jobs',
+			"street":'Jobs2',
+			"building":'Jobs3',
+			"zipcode":'0000000',
+			"gps1":'000',
+			"gps2":'000',
+			"photo":'Jobs'
 		});
 		});
 	res.redirect('/');
