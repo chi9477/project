@@ -141,5 +141,42 @@ app.get('/showdetails', function(req,res) {
 	}
 });
 
+app.get('/update',function(req,res) {
+	console.log(req.session);
+	if (!req.session.authenticated) {
+		res.redirect('/login');
+	} else {
+		res.status(200);
+		res.render('update',{name:req.session.username});
+	}
+});
+
+app.post('/update',function(req,res) {
+	MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+		
+			db.collection('restaurants').update({req.query.id}, {
+			    "name": req.body.name,
+			    "borough": req.body.borough,
+			    "cuisine": req.body.cuisine,
+			    "photo": "no.jpg",
+			    "photo mimetype": "KASDKJ",
+			    "address": {
+				"street": req.body.street,
+				"building": req.body.building,
+				"zipcode": req.body.zipcode,
+				"gps1": req.body.gps1,
+				"gps2": req.body.gps2
+			    },
+			    "grades": {
+				"user": null,
+				"score": null
+			    },
+			    "owner":req.session.username
+			});
+		});
+	res.redirect('/');
+});
+
 app.listen(process.env.PORT || 8099);
 
