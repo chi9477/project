@@ -6,7 +6,7 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
 
-var mongourl = 'mongodb://localhost:27017/test';  // use your mlab database
+
 
 app = express();
 app.set('view engine','ejs');
