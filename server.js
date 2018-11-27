@@ -21,10 +21,6 @@ var users = new Array(
 	{name: 'guest', password: 'guest'}
 );
 
-MongoClient.connect(mongourl, function(err, db) {
-assert.equal(err,null);
-var restaurants = db.connection('restaurants').find();
-
 app.set('view engine','ejs');
 
 app.use(session({
@@ -49,6 +45,9 @@ app.get('/read',function(req,res) {
 	if (!req.session.authenticated) {
 		res.redirect('/login');
 	} else {
+		MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+		var restaurants = db.connection('restaurants').find();
 		var product = null;
 		if (req.query._id) {
 		for (i in restaurants) {
@@ -65,6 +64,7 @@ app.get('/read',function(req,res) {
 	} else {
 		res.status(500).end('id missing!');
 	}
+		}
 });
 
 app.get('/login',function(req,res) {
