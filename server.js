@@ -32,7 +32,6 @@ app.use(bodyParser.json());
 MongoClient.connect(mongourl, function(err, db) {
 	assert.equal(err,null);
 	var products =db.collection('restaurants').find();
-	db.close();
 });
 
 app.get('/',function(req,res) {
@@ -107,7 +106,6 @@ app.post('/create',function(req,res) {
 			    },
 			    "owner":req.session.username
 			});
-		db.close();
 		});
 	res.redirect('/');
 });
