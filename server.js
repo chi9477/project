@@ -49,9 +49,6 @@ app.get('/read',function(req,res) {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
 		var cursor = db.connection('restaurants').find();
-			cursor.each(function(err, doc) {
-        			console.log(doc);
-   		 });
 		res.render('restaurants',{name:req.session.username});						
 		});				
 	}
