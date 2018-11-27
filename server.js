@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 
 MongoClient.connect(mongourl, function(err, db) {
 	assert.equal(err,null);
-	var products = db.connection.('restaurants').find({});
+	var products = db.connection.('restaurants').find({ borough: "NY"});
 });
 
 app.get('/',function(req,res) {
