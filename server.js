@@ -41,17 +41,7 @@ app.get('/',function(req,res) {
 		res.render('restaurants',{name:req.session.username});
 	}
 });
-
-app.get('/create',function(req,res) {
-	console.log(req.session);
-	if (!req.session.authenticated) {
-		res.redirect('/login');
-	} else {
-		res.status(200);
-		res.render('create',{name:req.session.username});
-	}
-});
-
+		
 app.get('/login',function(req,res) {
 	res.sendFile(__dirname + '/login.html');
 });
@@ -67,13 +57,35 @@ app.post('/login',function(req,res) {
 	res.redirect('/');
 });
 
-
-
 app.get('/logout',function(req,res) {
 	req.session = null;
 	res.redirect('/');
 });
 
+app.get('/restaurants',function(req,res) {
+	console.log(req.session);
+	if (!req.session.authenticated) {
+		res.redirect('/login');
+	} else {
+		res.status(200);
+		res.render('restaurants',{name:req.session.username});
+	}
+});
+
+app.post('/restaurants',function(req,res) {
+	var max = (queryAsObject.max) ? Number(queryAsObject.max) : 20;
+			console.log('/read max = ' + max);			
+			read_n_print(res,{},max);
+
+app.get('/create',function(req,res) {
+	console.log(req.session);
+	if (!req.session.authenticated) {
+		res.redirect('/login');
+	} else {
+		res.status(200);
+		res.render('create',{name:req.session.username});
+	}
+});
 
 app.post('/create',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
@@ -101,5 +113,50 @@ app.post('/create',function(req,res) {
 		});
 	res.redirect('/');
 });
+	
+function read_n_print(res,criteria,max) {
+	MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+		console.log('Connected to MongoDB\n');
+		findRestaurants(db,criteria,max,function(restaurants) {
+			db.close();
+			console.log('Disconnected MongoDB\n');
+			if (restaurants.length == 0) {
+				res.writeHead(500, {"Content-Type": "text/plain"});
+				res.end('Not found!');
+			} else {
+				res.writeHead(200, {"Content-Type": "text/html"});			
+				res.write('<html><head><title>Restaurant</title></head>');
+				res.write('<body><H1>Restaurants</H1>');
+				res.write('<H2>Showing '+restaurants.length+' document(s)</H2>');
+				res.write('<ol>');
+				for (var i in restaurants) {
+					res.write('<li>'+restaurants[i].name+'</li>');
+				}
+				res.write('</ol>');
+				res.end('</body></html>');
+				return(restaurants);
+			}
+		}); 
+	});
+}
+
+function findRestaurants(db,criteria,max,callback) {
+	var restaurants = [];
+	if (max > 0) {
+		cursor = db.collection('restaurants').find(criteria).limit(max); 		
+	} else {
+		cursor = db.collection('restaurants').find(criteria); 				
+	}
+	cursor.each(function(err, doc) {
+		assert.equal(err, null); 
+		if (doc != null) {
+			restaurants.push(doc);
+		} else {
+			callback(restaurants); 
+		}
+	});
+}
+
 app.listen(process.env.PORT || 8099);
 
