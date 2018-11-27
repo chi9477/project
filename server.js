@@ -65,11 +65,22 @@ app.post('/login',function(req,res) {
 	res.redirect('/');
 });
 
+
+
 app.get('/logout',function(req,res) {
 	req.session = null;
 	res.redirect('/');
 });
 
+app.get('/restaurant',function(req,res) {
+	console.log(req.session);
+	if (!req.session.authenticated) {
+		res.redirect('/login');
+	} else {
+		res.status(200);
+		res.render('restaurant',{name:req.session.username});
+	}
+});
 
 app.post('/create',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
