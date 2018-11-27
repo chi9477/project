@@ -48,8 +48,8 @@ app.get('/read',function(req,res) {
 	else {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-		var restaurants = db.connection('restaurants').find();
-			restaurants.each(function(err, doc) {
+		var cursor = db.connection('restaurants').find();
+			cursor.each(function(err, doc) {
         			console.log(doc);
    		 });
 		res.render('restaurants',{name:req.session.username});						
