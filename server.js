@@ -29,6 +29,12 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+var products = [
+	{name: 'Apple iPad Pro', stock: 100, price: 7000, id:'001'},
+	{name: 'Apple iPhone 7', stock: 50, price: 7800, id:'002'},
+	{name: 'Apple Macbook', stock: 70, price: 11000, id: '003'}
+];
+
 app.get('/',function(req,res) {
 	console.log(req.session);
 	if (!req.session.authenticated) {
@@ -44,7 +50,7 @@ app.get('/read',function(req,res) {
 		res.redirect('/login');
 	} 
 	else {
-		res.render('restaurants',{name:req.session.username});										
+		res.render('restaurants',{name:req.session.username, c:products});										
 	}
 });
 
