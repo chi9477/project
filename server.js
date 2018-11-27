@@ -1,3 +1,5 @@
+var http = require('http');
+var url  = require('url');
 var express = require('express');
 var session = require('cookie-session');
 var bodyParser = require('body-parser');
@@ -7,7 +9,53 @@ var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
 var mongourl = 'mongodb://doublechi123:doublechi123@ds149682.mlab.com:49682/chi94';  // use your mlab database
 
+var server = http.createServer(function (req,res) {
+	console.log("INCOMING REQUEST: " + req.method + " " + req.url);
 
+	var parsedURL = url.parse(req.url,true); //true to get query as object
+	var queryAsObject = parsedURL.query;
+
+	switch(parsedURL.pathname) {
+		case '/read':
+			var max = (queryAsObject.max) ? Number(queryAsObject.max) : 20;
+			console.log('/read max = ' + max);			
+			read_n_print(res,{},max);
+			break;
+		case '/searchbyid':
+		case '/search':
+			var criteria = {};
+			for (key in queryAsObject) {
+				criteria[key] = queryAsObject[key];
+			}
+			console.log('/search criteria = '+JSON.stringify(criteria));
+			read_n_print(res,criteria,0);
+			break;
+		case '/create':
+			console.log('/Create qsp = ' + JSON.stringify(queryAsObject));
+			create(res,queryAsObject);
+			break;
+		case '/delete':
+			var criteria = {};
+			for (key in queryAsObject) {
+				criteria[key] = queryAsObject[key];
+			}
+			console.log('/delete criteria = '+JSON.stringify(criteria));			
+			remove(res,criteria); 
+			break;
+		case '/borough':
+			searchbyborough(res);
+			break;
+		case '/update':
+			res.writeHead(500, {"Content-Type": "text/plain"});
+			res.write(parsedURL.pathname + " not available yet\n");
+			res.end();
+			break;
+		default:
+			res.writeHead(404, {"Content-Type": "text/plain"});
+			res.write("404 Not Found\n");
+			res.end();
+	}
+});
 
  
 app = express();
@@ -116,40 +164,6 @@ app.get('/logout',function(req,res) {
 	res.redirect('/');
 });
 
-app.get('/restaurants',function(req,res) {
-		
-	if (!req.session.authenticated) {
-		res.redirect('/login');
-	} else {
-		var max = (queryAsObject.max) ? Number(queryAsObject.max) : 20;
-			console.log('/read max = ' + max);
-		MongoClient.connect(mongourl, function(err, db) {
-			
-		assert.equal(err,null);
-		console.log('Connected to MongoDB\n');
-		findRestaurants(db,criteria,max,function(restaurants) {
-			db.close();
-			console.log('Disconnected MongoDB\n');
-			if (restaurants.length == 0) {
-				res.writeHead(500, {"Content-Type": "text/plain"});
-				res.end('Not found!');
-			} else {
-				res.writeHead(200, {"Content-Type": "text/html"});			
-				res.write('<html><head><title>Restaurant</title></head>');
-				res.write('<body><H1>Restaurants</H1>');
-				res.write('<H2>Showing '+restaurants.length+' document(s)</H2>');
-				res.write('<ol>');
-				for (var i in restaurants) {
-					res.write('<li>'+restaurants[i].name+'</li>');
-				}
-				res.write('</ol>');
-				res.end('</body></html>');
-				return(restaurants);
-			}
-		}); 
-	});
-	}
-});
 
 app.post('/create',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
