@@ -119,6 +119,7 @@ app.post('/create',function(req,res) {
 			    },
 			    "owner":req.session.username
 			});
+		db.close();
 		});
 	res.redirect('/');
 });
@@ -127,10 +128,10 @@ function read_n_print(res,criteria,max) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
 		console.log('Connected to MongoDB\n');
-		findRestaurants(db,criteria,max,function(restaurants) {
+		findRestaurants(db,criteria,max,function(restaurant) {
 			db.close();
 			console.log('Disconnected MongoDB\n');
-			if (restaurants.length == 0) {
+			if (restaurant.length == 0) {
 				res.writeHead(500, {"Content-Type": "text/plain"});
 				res.end('Not found!');
 			} else {
@@ -139,19 +140,19 @@ function read_n_print(res,criteria,max) {
 				res.write('<body><H1>Restaurants</H1>');
 				res.write('<H2>Showing '+restaurants.length+' document(s)</H2>');
 				res.write('<ol>');
-				for (var i in restaurants) {
-					res.write('<li>'+restaurants[i].name+'</li>');
+				for (var i in restaurant) {
+					res.write('<li>'+restaurant[i].name+'</li>');
 				}
 				res.write('</ol>');
 				res.end('</body></html>');
-				return(restaurants);
+				return(restaurant);
 			}
 		}); 
 	});
 }
 
 function findRestaurants(db,criteria,max,callback) {
-	var restaurants = [];
+	var restaurant = [];
 	if (max > 0) {
 		cursor = db.collection('restaurants').find(criteria).limit(max); 		
 	} else {
@@ -160,9 +161,9 @@ function findRestaurants(db,criteria,max,callback) {
 	cursor.each(function(err, doc) {
 		assert.equal(err, null); 
 		if (doc != null) {
-			restaurants.push(doc);
+			restaurant.push(doc);
 		} else {
-			callback(restaurants); 
+			callback(restaurant); 
 		}
 	});
 }
