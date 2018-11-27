@@ -15,14 +15,7 @@ var server = http.createServer(function (req,res) {
 	var parsedURL = url.parse(req.url,true); //true to get query as object
 	var queryAsObject = parsedURL.query;
 	
-	app.get('/search',function(req,res) {
- 			var criteria = {};
-			for (key in queryAsObject) {
-				criteria[key] = queryAsObject[key];
-			}
-			console.log('/search criteria = '+JSON.stringify(criteria));
-			read_n_print(res,criteria,0);
-});
+	
 
 	switch(parsedURL.pathname) {
 		case '/read':
@@ -220,6 +213,16 @@ app.use(session({
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.get('/search',function(req,res) {
+ 			var criteria = {};
+			for (key in queryAsObject) {
+				criteria[key] = queryAsObject[key];
+			}
+			console.log('/search criteria = '+JSON.stringify(criteria));
+			read_n_print(res,criteria,0);
+});
+
 
 app.get('/',function(req,res) {
 	console.log(req.session);
