@@ -41,11 +41,6 @@ app.get('/',function(req,res) {
 		res.render('restaurants',{name:req.session.username});
 	}
 });
-
-app.post('/',function(req,res) {
-	var max = (queryAsObject.max) ? Number(queryAsObject.max) : 20;
-			console.log('/read max = ' + max);			
-			read_n_print(res,{},max);
 		
 app.get('/login',function(req,res) {
 	res.sendFile(__dirname + '/login.html');
