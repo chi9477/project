@@ -96,12 +96,79 @@ function read_n_print(res,criteria,max) {
 	});
 }
 
+function searchbyborough(res) {
+	MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(null, err);
+		findDistinctBorough(db, function(boroughs) {
+			db.close();
+			res.writeHead(200, {"Content-Type": "text/html"});
+			res.write("<html><body>");
+			res.write("<form action=\"/search\" method=\"get\">");
+			res.write("Borough: ");
+			res.write("<select name=\"borough\">");
+			for (i in boroughs) {
+				res.write("<option value=\"" +
+					boroughs[i] + "\">" + boroughs[i] + "</option>");
+			}
+			res.write("</select>");
+			res.write("<input type=\"submit\" value=\"Search\">");
+			res.write("</form>");
+			res.write("</body></html>");
+			res.end();
+			/*
+			console.log(today.toTimeString() + " " + "CLOSED CONNECTION "
+							+ req.connection.remoteAddress);
+			*/
+		});
+ 	});
+}
+
+function create(res,queryAsObject) {
+	var new_r = {};	// document to be inserted
+	if (queryAsObject.id) new_r['id'] = queryAsObject.id;
+	if (queryAsObject.name) new_r['name'] = queryAsObject.name;
+	if (queryAsObject.borough) new_r['borough'] = queryAsObject.borough;
+	if (queryAsObject.cuisine) new_r['cuisine'] = queryAsObject.cuisine;
+	if (queryAsObject.building || queryAsObject.street) {
+		var address = {};
+		if (queryAsObject.building) address['building'] = queryAsObject.building;
+		if (queryAsObject.street) address['street'] = queryAsObject.street;
+		new_r['address'] = address;
+	}
+
+	console.log('About to insert: ' + JSON.stringify(new_r));
+
+	MongoClient.connect(mongourl,function(err,db) {
+		assert.equal(err,null);
+		console.log('Connected to MongoDB\n');
+		insertRestaurant(db,new_r,function(result) {
+			db.close();
+			res.writeHead(200, {"Content-Type": "text/plain"});
+			res.write(JSON.stringify(new_r));
+			res.end("\ninsert was successful!");			
+		});
+	});
+}
+
+function remove(res,criteria) {
+	console.log('About to delete ' + JSON.stringify(criteria));
+	MongoClient.connect(mongourl,function(err,db) {
+		assert.equal(err,null);
+		console.log('Connected to MongoDB\n');
+		deleteRestaurant(db,criteria,function(result) {
+			db.close();
+			res.writeHead(200, {"Content-Type": "text/plain"});
+			res.end("delete was successful!");			
+		});
+	});
+}
+
 function findRestaurants(db,criteria,max,callback) {
 	var restaurants = [];
 	if (max > 0) {
-		cursor = db.collection('restaurants').find(criteria).limit(max); 		
+		cursor = db.collection('restaurant').find(criteria).limit(max); 		
 	} else {
-		cursor = db.collection('restaurants').find(criteria); 				
+		cursor = db.collection('restaurant').find(criteria); 				
 	}
 	cursor.each(function(err, doc) {
 		assert.equal(err, null); 
@@ -113,6 +180,29 @@ function findRestaurants(db,criteria,max,callback) {
 	});
 }
 
+function insertRestaurant(db,r,callback) {
+	db.collection('restaurant').insertOne(r,function(err,result) {
+		assert.equal(err,null);
+		console.log("Insert was successful!");
+		console.log(JSON.stringify(result));
+		callback(result);
+	});
+}
+
+function deleteRestaurant(db,criteria,callback) {
+	db.collection('restaurant').deleteMany(criteria,function(err,result) {
+		assert.equal(err,null);
+		console.log("Delete was successfully");
+		callback(result);
+	});
+}
+
+function findDistinctBorough(db,callback) {
+	db.collection('restaurant').distinct("borough", function(err,result) {
+		console.log(result);
+		callback(result);
+	});
+}
 app.set('view engine','ejs');
 
 app.use(session({
