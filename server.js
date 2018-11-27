@@ -103,7 +103,7 @@ app.post('/create',function(req,res) {
 				"user": null,
 				"score": null
 			    },
-			    "owner": "sdgag"
+			    "owner":req.session.username
 			});
 		});
 	res.redirect('/');
