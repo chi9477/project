@@ -79,7 +79,7 @@ app.get('/logout',function(req,res) {
 	res.redirect('/');
 });
 
-app.get('/restaurant',function(req,res) {
+app.get('/restaurants',function(req,res) {
 	console.log(req.session);
 	if (!req.session.authenticated) {
 		res.redirect('/login');
