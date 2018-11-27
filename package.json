@@ -8,6 +8,7 @@
         "ejs": "*",
         "body-parser": "*",
         "cookie-session": "*"
+        "mongodb": "^2.2.31"
     },
     "engine": "node >= 0.10.0",
     "scripts": {
