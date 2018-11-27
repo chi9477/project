@@ -47,16 +47,10 @@ app.get('/read',function(req,res) {
 	else {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-		 db.collection("restaurants",function(err,collection){
-        collection.find({}).toArray(function(err,items){
-            if(err) throw err;
-            console.log(items);
-            console.log("We found "+items.length+" results!");
+        	db.collection("restaurants").find().toArray(function(err,items){
 		res.render('restaurants',{name:req.session.username, c:items});
-	});
-        });
- 
-    });										
+			});
+        	});									
 	}
 });
 
