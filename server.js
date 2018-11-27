@@ -216,7 +216,7 @@ app.use(bodyParser.json());
 
 app.get('/search',function(req,res) {
  			var max = (queryAsObject.max) ? Number(queryAsObject.max) : 20;
-			console.log('/read max = ' + max);			
+			console.log('/search max = ' + max);			
 			read_n_print(res,{},max);
 });
 
