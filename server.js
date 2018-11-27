@@ -69,6 +69,12 @@ app.get('/logout',function(req,res) {
 	res.redirect('/');
 });
 
+app.post('/create',function(req,res) {
+	db.collection('restaurants',function(err,collection){
+    	collection.insert({ id:1, name:'Steve', cuisine:'Jobs',street:'Jobs2',building:'Jobs3',zipcode:'0000000',gps1:'000',gps2:'000',photo:'Jobs', });
+    });
+	res.redirect('/');
+});
 
 
 app.listen(process.env.PORT || 8099);
