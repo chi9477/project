@@ -72,7 +72,7 @@ app.get('/logout',function(req,res) {
 app.post('/create',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-		db.people.insertOne({ 
+		db.restaurants.insertOne({ 
 		id:1, 
 		name:'Steve', 
 		cuisine:'Jobs',
