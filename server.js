@@ -44,27 +44,14 @@ app.get('/read',function(req,res) {
 	console.log(req.session);
 	if (!req.session.authenticated) {
 		res.redirect('/login');
-	} else {
+	} 
+	else {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
 		var restaurants = db.connection('restaurants').find();
-		var product = null;
-		if (req.query._id) {
-		for (i in restaurants) {
-			if (restaurants[i]._id == req.query._id) {
-				product = restaurants[i]
-				break;
-			}
+		res.render('restaurants', {r:restaurants}, {name:req.session.username});						
 		}
-		if (product) {
-			res.render('restaurants', {r: restaurants[i]}, {name:req.session.username});							
-		} else {
-			res.status(500).end(req.query._id + ' not found!');
-		}
-	} else {
-		res.status(500).end('id missing!');
 	}
-		}
 });
 
 app.get('/login',function(req,res) {
