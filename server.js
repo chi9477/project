@@ -2,9 +2,19 @@ var express = require('express');
 var session = require('cookie-session');
 var bodyParser = require('body-parser');
 var app = express();
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://chi94:doublechi123@ds149682.mlab.com:49682/chi94";
 
-
-
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("chi94");
+  //Find the first document in the customers collection:
+  dbo.collection("restaurants").findOne({}, function(err, result) {
+    if (err) throw err;
+    console.log(result.name);
+    db.close();
+  });
+});
 
 app = express();
 app.set('view engine','ejs');
