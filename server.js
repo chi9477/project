@@ -23,7 +23,7 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get('/',function(req,res) {
+app.get('/restaurants',function(req,res) {
 	console.log(req.session);
 	if (!req.session.authenticated) {
 		res.redirect('/login');
