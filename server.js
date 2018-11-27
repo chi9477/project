@@ -9,8 +9,6 @@ var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
 var mongourl = 'mongodb://doublechi123:doublechi123@ds149682.mlab.com:49682/chi94';  // use your mlab database
 
-
-
  
 app = express();
 app.set('view engine','ejs');
@@ -34,15 +32,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-
-
 app.get('/',function(req,res) {
 	console.log(req.session);
 	if (!req.session.authenticated) {
 		res.redirect('/login');
 	} else {
 		res.status(200);
-		res.render('/read',{name:req.session.username});
+		res.render('/restaurants',{name:req.session.username});
 	}
 });
 
