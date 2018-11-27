@@ -72,9 +72,17 @@ app.get('/logout',function(req,res) {
 app.post('/create',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-	db.collection('restaurants',function(err,collection){
-    	collection.insert({ id:1, name:'Steve', cuisine:'Jobs',street:'Jobs2',building:'Jobs3',zipcode:'0000000',gps1:'000',gps2:'000',photo:'Jobs', });
-    });
+		db.people.insertOne({ 
+		id:1, 
+		name:'Steve', 
+		cuisine:'Jobs',
+		street:'Jobs2',
+		building:'Jobs3',
+		zipcode:'0000000',
+		gps1:'000',
+		gps2:'000',
+		photo:'Jobs'
+	});
 	});
 	res.redirect('/');
 });
