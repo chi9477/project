@@ -2,9 +2,20 @@ var express = require('express');
 var session = require('cookie-session');
 var bodyParser = require('body-parser');
 var app = express();
-var MongoClient = require('mongodb').MongoClient; 
-var assert = require('assert');
-var ObjectId = require('mongodb').ObjectID;
+var mongoClient = require("mongodb").MongoClient;
+
+    var server = "mongodb://chi94:doublechi123@ds149682.mlab.com:49682/chi94";
+
+    mongoClient.connect(server, function(error, db) {
+    if(error)
+    console.log("Error while connecting to database: ", error);
+    else
+    console.log("Connection established successfully");
+
+    //perform operations here
+
+    db.close();
+ });
 
 
 
