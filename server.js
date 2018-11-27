@@ -2,29 +2,7 @@ var express = require('express');
 var session = require('cookie-session');
 var bodyParser = require('body-parser');
 var app = express();
-var MongoClient = require('mongodb').MongoClient;
-var assert = require('assert');
-var ObjectId = require('mongodb').ObjectID;
 
-
-var url = "mongodb://chi94:doublechi123@ds149682.mlab.com:49682/chi94";
-var insertDocument = function(db, callback) {
-   db.collection('restaurants').insertOne( {
-	"_id" : 2,   
-	"name" : "dbg"    
-   }, function(err, result) {
-    assert.equal(err, null);
-    console.log("Inserted a document into the books collection.");
-    callback(result);
-  });
-};
-
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  insertDocument(db, function() {
-      db.close();
-  });
-});
 
  
 app = express();
