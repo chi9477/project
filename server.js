@@ -37,11 +37,20 @@ app.get('/',function(req,res) {
 	if (!req.session.authenticated) {
 		res.redirect('/login');
 	} else {
+		res.redirect('/read');;
+	}
+});
+
+app.get('/read',function(req,res) {
+	console.log(req.session);
+	if (!req.session.authenticated) {
+		res.redirect('/login');
+	} else {
 		res.status(200);
 		res.render('restaurants',{name:req.session.username});
 	}
 });
-		
+
 app.get('/login',function(req,res) {
 	res.sendFile(__dirname + '/login.html');
 });
