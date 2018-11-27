@@ -76,7 +76,7 @@ app.post('/create',function(req,res) {
 		assert.equal(err,null);
 		
 		db.collection('restaurants').insertOne( {
-			    "_id": "4",
+			  
 			    "name": "ajbc",
 			    "cuisine": "abhjc",
 			    "street": "ahjbc",
