@@ -9,8 +9,8 @@ var url = 'mongodb://chi94:doublechi123@ds149682.mlab.com:49682/chi94';
 
 var insertDocument = function(db, callback) {
    db.collection('restaurants').insertOne( {
-	   "_id":"2";
-	"name" : "Introduction to Node.js",  
+	   "_id":"2",
+	"name" : "Introduction to Node.js";  
    }, function(err, result) {
     assert.equal(err, null);
     console.log("Inserted a document into the books collection.");
