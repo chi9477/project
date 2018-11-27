@@ -90,7 +90,7 @@ app.post('/create',function(req,res) {
 		
 		db.collection('restaurants').insertOne( {
 			    "name": req.body.name,
-			    "borough": req.body.bouough,
+			    "borough": req.body.borough,
 			    "cuisine": req.body.cuisine,
 			    "photo": "no.jpg",
 			    "photo mimetype": "KASDKJ",
