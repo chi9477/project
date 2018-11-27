@@ -30,6 +30,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 MongoClient.connect(mongourl, function(err, db) {
+	assert.equal(err,null);
 	var products =db.restaurants.find();
 });
 
