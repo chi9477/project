@@ -7,16 +7,6 @@ var MongoClient = require('mongodb').MongoClient;
 
 
 var mongourl = "mongodb://chi94:doublechi123@ds149682.mlab.com:49682/chi94";
- mongoClient.connect(mongourl, function(error, db) {
-    if(error)
-    console.log("Error while connecting to database: ", error);
-    else
-    console.log("Connection established successfully");
-
-    //perform operations here
-
-    db.close();
- });
 
  
 app = express();
@@ -44,6 +34,16 @@ app.get('/',function(req,res) {
 	if (!req.session.authenticated) {
 		res.redirect('/login');
 	} else {
+		mongoClient.connect(mongourl, function(error, db) {
+    if(error)
+    console.log("Error while connecting to database: ", error);
+    else
+    console.log("Connection established successfully");
+
+    //perform operations here
+
+    db.close();
+ });
 		res.status(200);
 		res.render('restaurants',{name:req.session.username});
 	}
