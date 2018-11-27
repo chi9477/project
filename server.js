@@ -76,15 +76,22 @@ app.post('/create',function(req,res) {
 		assert.equal(err,null);
 		
 		db.collection('restaurants').insertOne( {
-			  
-			    "name": "ajbc",
-			    "cuisine": "abhjc",
-			    "street": "ahjbc",
-			    "building": "ahjbc",
-			    "zipcode": "000000",
-			    "gps1": "0",
-			    "gps2": "0",
-			    "photo": "jsdhjhjhjhjiashd"
+			    "name": "kkk",
+			    "borough": "NY",
+			    "cuisine": "Chinese",
+			    "photo": "no.jpg",
+			    "photo mimetype": "KASDKJ",
+			    "address": {
+				"street": "sdkfjkjs",
+				"building": "dkjfb",
+				"zipcode": "00000",
+				"coord": "1239898"
+			    },
+			    "grades": {
+				"user": "dsjfk",
+				"score": "9"
+			    },
+			    "owner": "sdgag"
 			});
 		});
 	res.redirect('/');
