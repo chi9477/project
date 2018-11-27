@@ -147,7 +147,7 @@ app.get('/update',function(req,res) {
 		res.redirect('/login');
 	} else {
 		res.status(200);
-		res.render('update',{name:req.session.username,r: items[i]});
+		res.render('update',{name:req.session.username});
 	}
 });
 
