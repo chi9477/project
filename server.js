@@ -21,6 +21,13 @@ var users = new Array(
 	{name: 'guest', password: 'guest'}
 );
 
+function findDistinctBorough(db,callback) {
+	db.collection('restaurant').distinct("borough", function(err,result) {
+		console.log(result);
+		callback(result);
+	});
+}
+
 app.set('view engine','ejs');
 
 app.use(session({
@@ -77,8 +84,30 @@ app.get('/restaurant',function(req,res) {
 	if (!req.session.authenticated) {
 		res.redirect('/login');
 	} else {
-		res.status(200);
-		res.render('restaurant',{name:req.session.username});
+		MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+		console.log('Connected to MongoDB\n');
+		findRestaurants(db,criteria,max,function(restaurants) {
+			db.close();
+			console.log('Disconnected MongoDB\n');
+			if (restaurants.length == 0) {
+				res.writeHead(500, {"Content-Type": "text/plain"});
+				res.end('Not found!');
+			} else {
+				res.writeHead(200, {"Content-Type": "text/html"});			
+				res.write('<html><head><title>Restaurant</title></head>');
+				res.write('<body><H1>Restaurants</H1>');
+				res.write('<H2>Showing '+restaurants.length+' document(s)</H2>');
+				res.write('<ol>');
+				for (var i in restaurants) {
+					res.write('<li>'+restaurants[i].name+'</li>');
+				}
+				res.write('</ol>');
+				res.end('</body></html>');
+				return(restaurants);
+			}
+		}); 
+	});
 	}
 });
 
