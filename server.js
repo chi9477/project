@@ -77,7 +77,7 @@ app.post('/create',function(req,res) {
 		
 		db.collection('restaurants').insertOne( {
 			"_id":'2', 
-			"name"":'Steve', 
+			"name":'Steve', 
 			"cuisine":'Jobs',
 			"street":'Jobs2',
 			"building":'Jobs3',
