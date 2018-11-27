@@ -126,7 +126,7 @@ app.get('/showdetails', function(req,res) {
 				break;
 			}
 		if (item) {
-			res.render('details', {r:items[i]});							
+			res.render('details', {name:req.session.username,r:items[i]});							
 		} else {
 			res.status(500).end('id missing!');
 		}
