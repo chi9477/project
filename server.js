@@ -21,10 +21,20 @@ var users = new Array(
 	{name: 'guest', password: 'guest'}
 );
 
-function findDistinctBorough(db,callback) {
-	db.collection('restaurant').distinct("borough", function(err,result) {
-		console.log(result);
-		callback(result);
+function findRestaurants(db,criteria,max,callback) {
+	var restaurants = [];
+	if (max > 0) {
+		cursor = db.collection('restaurant').find(criteria).limit(max); 		
+	} else {
+		cursor = db.collection('restaurant').find(criteria); 				
+	}
+	cursor.each(function(err, doc) {
+		assert.equal(err, null); 
+		if (doc != null) {
+			restaurants.push(doc);
+		} else {
+			callback(restaurants); 
+		}
 	});
 }
 
