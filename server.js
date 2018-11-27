@@ -111,6 +111,29 @@ app.post('/create',function(req,res) {
 	res.redirect('/');
 });
 	
+app.get('/showdetails', function(req,res) {
+	console.log(req.session);
+	if (!req.session.authenticated) {
+		res.redirect('/login');
+	} 
+	else {
+		MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+        	db.collection("restaurants").find().toArray(function(err,items){
+		var item = null;
+		for (i in items) {		
+				item = items[i]
+				break;
+			}
+		if (item) {
+			res.render('details', {r:items[i]});							
+		} else {
+			res.status(500).end('id missing!');
+		}
+		});
+		});
+	}
+});
 
 app.listen(process.env.PORT || 8099);
 
