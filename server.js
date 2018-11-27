@@ -50,7 +50,7 @@ app.get('/read',function(req,res) {
 		res.redirect('/login');
 	} 
 	else {
-		res.render('restaurants',{name:req.session.username},{c: products});										
+		res.render('restaurants',{name:req.session.username, c: products});										
 	}
 });
 
