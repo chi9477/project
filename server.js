@@ -29,11 +29,6 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-var products = [
-	{name: 'Apple iPad Pro', stock: 100, price: 7000, id:'001'},
-	{name: 'Apple iPhone 7', stock: 50, price: 7800, id:'002'},
-	{name: 'Apple Macbook', stock: 70, price: 11000, id: '003'}
-];
 
 app.get('/',function(req,res) {
 	console.log(req.session);
@@ -50,7 +45,18 @@ app.get('/read',function(req,res) {
 		res.redirect('/login');
 	} 
 	else {
-		res.render('restaurants',{name:req.session.username, c:products});										
+		MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+		 db.collection("restaurants",function(err,collection){
+        collection.find({}).toArray(function(err,items){
+            if(err) throw err;
+            console.log(items);
+            console.log("We found "+items.length+" results!");
+		res.render('restaurants',{name:req.session.username, c:items});
+	});
+        });
+ 
+    });										
 	}
 });
 
