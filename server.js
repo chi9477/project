@@ -29,11 +29,11 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-var products = [
-	{cname: 'Apple iPad Pro', stock: 100, price: 7000, id:'001'},
-	{cname: 'Apple iPhone 7', stock: 50, price: 7800, id:'002'},
-	{cname: 'Apple Macbook', stock: 70, price: 11000, id: '003'}
-];
+MongoClient.connect(mongourl, function(err, db) {
+	assert.equal(err,null);
+	var products =db.collection('restaurants').find();
+	db.close();
+});
 
 app.get('/',function(req,res) {
 	console.log(req.session);
