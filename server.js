@@ -215,12 +215,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/search',function(req,res) {
- 			var criteria = {};
-			for (key in queryAsObject) {
-				criteria[key] = queryAsObject[key];
-			}
-			console.log('/search criteria = '+JSON.stringify(criteria));
-			read_n_print(res,criteria,0);
+ 			var max = (queryAsObject.max) ? Number(queryAsObject.max) : 20;
+			console.log('/read max = ' + max);			
+			read_n_print(res,{},max);
 });
 
 
