@@ -32,13 +32,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-app.get('/read',function(req,res) {
+app.get('/',function(req,res) {
 	console.log(req.session);
 	if (!req.session.authenticated) {
 		res.redirect('/login');
 	} else {
+		app.get('/read',function(req,res) {
 		res.status(200);
 		res.render('restaurants',{name:req.session.username});
+		}
 	}
 });
 		
@@ -54,12 +56,12 @@ app.post('/login',function(req,res) {
 			req.session.username = users[i].name;
 		}
 	}
-	res.redirect('/read');
+	res.redirect('/');
 });
 
 app.get('/logout',function(req,res) {
 	req.session = null;
-	res.redirect('/read');
+	res.redirect('/');
 });
 
 app.get('/create',function(req,res) {
@@ -96,7 +98,7 @@ app.post('/create',function(req,res) {
 			    "owner":req.session.username
 			});
 		});
-	res.redirect('/read');
+	res.redirect('/');
 });
 	
 function read_n_print(res,criteria,max) {
