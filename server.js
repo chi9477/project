@@ -6,9 +6,6 @@ var app = express();
 app = express();
 app.set('view engine','ejs');
 
-var SECRETKEY1 = 'I want to pass COMPS381F';
-var SECRETKEY2 = 'Keep this to yourself';
-
 var users = new Array(
 	{name: 'demo', password: ''},
 	{name: 'guest', password: 'guest'}
@@ -18,7 +15,6 @@ app.set('view engine','ejs');
 
 app.use(session({
   name: 'session',
-  keys: [SECRETKEY1,SECRETKEY2]
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
