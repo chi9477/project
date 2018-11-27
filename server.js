@@ -46,11 +46,7 @@ app.get('/read',function(req,res) {
 		res.redirect('/login');
 	} 
 	else {
-		MongoClient.connect(mongourl, function(err, db) {
-		assert.equal(err,null);
-		var restaurants = db.connection('restaurants').find();
-		res.render('restaurants', {r:restaurants}, {name:req.session.username});						
-		}
+		res.render('restaurants', {name:req.session.username});						
 	}
 });
 
