@@ -50,9 +50,9 @@ app.get('/read',function(req,res) {
 		res.redirect('/login');
 	} else {
 		var product = null;
-		if (req.query.id) {
+		if (req.query._id) {
 		for (i in restaurants) {
-			if (restaurants[i].id == req.query.id) {
+			if (restaurants[i]._id == req.query._id) {
 				product = restaurants[i]
 				break;
 			}
@@ -60,7 +60,7 @@ app.get('/read',function(req,res) {
 		if (product) {
 			res.render('restaurants', {r: restaurants[i]}, {name:req.session.username});							
 		} else {
-			res.status(500).end(req.query.id + ' not found!');
+			res.status(500).end(req.query._id + ' not found!');
 		}
 	} else {
 		res.status(500).end('id missing!');
