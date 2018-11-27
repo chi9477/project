@@ -75,17 +75,8 @@ app.post('/create',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
 		
-		db.collection('restaurants').insertOne( {
-			    "_id": "2",
-			    "name": "ajbc",
-			    "cuisine": "abhjc",
-			    "street": "ahjbc",
-			    "building": "ahjbc",
-			    "zipcode": "000000",
-			    "gps1": "0",
-			    "gps2": "0",
-			    "photo": "jsdhjhjhjhjiashd"
-			});
+		 response.writeHead(200, {'Content-Type': 'text/plain'});
+    response.end('Hello World\n');
 		});
 	res.redirect('/');
 });
