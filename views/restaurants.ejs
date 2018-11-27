@@ -44,7 +44,7 @@
 <p>User: <%= name %></p>
 <ol>
   <% c.forEach(function(cafe) { %>
-  <li><a href=/showdetails?id=<%= cafe.id %>><%= cafe.cname %></a></li>
+  <li><%= cafe.name %></li>
   <% });                        %>
 </ol>
       </div>
