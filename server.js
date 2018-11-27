@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-app.get('/',function(req,res) {
+app.get('/read',function(req,res) {
 	console.log(req.session);
 	if (!req.session.authenticated) {
 		res.redirect('/login');
@@ -54,12 +54,12 @@ app.post('/login',function(req,res) {
 			req.session.username = users[i].name;
 		}
 	}
-	res.redirect('/');
+	res.redirect('/read');
 });
 
 app.get('/logout',function(req,res) {
 	req.session = null;
-	res.redirect('/');
+	res.redirect('/read');
 });
 
 app.get('/create',function(req,res) {
@@ -96,7 +96,7 @@ app.post('/create',function(req,res) {
 			    "owner":req.session.username
 			});
 		});
-	res.redirect('/');
+	res.redirect('/read');
 });
 	
 function read_n_print(res,criteria,max) {
