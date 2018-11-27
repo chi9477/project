@@ -21,6 +21,33 @@ var users = new Array(
 	{name: 'guest', password: 'guest'}
 );
 
+function read_n_print(res,criteria,max) {
+	MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+		console.log('Connected to MongoDB\n');
+		findRestaurants(db,criteria,max,function(restaurants) {
+			db.close();
+			console.log('Disconnected MongoDB\n');
+			if (restaurants.length == 0) {
+				res.writeHead(500, {"Content-Type": "text/plain"});
+				res.end('Not found!');
+			} else {
+				res.writeHead(200, {"Content-Type": "text/html"});			
+				res.write('<html><head><title>Restaurant</title></head>');
+				res.write('<body><H1>Restaurants</H1>');
+				res.write('<H2>Showing '+restaurants.length+' document(s)</H2>');
+				res.write('<ol>');
+				for (var i in restaurants) {
+					res.write('<li>'+restaurants[i].name+'</li>');
+				}
+				res.write('</ol>');
+				res.end('</body></html>');
+				return(restaurants);
+			}
+		}); 
+	});
+}
+
 function findRestaurants(db,criteria,max,callback) {
 	var restaurants = [];
 	if (max > 0) {
@@ -90,11 +117,19 @@ app.get('/logout',function(req,res) {
 });
 
 app.get('/restaurants',function(req,res) {
+	var criteria = {};
+			for (key in queryAsObject) {
+				criteria[key] = queryAsObject[key];
+			}
+			console.log('/restaurants criteria = '+JSON.stringify(criteria));
+	
 	console.log(req.session);
 	if (!req.session.authenticated) {
 		res.redirect('/login');
 	} else {
+		
 		MongoClient.connect(mongourl, function(err, db) {
+			
 		assert.equal(err,null);
 		console.log('Connected to MongoDB\n');
 		findRestaurants(db,criteria,max,function(restaurants) {
