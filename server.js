@@ -90,13 +90,5 @@ app.post('/create',function(req,res) {
 	res.redirect('/');
 });
 
-
-db.collection('books').insertOne( {
-	"name" : "Introduction to Node.js",
-	"author" : "John Dole",
-	"price" : 75.00,
-	"stock" : 0      
-   }
-
 app.listen(process.env.PORT || 8099);
 
