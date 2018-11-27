@@ -9,7 +9,25 @@ var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
 var mongourl = 'mongodb://doublechi123:doublechi123@ds149682.mlab.com:49682/chi94';  // use your mlab database
 
- 
+var server = http.createServer(function (req,res) {
+	console.log("INCOMING REQUEST: " + req.method + " " + req.url);
+
+	var parsedURL = url.parse(req.url,true); //true to get query as object
+	var queryAsObject = parsedURL.query;
+
+	switch(parsedURL.pathname) {
+		case '/read':
+			var max = (queryAsObject.max) ? Number(queryAsObject.max) : 20;
+			console.log('/read max = ' + max);			
+			read_n_print(res,{},max);
+			break;
+		default:
+			res.writeHead(404, {"Content-Type": "text/plain"});
+			res.write("404 Not Found\n");
+			res.end();
+	}
+});	
+
 app = express();
 app.set('view engine','ejs');
 
@@ -45,9 +63,6 @@ app.get('/read',function(req,res) {
 	console.log(req.session);
 	if (!req.session.authenticated) {
 		res.redirect('/login');
-	} else {
-		res.status(200);
-		res.render('restaurants',{name:req.session.username});
 	}
 });
 
