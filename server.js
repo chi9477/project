@@ -133,9 +133,9 @@ app.get('/showdetails', function(req,res) {
 		} else {
 			res.status(500).end(req.query.id + ' not found!');
 		}
-	} else {
-		res.status(500).end('id missing!');
-	}
+		} else {
+			res.status(500).end('id missing!');
+		}
 			});
 		});
 	}
@@ -145,27 +145,25 @@ app.get('/edit',function(req,res) {
 	console.log(req.session);
 	if (!req.session.authenticated) {
 		res.redirect('/login');
-	} 
-	else {
+	} else {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
         	db.collection("restaurants").find().toArray(function(err,items){
 		var item = null;
 		if (req.query.id) {
-		for (i in items) {
-			if (items[i]._id == req.query.id) {
-				item = items[i]
-				break;
+			for (i in items) {
+				if (items[i]._id == req.query.id) {
+					item = items[i]
+					break;
+				}
 			}
-		}
-	        if (req.session.username == item[i].owner) {
+	        
 			if (item) {
-				res.render('update', {r: items[i]});							
+				if (req.session.username == item[i].owner) {
+					res.render('update', {r: items[i]}); }							
 			} else {
 				res.status(500).end(req.query.id + ' not found!');
 			}
-		} else {
-			res.status(500).end('You are not the owner!');
 		}
 	} else {
 		res.status(500).end('id missing!');
