@@ -271,7 +271,7 @@ app.get('/rate',function(req,res) {
 		res.redirect('/login');
 	} else {
 		res.status(200);
-		res.render('create',{name:req.session.username});
+		res.render('rating',{name:req.session.username});
 	}
 });
 
