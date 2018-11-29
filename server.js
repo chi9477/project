@@ -221,7 +221,7 @@ app.get('/remove',function(req,res) {
 			}	     
 			if (item) {
 				if(req.session.username == owner) {
-					db.collection('restaurants').remove({ _id: ObjectId(req.query.id)}, {
+					db.collection('restaurants').remove({_id: ObjectId(req.query.id)}, {
 		});
 					res.render('deletesuccess', {r: items[i]});
 				} else {
@@ -248,11 +248,16 @@ app.post('/read',function(req,res) {
 	else {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-        	db.collection("restaurants").find(
-			{name:req.body.search,owner:req.body.search}).toArray(function(err,items){
-		res.render('restaurants',{name:req.session.username, r:items});
-			});
-
+        	db.collection("restaurants").find({name:req.body.search}).toArray(function(err,items){
+			if (items == null) {
+				db.collection("restaurants").find({owner:req.body.search}).toArray(function(err,items){
+				res.render('restaurants',{name:req.session.username, r:items});
+				});
+			}
+			else {
+				res.render('restaurants',{name:req.session.username, r:items});
+			}
+		});
         	});									
 	}
 });
