@@ -265,7 +265,7 @@ app.post('/read',function(req,res) {
 	}
 });
 
-app.get('/rate',function(req,res) {
+app.get('/dbg',function(req,res) {
 	console.log(req.session);
 	if (!req.session.authenticated) {
 		res.redirect('/login');
