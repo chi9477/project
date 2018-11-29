@@ -305,7 +305,7 @@ app.post('/rate',function(req,res) {
 			    },		
 		});	
 	});
-	res.redirect('/showdetails');
+	res.redirect('/');
 });
 
 app.listen(process.env.PORT || 8099);
