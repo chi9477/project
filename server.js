@@ -293,7 +293,7 @@ app.get('/rate',function(req,res) {
 app.post('/rate',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-		if (req.session.username != grades.user) {
+		if (req.session.username != req.body.user) {
 			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
 				$set: {
 			    		"grades.user": req.session.username,     
