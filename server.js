@@ -246,24 +246,13 @@ app.post('/read',function(req,res) {
 		res.redirect('/login');
 	} 
 	else {
-		var items = null;
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-        	db.collection("restaurants").find({name:req.body.search}).toArray(function(err,items){
-			db.close();
-			if (!items) {
-				MongoClient.connect(mongourl, function(err, db) {
-				assert.equal(err,null);
-				db.collection("restaurants").find({owner:req.body.search}).toArray(function(err,items2){
-				res.render('restaurants',{name:req.session.username, r:items2});
-				});
-				});
-			}
-			else {
+		db.restaurants.createIndex( { name: "text", owner: "text" } );
+        	db.collection("restaurants").find( { $text: { $search: req.body.search } } ).toArray(function(err,items){
 				res.render('restaurants',{name:req.session.username, r:items});
-			}
+			});
 		});
-        	});									
 	}
 });
 
