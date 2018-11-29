@@ -12,7 +12,10 @@
 <input type="hidden" name="owner" value=<%= r.owner %>>
 <div class="row">
       <a href="/edit?id=<%= r._id %>">
-        <button class="btn btn-default">Edit</button>
+        <button class="btn btn-default">Edit</button>        
+      </a>
+      <a href="/remove?id=<%= r._id %>">
+        <button class="btn btn-default">Delete</button>        
       </a>
     </div>
 </BODY>
