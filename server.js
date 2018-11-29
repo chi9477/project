@@ -158,10 +158,14 @@ app.get('/edit',function(req,res) {
 				break;
 			}
 		}
-		if (item) {
-			res.render('update', {r: items[i]});							
+	        if (req.session.username == item[i].owner) {
+			if (item) {
+				res.render('update', {r: items[i]});							
+			} else {
+				res.status(500).end(req.query.id + ' not found!');
+			}
 		} else {
-			res.status(500).end(req.query.id + ' not found!');
+			res.status(500).end('You are not the owner!');
 		}
 	} else {
 		res.status(500).end('id missing!');
@@ -173,8 +177,6 @@ app.get('/edit',function(req,res) {
 
 app.post('/update',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
-		
-		
 		assert.equal(err,null);
 			db.collection('restaurants').update({ _id: ObjectId(req.body.id)}, {
 			    "name": req.body.name,
