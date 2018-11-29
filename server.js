@@ -176,7 +176,7 @@ app.post('/update',function(req,res) {
 		
 		
 		assert.equal(err,null);
-			db.collection('restaurants').update(_id: ObjectId(req.body.id)}, {
+			db.collection('restaurants').update({ _id: ObjectId(req.body.id)}, {
 			    "name": req.body.name,
 			    "borough": req.body.borough,
 			    "cuisine": req.body.cuisine,
