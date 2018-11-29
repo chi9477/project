@@ -181,7 +181,7 @@ app.get('/edit',function(req,res) {
 app.post('/update',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-			db.collection('restaurants').update({ _id: ObjectId(req.body.id)}, {
+			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
 			    "name": req.body.name,
 			    "borough": req.body.borough,
 			    "cuisine": req.body.cuisine,
@@ -248,7 +248,16 @@ app.post('/read',function(req,res) {
 	else {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-        	db.collection("restaurants").find({$or:[{name:req.body.search}, {borough:req.body.search}, {cuisine:req.body.search}, {street:req.body.search}, {building:req.body.search}, {zipcode:req.body.search}, {gps1:req.body.search}, {gps2:req.body.search}, {owner:req.body.search}]}).toArray(function(err,items){
+        	db.collection("restaurants").find({$or:[
+			{name:req.body.search}, 
+			{borough:req.body.search}, 
+			{cuisine:req.body.search}, 
+			{street:req.body.search}, 
+		 	{building:req.body.search}, 
+			{zipcode:req.body.search}, 
+			{gps1:req.body.search}, 
+			{gps2:req.body.search}, 
+			{owner:req.body.search}]}).toArray(function(err,items){
 				res.render('restaurants',{name:req.session.username, r:items});
 			});
         	});									
