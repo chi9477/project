@@ -296,7 +296,7 @@ app.get('/rate',function(req,res) {
 app.post('/rate',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
+			db.collection('restaurants').insert({_id: ObjectId(req.body.id)}, {
 			     "grades": {
 			    	"user": req.session.username,     
 			    	"score": req.body.score
