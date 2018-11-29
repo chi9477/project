@@ -150,15 +150,17 @@ app.get('/edit',function(req,res) {
 		assert.equal(err,null);
         	db.collection("restaurants").find().toArray(function(err,items){
 		var item = null;
+		var owner = null;
 		if (req.query.id) {
 			for (i in items) {
 				if (items[i]._id == req.query.id) {
-					item = items[i]
+					item = items[i];
+					owner = items[i].owner;
 					break;
 				}
 			}	     
 			if (item) {
-				if(req.body.owner=="demo"){
+				if(req.session.username == owner){
 				
 				
 				
