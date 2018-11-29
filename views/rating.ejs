@@ -11,15 +11,6 @@
 <p>
 <form class="w3-container" acton="/rate?_id=<%= r._id %>" method="post">
   <input type="hidden" name="id" value=<%= r._id %>>
-  <input type="hidden" name="name" value=<%= r.name %>>
-  <input type="hidden" name="borough" value=<%= r.borough %>>
-  <input type="hidden" name="cuisine" value=<%= r.cuisine %>>
-  <input type="hidden" name="street" value=<%= r.street %>>
-  <input type="hidden" name="building" value=<%= r.building %>>
-  <input type="hidden" name="zipcode" value=<%= r.zipcode %>>
-  <input type="hidden" name="gps1" value=<%= r.gps1 %>>
-  <input type="hidden" name="gps2" value=<%= r.gps2 %>>
-  <input type="hidden" name="user" value=<%= r.grades.user %>>
   <label>Score (1-10):</label>
   <input class="w3-input" type="number" name="score" min=1 max=10>
   <button class="w3-btn">Rate</button>
