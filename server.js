@@ -249,16 +249,16 @@ app.post('/read',function(req,res) {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
         	db.collection("restaurants").find(
-			{name:req.body.search,
-			 borough:req.body.search,
-			 cuisine:req.body.search,
-			 street:req.body.search,
-			 building:req.body.search,
-			 zipcode:req.body.search,
-			 gps1:req.body.search,
-			 gps2:req.body.search,
-			 owner:req.body.search
-			}).toArray(function(err,items){
+			{name:req.body.search}
+			{borough:req.body.search}
+			{cuisine:req.body.search}
+			{street:req.body.search}
+			{building:req.body.search}
+			{zipcode:req.body.search}
+			{gps1:req.body.search}
+			{gps2:req.body.search}
+			{owner:req.body.search}
+			).toArray(function(err,items){
 		res.render('restaurants',{name:req.session.username, r:items});
 			});
         	});									
