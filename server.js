@@ -188,7 +188,7 @@ app.post('/update',function(req,res) {
 			    "zipcode": req.body.zipcode,
 			    "gps1": req.body.gps1,
 			    "gps2": req.body.gps2,
-			    "grades.user": req.session.username,     
+			    "grades.user": req.body.user,     
 			    "grades.score": req.body.score,	
 			    "owner": req.session.username
 		});	
@@ -292,17 +292,7 @@ app.get('/rate',function(req,res) {
 app.post('/rate',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
-			    "name": req.body.name,
-			    "borough": req.body.borough,
-			    "cuisine": req.body.cuisine,
-			    "photo": "no.jpg",
-			    "photo mimetype": "KASDKJ",
-			    "street": req.body.street,
-			    "building": req.body.building,
-			    "zipcode": req.body.zipcode,
-			    "gps1": req.body.gps1,
-			    "gps2": req.body.gps2,
+			db.collection('restaurants').save({_id: ObjectId(req.body.id)}, {
 			    "grades.user": req.session.username,     
 			    "grades.score": req.body.score,
 			    "owner": req.session.username
