@@ -240,8 +240,6 @@ app.get('/remove',function(req,res) {
 	}
 });
 
-app.listen(process.env.PORT || 8099);
-
 app.post('/read',function(req,res) {
 	console.log(req.session);
 	if (!req.session.authenticated) {
@@ -250,33 +248,11 @@ app.post('/read',function(req,res) {
 	else {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-        	db.collection("restaurants").find().toArray(function(err,items){
-		var item = null;
-		var uname = null;
-		var bor = null;
-		var cui = null;
-		
-			for (i in items) {
-				
-					item = items[i];
-					uname = items[i].name;
-					bor = items[i].borough;
-					cui = items[i].cuisine;
-					break;
-				
-			}	     
-			if (item) {
-				if(req.body.search == uname) {
-					res.render('restaurant',{name:req.session.username, r:items[i]});
-				} 
-			} 
-			else {
-				res.status(500).end(req.query.id + ' not found!');
-			}
-	
-		    
+        	db.collection("restaurants").find({name:req.body.search}).toArray(function(err,items){
+		res.render('restaurants',{name:req.session.username, r:items});
 			});
-		});
-	
-	}	
+        	});									
+	}
 });
+
+app.listen(process.env.PORT || 8099);
