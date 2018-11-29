@@ -267,27 +267,18 @@ app.post('/read',function(req,res) {
 			}	     
 			if (item) {
 				if((req.body.search == uname)||(req.body.search == bor)||(req.body.search == cui)) {
-					res.render('update', {r: items[i]});
-				} else {
-					res.render('cantupdate');
-				}
-			} else {
+					res.render('restaurant',{name:req.session.username, r:items[i]});
+				} 
+			} 
+			else {
 				res.status(500).end(req.query.id + ' not found!');
 			}
-		
-	} else {
+	} 
+	else {
 		res.status(500).end('id missing!');
-	}
-				    
+	}			    
 			});
 		});
-	}
-		if(req.body.search=="aaaa"){	
-			
-		res.render('restaurant',{name:req.session.username, r:items});
-			
-		}	
-			});
-        	});									
-	}
+	
+		
 });
