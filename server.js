@@ -294,8 +294,7 @@ app.post('/rate',function(req,res) {
 		assert.equal(err,null);
 			db.collection('restaurants').save({_id: ObjectId(req.body.id)}, {
 			    "grades.user": req.session.username,     
-			    "grades.score": req.body.score,
-			    "owner": req.session.username
+			    "grades.score": req.body.score
 		});	
 	});
 	res.redirect('/');
