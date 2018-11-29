@@ -246,6 +246,7 @@ app.post('/read',function(req,res) {
 		res.redirect('/login');
 	} 
 	else {
+		var items = null;
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
         	db.collection("restaurants").find({name:req.body.search}).toArray(function(err,items){
