@@ -158,7 +158,7 @@ app.get('/edit',function(req,res) {
 				}
 			}	     
 			if (item) {
-				if(item[i].owner=="demo"){
+				if(req.body.owner=="demo"){
 				
 				
 				
