@@ -250,6 +250,7 @@ app.post('/read',function(req,res) {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
         	db.collection("restaurants").find({name:req.body.search}).toArray(function(err,items){
+			db.close();
 			if (!items) {
 				MongoClient.connect(mongourl, function(err, db) {
 				assert.equal(err,null);
