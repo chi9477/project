@@ -251,7 +251,11 @@ app.post('/read',function(req,res) {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
         	db.collection("restaurants").find().toArray(function(err,items){
+		if(req.body.search=="aaaa"){	
+			
 		res.render('restaurants',{name:req.session.username, r:items});
+			
+		}	
 			});
         	});									
 	}
