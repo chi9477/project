@@ -297,8 +297,10 @@ app.post('/rate',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
 			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
-			    "grades.user": req.session.username,     
-			    "grades.score": req.body.score
+			     "grades": {
+			    	"user": req.session.username,     
+			    	"score": req.body.score
+			    }
 		});	
 	});
 	res.redirect('/');
