@@ -253,7 +253,7 @@ app.post('/read',function(req,res) {
         	db.collection("restaurants").find().toArray(function(err,items){
 		if(req.body.search=="aaaa"){	
 			
-		res.render('restaurants',{name:req.session.username, r:items});
+		res.render('search',{name:req.session.username, r:items});
 			
 		}	
 			});
