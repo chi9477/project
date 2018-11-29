@@ -195,16 +195,55 @@ app.post('/update',function(req,res) {
 			    "grades": {
 				"user": null,
 				"score": null
-			    },
-			    "owner":req.session.username
-			
+			    },		
+		});	
+	});
+	res.redirect('/');
+});
+
+app.get('/remove',function(req,res) {
+	console.log(req.session);
+	if (!req.session.authenticated) {
+		res.redirect('/login');
+	} else {
+		MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+        	db.collection("restaurants").find().toArray(function(err,items){
+		var item = null;
+		var owner = null;
+		if (req.query.id) {
+			for (i in items) {
+				if (items[i]._id == req.query.id) {
+					item = items[i];
+					owner = items[i].owner;
+					break;
+				}
+			}	     
+			if (item) {
+				if(req.session.username == owner) {
+					res.render('deletesuccess');
+				} else {
+					res.render('deletefail');
+				}
+			} else {
+				res.status(500).end(req.query.id + ' not found!');
+			}
+		
+	} else {
+		res.status(500).end('id missing!');
+	}
+				    
+			});
 		});
-	
-		
-		
-		
+	}
+});
+
+app.post('/remove',function(req,res) {
+	MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+			db.collection('restaurants').remove({ _id: ObjectId(req.body.id)}, {
 		});
-		
+	});
 	res.redirect('/');
 });
 
