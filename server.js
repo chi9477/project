@@ -128,12 +128,10 @@ app.get('/showdetails', function(req,res) {
 				break;
 			}
 		}
-		if (req.session.username == req.query.owner) {
 		if (item) {
 			res.render('details', {r: items[i]});							
 		} else {
 			res.status(500).end(req.query.id + ' not found!');
-		}
 		}
 		} else {
 			res.status(500).end('id missing!');
