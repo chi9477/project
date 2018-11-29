@@ -157,7 +157,7 @@ app.get('/edit',function(req,res) {
 					break;
 				}
 			}	     
-			if ((item)&&(req.session.username==owner)) {
+			if (item)&&(req.session.username== items[i].owner)) {
 				res.render('update', {r: items[i]}); 						
 			} else {
 				res.status(500).end(req.query.id + ' not found!');
