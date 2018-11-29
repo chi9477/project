@@ -314,11 +314,11 @@ app.post('/rate',function(req,res) {
 			    	},	
 			    	"owner": req.session.username
 		});
+			res.redirect('/');
 		} else {
 			res.render('cantrate');
 		}
 	});
-	res.redirect('/');
 });
 
 app.listen(process.env.PORT || 8099);
