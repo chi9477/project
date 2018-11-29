@@ -296,12 +296,26 @@ app.get('/rate',function(req,res) {
 app.post('/rate',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-			db.collection('restaurants').save({_id: ObjectId(req.body.id)}, {
-			     "grades": {
-			    	"user": req.session.username,     
-			    	"score": req.body.score
-			    }
-		});	
+		if (req.session.username != req.body.user) {
+			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
+				"name": req.body.name,
+			        "borough": req.body.borough,
+			    	"cuisine": req.body.cuisine,
+			    	"photo": "no.jpg",
+			    	"photo mimetype": "KASDKJ",
+			    	"street": req.body.street,
+			        "building": req.body.building,
+			    	"zipcode": req.body.zipcode,
+			   	"gps1": req.body.gps1,
+			    	"gps2": req.body.gps2,
+				"grades": {
+			    		"user": req.session.username,     
+			    		"score": req.body.score
+			    	},	
+			    	"owner": req.session.username
+		});
+		} else {
+			res.render('cantrate');
 	});
 	res.redirect('/');
 });
