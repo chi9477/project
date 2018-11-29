@@ -266,7 +266,7 @@ app.post('/read',function(req,res) {
 				
 			}	     
 			if (item) {
-				if((req.body.search == uname)||(req.body.search == bor)||(req.body.search == cui)) {
+				if(req.body.search == uname) {
 					res.render('restaurant',{name:req.session.username, r:items[i]});
 				} 
 			} 
