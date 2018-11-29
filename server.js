@@ -158,7 +158,8 @@ app.get('/edit',function(req,res) {
 				}
 			}	     
 			if (item) {
-				res.render('update', {r: items[i]}); 							
+				if (req.session.username == item[i].owner) {
+				res.render('update', {r: items[i]}); }							
 			} else {
 				res.status(500).end(req.query.id + ' not found!');
 			}
