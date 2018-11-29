@@ -160,15 +160,11 @@ app.get('/edit',function(req,res) {
 				}
 			}	     
 			if (item) {
-				if(req.session.username == owner){
-				
-				
-				
-				res.render('update', {r: items[i]});}
-				
-				
-				
-				
+				if(req.session.username == owner) {
+					res.render('update', {r: items[i]});
+				} else {
+					res.render('cantupdate');
+				}
 			} else {
 				res.status(500).end(req.query.id + ' not found!');
 			}
