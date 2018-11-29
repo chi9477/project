@@ -251,8 +251,8 @@ app.post('/read',function(req,res) {
 		assert.equal(err,null);
         	db.collection("restaurants").find({name:req.body.search}).toArray(function(err,items){
 			if (!items) {
-				db.collection("restaurants").find({owner:req.body.search}).toArray(function(err,items){
-				res.render('restaurants',{name:req.session.username, r:items});
+				db.collection("restaurants").find({owner:req.body.search}).toArray(function(err,items2){
+				res.render('restaurants',{name:req.session.username, r:items2});
 				});
 			}
 			else {
