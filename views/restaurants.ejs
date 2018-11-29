@@ -53,6 +53,11 @@
   <li><a href=/showdetails?id=<%= rest._id %>><%= rest.name %></a></li>
   <% });                        %>
 </ol>
+ <div class="row">
+      <a href="/read">
+        <button class="btn btn-default">Return</button>
+      </a>
+    </div>
       
  <form action="/read" method="post">
  <input type="text" name="search"><br>
