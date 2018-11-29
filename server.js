@@ -88,7 +88,7 @@ app.post('/create',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
 		
-		db.collection('restaurants').insertOne( {
+		db.collection('restaurants').insertOne({
 			    "name": req.body.name,
 			    "borough": req.body.borough,
 			    "cuisine": req.body.cuisine,
@@ -101,11 +101,6 @@ app.post('/create',function(req,res) {
 				"gps1": req.body.gps1,
 				"gps2": req.body.gps2,
 			 
-			    "grades": { 
-				    $elemMatch: { 
-					    "user": req.body.user, 
-					    "score": req.body.score}
-			    },
 			    "owner":req.session.username
 			});
 		});
@@ -192,11 +187,7 @@ app.post('/update',function(req,res) {
 			    "building": req.body.building,
 			    "zipcode": req.body.zipcode,
 			    "gps1": req.body.gps1,
-			    "gps2": req.body.gps2,
-			    "grades": {
-				"user": null,
-				"score": null
-			    },		
+			    "gps2": req.body.gps2	
 		});	
 	});
 	res.redirect('/');
@@ -299,10 +290,8 @@ app.post('/rate',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
 			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
-			    "grades": {$elemMatch: {   
-				"user": req.session.username,
-				"score": req.body.score}
-			    },		
+			    "grades.user": req.session.username,     
+			    "grades.score": req.body.score	
 		});	
 	});
 	res.redirect('/');
