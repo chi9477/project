@@ -173,8 +173,10 @@ app.get('/edit',function(req,res) {
 
 app.post('/update',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
+		
+		
 		assert.equal(err,null);
-			db.collection('restaurants').update({ObjectId: req.body.id}, { $set:  {
+			db.collection('restaurants').update({_id: req.body.id}, { $set:  {
 			    "name": req.body.name,
 			    "borough": req.body.borough,
 			    "cuisine": req.body.cuisine,
@@ -191,8 +193,11 @@ app.post('/update',function(req,res) {
 			    },
 			    "owner":req.session.username
 			}
-		});
+		})
 	
+		
+		
+		
 		});
 		
 	res.redirect('/');
