@@ -251,9 +251,40 @@ app.post('/read',function(req,res) {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
         	db.collection("restaurants").find().toArray(function(err,items){
+		var item = null;
+		var uname = null;
+		var bor = null;
+		var cui = null;
+		if (req.query.id) {
+			for (i in items) {
+				if (items[i]._id == req.query.id) {
+					item = items[i];
+					uname = items[i].name;
+					bor = items[i].borough;
+					cui = items[i].cuisine;
+					break;
+				}
+			}	     
+			if (item) {
+				if((req.body.search == uname)||(req.body.search == bor)||(req.body.search == cui)) {
+					res.render('update', {r: items[i]});
+				} else {
+					res.render('cantupdate');
+				}
+			} else {
+				res.status(500).end(req.query.id + ' not found!');
+			}
+		
+	} else {
+		res.status(500).end('id missing!');
+	}
+				    
+			});
+		});
+	}
 		if(req.body.search=="aaaa"){	
 			
-		res.render('search',{name:req.session.username, r:items});
+		res.render('restaurant',{name:req.session.username, r:items});
 			
 		}	
 			});
