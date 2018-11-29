@@ -180,13 +180,11 @@ app.post('/update',function(req,res) {
 			    "cuisine": req.body.cuisine,
 			    "photo": "no.jpg",
 			    "photo mimetype": "KASDKJ",
-			    "address": {
-				"street": req.body.street,
-				"building": req.body.building,
-				"zipcode": req.body.zipcode,
-				"gps1": req.body.gps1,
-				"gps2": req.body.gps2
-			    },
+			    "street": req.body.street,
+			    "building": req.body.building,
+			    "zipcode": req.body.zipcode,
+			    "gps1": req.body.gps1,
+			    "gps2": req.body.gps2,
 			    "grades": {
 				"user": null,
 				"score": null
