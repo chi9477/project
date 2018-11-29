@@ -200,8 +200,8 @@ app.post('/update',function(req,res) {
 			    },
 			    "owner":req.session.username
 		});
-	});
-		}
+	}
+		});
 		});
 	res.redirect('/');
 });
