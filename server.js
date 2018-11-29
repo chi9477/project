@@ -176,7 +176,7 @@ app.post('/update',function(req,res) {
 		
 		
 		assert.equal(err,null);
-			db.collection('restaurants').update({_id: req.body.id}, { $set:  {
+			db.collection('restaurants').update({_id: req.body.id}, {
 			    "name": req.body.name,
 			    "borough": req.body.borough,
 			    "cuisine": req.body.cuisine,
@@ -192,7 +192,7 @@ app.post('/update',function(req,res) {
 				"score": null
 			    },
 			    "owner":req.session.username
-			}
+			
 		})
 	
 		
