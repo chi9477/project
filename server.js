@@ -176,7 +176,7 @@ app.post('/update',function(req,res) {
 		
 		
 		assert.equal(err,null);
-			db.collection('restaurants').update({name: eee}, {
+			db.collection('restaurants').update({name: "eee"}, {
 			    "name": req.body.name,
 			    "borough": req.body.borough,
 			    "cuisine": req.body.cuisine,
@@ -193,7 +193,7 @@ app.post('/update',function(req,res) {
 			    },
 			    "owner":req.session.username
 			
-		})
+		});
 	
 		
 		
