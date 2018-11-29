@@ -241,7 +241,7 @@ app.get('/remove',function(req,res) {
 app.post('/remove',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-			db.collection('restaurants').remove({ _id: ObjectId(req.query.id)}, {
+			db.collection('restaurants').remove({ _id: ObjectId(req.body.id)}, {
 		});
 	});
 	res.redirect('/');
