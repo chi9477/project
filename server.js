@@ -100,8 +100,8 @@ app.post('/create',function(req,res) {
 			    "gps1": req.body.gps1,
 			    "gps2": req.body.gps2,
 			    "grades": {
-				"user": "null",
-				"score": "null"
+				"user": "",
+				"score": ""
 			    },
 			    "owner":req.session.username
 			});
@@ -180,6 +180,7 @@ app.post('/update',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
 			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
+			$set: {
 			    "name": req.body.name,
 			    "borough": req.body.borough,
 			    "cuisine": req.body.cuisine,
@@ -189,12 +190,8 @@ app.post('/update',function(req,res) {
 			    "building": req.body.building,
 			    "zipcode": req.body.zipcode,
 			    "gps1": req.body.gps1,
-			    "gps2": req.body.gps2,
-			    "grades": {
-			    	"user": req.body.user,     
-			    	"score": req.body.score
-			    },	
-			    "owner": req.session.username
+			    "gps2": req.body.gps2
+			}
 		});	
 	});
 	res.redirect('/');
@@ -296,7 +293,7 @@ app.get('/rate',function(req,res) {
 app.post('/rate',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-		if (req.session.username != req.body.user) {
+		if (req.session.username != grades.user) {
 			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
 				$set: {
 			    		"grades.user": req.session.username,     
