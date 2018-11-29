@@ -221,7 +221,7 @@ app.get('/remove',function(req,res) {
 			}	     
 			if (item) {
 				if(req.session.username == owner) {
-					res.render('deletesuccess');
+					res.render('deletesuccess', {r: items[i]});
 				} else {
 					res.render('deletefail');
 				}
