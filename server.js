@@ -255,15 +255,15 @@ app.post('/read',function(req,res) {
 		var uname = null;
 		var bor = null;
 		var cui = null;
-		if (req.query.id) {
+		
 			for (i in items) {
-				if (items[i]._id == req.query.id) {
+				
 					item = items[i];
 					uname = items[i].name;
 					bor = items[i].borough;
 					cui = items[i].cuisine;
 					break;
-				}
+				
 			}	     
 			if (item) {
 				if((req.body.search == uname)||(req.body.search == bor)||(req.body.search == cui)) {
@@ -273,10 +273,8 @@ app.post('/read',function(req,res) {
 			else {
 				res.status(500).end(req.query.id + ' not found!');
 			}
-	} 
-	else {
-		res.status(500).end('id missing!');
-	}			    
+	
+		    
 			});
 		});
 	
