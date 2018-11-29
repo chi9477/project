@@ -245,7 +245,7 @@ app.post('/read',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
 		db.restaurants.createIndex( { name: "text", owner: "text" } );
-	}
+	});
 	if (!req.session.authenticated) {
 		res.redirect('/login');
 	} 
@@ -255,7 +255,7 @@ app.post('/read',function(req,res) {
         	db.collection("restaurants").find( { $text: { $search: req.body.search } } ).toArray(function(err,items){
 				res.render('restaurants',{name:req.session.username, r:items});
 			});
-		}
+		});
 	}
 });
 
