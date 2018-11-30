@@ -294,8 +294,8 @@ app.get('/rate',function(req,res) {
 app.post('/rate',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-		db.collection('grades').find().toArray(function(err,mark){
-			for (i in mark) {
+		
+			
 		
 			db.collection('grades').insertOne({
 					"r_id": req.body.id,
@@ -305,8 +305,8 @@ app.post('/rate',function(req,res) {
 			});
 			res.redirect('/');
 		
-			}
-		});
+			
+		
 	});
 });
 
