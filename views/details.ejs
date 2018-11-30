@@ -43,8 +43,11 @@
 <p>Zipcode: <%= r.zipcode %></p>
 <p>GPS: <%= r.gps1 %>, <%= r.gps2 %> </p>
 <p>Rating:</p>
-<p>User: <%= g.user %></p>
-<p>Score: <%= g.score %></p>
+ <ol>
+  <% g.forEach(function(grade) { %>
+  <li><%= grade.user %></li>
+  <% });                        %>
+</ol>
 <p>owner: <%= r.owner %></p>
 <div class="row">
       <a href="/edit?id=<%= r._id %>">
