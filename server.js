@@ -48,7 +48,7 @@ app.post('/upload', function(req, res) {
     MongoClient.connect(mongourl,function(err,db) {
       console.log('Connected to mlab.com');
       assert.equal(null,err);
-      create(db, req.files.sampleFile,req.body, function(result) {
+      create(db, req.files.sampleFile,req.body,req.session, function(result) {
         db.close();
         if (result.insertedId != null) {
           res.status(200);
@@ -62,7 +62,7 @@ app.post('/upload', function(req, res) {
 });
 
 
-function create(db,bfile,rrr,callback) {
+function create(db,bfile,rrr,sss,callback) {
   console.log(bfile);
   db.collection('restaurants').insertOne({
 	"name":rrr.name,
@@ -71,8 +71,9 @@ function create(db,bfile,rrr,callback) {
 	"street":rrr.street,
 	"building":rrr.building,
 	"zipcode":rrr.zipcode,
-	"longtitude":rrr.gps1,
-	"latitude":rrr.gps2,
+	"gps1":rrr.gps1,
+	"gps2":rrr.gps2,
+	"owner":sss.username,
 	"photo" : new Buffer(bfile.data).toString('base64'),
 	"photo mimetype" : bfile.mimetype
 
