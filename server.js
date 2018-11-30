@@ -296,7 +296,7 @@ app.post('/rate',function(req,res) {
 		assert.equal(err,null);
 		db.collection('grades').find({r_id: req.body.id}).toArray(function(err,mark){
 			for (i in mark) {
-		if (mark[i].r_id == req.body.id && req.session.username== mark[i].user) {
+		if ((mark[i].r_id == req.body.id) && (req.session.username== mark[i].user)) {
 			res.render('cantrate');
 		} else {
 			db.collection('grades').insertOne({
