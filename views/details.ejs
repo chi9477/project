@@ -45,7 +45,7 @@
 <p>Rating:</p>
  <ol>
   <% g.forEach(function(grade) { %>
-  <li><%= grade.user %></li>
+  <li><%= grade.score %> (<%= grade.user %>)</li>
   <% });                        %>
 </ol>
 <p>owner: <%= r.owner %></p>
