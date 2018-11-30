@@ -300,17 +300,17 @@ app.post('/rate',function(req,res) {
 		assert.equal(err,null);
         	db.collection("grades").find().toArray(function(err,marks){
 		var mark = null;
-		var owner = null;
+		var user = null;
 		if (req.body.id) {
 			for (i in marks) {
-				if (marks[i].r_id == req.body.id) {
+				if (marks[i].r_id != req.body.id) {
 					mark = marks[i];
-					owner = marks[i].user;
+					user = marks[i].user;
 					break;
 				}
 			}	     
 			if (mark) {
-				if(req.session.username != owner) {
+				if(req.session.username != user) {
 					db.collection('grades').insertOne({
 					"r_id": req.body.id,
 					"rname": req.body.name,
