@@ -125,7 +125,7 @@ app.get('/showdetails', function(req,res) {
 			}
 		}
 		if (item) {
-			db.collection("restaurants").find().toArray(function(err,rnames){
+			db.collection("grades").find().toArray(function(err,rnames){
 				for (j in rnames) {
 					if (rnames[j].rname == rn) {
 					res.render('details', {r: items[i], g: rnames[j]});
