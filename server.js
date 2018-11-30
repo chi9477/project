@@ -292,42 +292,23 @@ app.get('/rate',function(req,res) {
 });
 
 app.post('/rate',function(req,res) {
-	console.log(req.session);
-	if (!req.session.authenticated) {
-		res.redirect('/login');
-	} else {
-		MongoClient.connect(mongourl, function(err, db) {
+	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-        	db.collection("grades").find().toArray(function(err,marks){
-		var mark = null;
-		var user = null;
-		var rid = null;
-		if (req.body.id) {
-			for (i in marks) {
-				if (marks[i].r_id == req.body.id) {
-					mark = marks[i];
-					user = marks[i].user;
-					rid= marks[i].r_id;
-					break;
-				}
-			}	     
-			if (mark) {
-				if(req.session.username == user) {
-					db.collection('grades').insertOne({
-					"r_id": req.body.id,
+		db.collection("grades").find().toArray(function(err,rnames){
+		if (req.session.username != rnames.user) {
+		if (req.session.username != req.body.name) {
+			db.collection('grades').insertOne({
 					"rname": req.body.name,
 			    		"user": req.session.username,     
 			    		"score": req.body.score
-				});
-					res.redirect('/');
-				} else {
-					res.render('cantrate');
-					}
-				}
-			}
+			    		
+		});
+			});
+			res.redirect('/');
+		} else {
+			res.render('cantrate');
+		}
 		});
 	});
-	}
 });
-
 app.listen(process.env.PORT || 8099);
