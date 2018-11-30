@@ -304,7 +304,7 @@ app.post('/rate',function(req,res) {
 					}
 				}
 			}
-			if (item) {
+			if (!item) {
 				db.collection('grades').insertOne({
 					"r_id": req.body.id,
 					"rname": req.body.name,
