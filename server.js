@@ -12,8 +12,8 @@ var mongourl = 'mongodb://doublechi123:doublechi123@ds149682.mlab.com:49682/chi9
 app = express();
 app.set('view engine','ejs');
 
-var SECRETKEY1 = 'I want to pass COMPS381F';
-var SECRETKEY2 = 'Keep this to yourself';
+var SECRETKEY1 = 'project';
+var SECRETKEY2 = 'ouhk';
 
 var users = new Array(
 	{name: 'demo', password: ''},
