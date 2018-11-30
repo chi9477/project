@@ -99,10 +99,6 @@ app.post('/create',function(req,res) {
 			    "zipcode": req.body.zipcode,
 			    "gps1": req.body.gps1,
 			    "gps2": req.body.gps2,
-			    "grades": {
-				"user": "",
-				"score": ""
-			    },
 			    "owner":req.session.username
 			});
 		});
@@ -294,11 +290,11 @@ app.post('/rate',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
 		if (req.session.username != req.body.user) {
-			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
-				$set: {
-			    		"grades.user": req.session.username,     
-			    		"grades.score": req.body.score
-			    	}	
+			db.collection('grades').insertOne({
+					"_id": ObjectId(req.body.id),
+			    		"user": req.session.username,     
+			    		"score": req.body.score
+			    		
 		});
 			res.redirect('/');
 		} else {
