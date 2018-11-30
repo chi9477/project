@@ -295,7 +295,8 @@ app.post('/rate',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
 		db.collection('grades').find({rname: req.body.name, user: req.session.username}).toArray(function(err,mark){
-		if (mark.rname != req.body.name) {
+			for (i in mark) {
+		if (mark[i].rname != req.body.name) {
 			db.collection('grades').insertOne({
 					"rname": req.body.name,
 			    		"user": req.session.username,     
@@ -305,6 +306,7 @@ app.post('/rate',function(req,res) {
 		} else {
 			res.render('cantrate');
 		}
+			}
 		});
 	});
 });
