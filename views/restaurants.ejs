@@ -44,16 +44,16 @@
       </div>
       <div class="container-fluid">
     <div class="row">
+     <form action="/read" method="post">
+       <input type="text" name="search">
+       <input type="submit" value="search">
+     </form>
       <a href="/create">
         <button class="btn btn-default">Create New Restaurant</button>
       </a>
        <a href="/read">
         <button class="btn btn-default">All restaurants</button>
       </a>
-      <form action="/read" method="post" align="right">
-       <input type="text" name="search">
-       <input type="submit" value="search">
-      </form>
     </div>
     <ol>
   <% r.forEach(function(rest) { %>
