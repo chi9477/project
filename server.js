@@ -294,14 +294,13 @@ app.get('/rate',function(req,res) {
 app.post('/rate',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-		db.collection('grades').find().toArray(function(err,mark){
+		db.collection('grades').find({r_id: req.body.id}).toArray(function(err,mark){
 			for (i in mark) {
 		if (mark[i].r_id == req.body.id) {
 			res.render('cantrate');
 		} else {
 			db.collection('grades').insertOne({
 					"r_id": req.body.id,
-					"rname": req.body.name,
 			    		"user": req.session.username,     
 			    		"score": req.body.score
 			});
