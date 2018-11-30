@@ -1,16 +1,20 @@
+
 {
     "name": "server",
     "description": "NodeJS Session",
-    "author": "test",
+    "author": "doubleChi",
     "version": "0.0.1",
     "dependencies": {
-        "express": "*",
         "ejs": "*",
         "body-parser": "*",
         "cookie-session": "*",
-        "mongodb": "2.2.36"
+        "mongodb": "^2.2.31",
+        "formidable": "latest",
+         "express": "*",
+         "express-fileupload": "latest"
+  
     },
-    "engine": "node >= 0.10.0",
+    "engine": "node >= 6.0.0",
     "scripts": {
         "start": "node server"
     }
