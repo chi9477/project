@@ -10,8 +10,8 @@
 </div>
 <p>
 <form class="w3-container" acton="/rate" method="post">
-  <input type="hidden" name="id" value=<%= r._id %>>
-  <input type="hidden" name="name" value=<%= r.name %>>
+  <input type="text" name="id" value=<%= r._id %>>
+  <input type="text" name="name" value=<%= r.name %>>
   <label>Score (1-10):</label>
   <input class="w3-input" type="number" name="score" min=1 max=10>
   <button class="w3-btn">Rate</button>
