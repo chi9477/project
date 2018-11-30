@@ -114,25 +114,25 @@ app.get('/showdetails', function(req,res) {
 	else {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-        	db.collection("restaurants").find().toArray(function(err,shows){
-		var show = null;
+        	db.collection("restaurants").find().toArray(function(err,items){
+		var item = null;
 		var rest = null;
 		var rn = null;
 		if (req.query.id) {
-			for (i in shows) {
-				if (shows[i]._id == req.query.id) {
-					show = shows[i];
-					rn = shows[i].name;
-					break;
-				}
+		for (i in items) {
+			if (items[i]._id == req.query.id) {
+				item = items[i];
+				rn = items[i].name;
+				break;
 			}
-			if (show) {
-				db.collection("grades").find({rname: rn}).toArray(function(err,rnames){
-					res.render('details', {r: shows[i], g: rnames});
-				});
-			} else {
-				res.status(500).end(req.query.id + ' not found!');
-			}
+		}
+		if (item) {
+			db.collection("grades").find({rname: rn}).toArray(function(err,rnames){
+					res.render('details', {r: items[i], g: rnames});
+			});
+		} else {
+			res.status(500).end(req.query.id + ' not found!');
+		}
 		} else {
 			res.status(500).end('id missing!');
 		}
@@ -148,20 +148,20 @@ app.get('/edit',function(req,res) {
 	} else {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-        	db.collection("restaurants").find().toArray(function(err,adds){
-		var add = null;
+        	db.collection("restaurants").find().toArray(function(err,items){
+		var item = null;
 		var owner = null;
 		if (req.query.id) {
-			for (i in adds) {
-				if (adds[i]._id == req.query.id) {
-					add = adds[i];
-					owner = adds[i].owner;
+			for (i in items) {
+				if (items[i]._id == req.query.id) {
+					item = items[i];
+					owner = items[i].owner;
 					break;
 				}
 			}	     
-			if (add) {
+			if (item) {
 				if(req.session.username == owner) {
-					res.render('update', {r: adds[i]});
+					res.render('update', {r: items[i]});
 				} else {
 					res.render('cantupdate');
 				}
@@ -206,22 +206,22 @@ app.get('/remove',function(req,res) {
 	} else {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-        	db.collection("restaurants").find().toArray(function(err,removes){
-		var remove = null;
+        	db.collection("restaurants").find().toArray(function(err,items){
+		var item = null;
 		var owner = null;
 		if (req.query.id) {
-			for (i in removes) {
-				if (removes[i]._id == req.query.id) {
-					remove = removes[i];
-					owner = removes[i].owner;
+			for (i in items) {
+				if (items[i]._id == req.query.id) {
+					item = items[i];
+					owner = items[i].owner;
 					break;
 				}
 			}	     
-			if (remove) {
+			if (item) {
 				if(req.session.username == owner) {
 					db.collection('restaurants').remove({_id: ObjectId(req.query.id)}, {
 		});
-					res.render('deletesuccess', {r: removes[i]});
+					res.render('deletesuccess', {r: items[i]});
 				} else {
 					res.render('deletefail');
 				}
@@ -269,17 +269,17 @@ app.get('/rate',function(req,res) {
 	} else {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-        	db.collection("restaurants").find().toArray(function(err,rdbs){
-		var rdb = null;
+        	db.collection("restaurants").find().toArray(function(err,items){
+		var item = null;
 		if (req.query.id) {
-			for (i in rdbs) {
-				if (rdbs[i]._id == req.query.id) {
-					rdb = rdbs[i]
+			for (i in items) {
+				if (items[i]._id == req.query.id) {
+					item = items[i]
 					break;
 				}
 			}	     
-			if (rdb) {
-				res.render('rating', {r: rdbs[i]});
+			if (item) {
+				res.render('rating', {r: items[i]});
 			} else {
 				res.status(500).end(req.query.id + ' not found!');
 			}
@@ -293,24 +293,19 @@ app.get('/rate',function(req,res) {
 });
 
 app.post('/rate',function(req,res) {
-	console.log(req.session);
-	if (!req.session.authenticated) {
-		res.redirect('/login');
-	} 
-	else {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-		db.collection("grades").find().toArray(function(err,marks){
-			var mark = null;
-			for (i in marks) {
-				if (marks[i].user == req.session.username) {
-					if (marks[i].r_id == req.body.id) {
-						mark = marks[i]
+		db.collection("grades").find().toArray(function(err,items){
+			var item = null;
+			for (i in items) {
+				if (items[i].user == req.session.username) {
+					if (items[i].r_id == req.body.id) {
+						item = items[i]
 						break;
 					}
 				}
 			}
-			if (!mark) {
+			if (!item) {
 				db.collection('grades').insertOne({
 					"r_id": req.body.id,
 					"rname": req.body.name,
@@ -333,17 +328,17 @@ app.get('/gps', function(req,res) {
 	else {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-        	db.collection("restaurants").find().toArray(function(err,maps){
-		var map = null;
+        	db.collection("restaurants").find().toArray(function(err,items){
+		var item = null;
 		if (req.query.id) {
-		for (i in maps) {
-			if (maps[i]._id == req.query.id) {
-				map = maps[i]
+		for (i in items) {
+			if (items[i]._id == req.query.id) {
+				item = items[i]
 				break;
 			}
 		}
 		if (item) {
-			res.render('gps', {r: maps[i]});							
+			res.render('gps', {r: items[i]});							
 		} else {
 			res.status(500).end(req.query.id + ' not found!');
 		}
