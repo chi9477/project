@@ -295,23 +295,26 @@ app.post('/rate',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
 		db.collection("grades").find().toArray(function(err,items){
+			var item = null;
 			for (i in items) {
 				if (items[i].user == req.body.user) {
 					if (items[i].r_id == req.body.id) {
-						res.render('cantrate');
-					} else {
-						db.collection('grades').insertOne({
-							"r_id": req.body.id,
-							"rname": req.body.name,
-			    				"user": req.session.username,     
-			    				"score": req.body.score
-						});
-							res.redirect('/');
-						}
+						item = items[i]
+						break;
+					}
+				}
+			}
+			if (!item) {
+				db.collection('grades').insertOne({
+					"r_id": req.body.id,
+					"rname": req.body.name,
+			    		"user": req.session.username,     
+			    		"score": req.body.score
+				});
+					res.redirect('/');
 				} else {
 					res.render('cantrate');
 				}
-			}
 		});
 	});
 });
