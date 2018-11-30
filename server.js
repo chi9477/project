@@ -294,18 +294,21 @@ app.get('/rate',function(req,res) {
 app.post('/rate',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-		db.collection('grades').find({r_id: req.body.id}).toArray(function(err,mark){
-			for (i in mark) {
-		if (req.session.username== mark[i].user) {
-			res.render('cantrate');
-		} else {
-			db.collection('grades').insertOne({
+		db.collection('grades').find().toArray(function(err,marks){
+		var mark = null;
+		for (i in marks) {
+			if (marks[i]._id == req.body.id) {
+				if (marks[i].user != req.session.username) {
+				db.collection('grades').insertOne({
 					"r_id": req.body.id,
 			    		"user": req.session.username,     
 			    		"score": req.body.score
-			});
-			res.redirect('/read');
-						
+				});
+				res.redirect('/');
+				} else {
+					res.render('cantrate');	
+			} else {
+				res.render('cantrate');		
 		}
 			}
 		});
