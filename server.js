@@ -312,7 +312,7 @@ app.post('/rate',function(req,res) {
 				}
 			}	     
 			if (mark) {
-				if(req.session.username != user) {
+				if(req.session.username == user) {
 					db.collection('grades').insertOne({
 					"r_id": req.body.id,
 					"rname": req.body.name,
