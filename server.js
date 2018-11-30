@@ -304,6 +304,7 @@ app.post('/rate',function(req,res) {
 			    		"score": req.body.score
 			});
 			res.redirect('/');
+			
 		} else {
 			res.render('cantrate');
 		}
