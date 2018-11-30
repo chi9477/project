@@ -49,18 +49,30 @@
 </ol>
 <p>owner: <%= r.owner %></p>
 <div class="row">
+<table>
+    <tr>
+      <td>
       <a href="/edit?id=<%= r._id %>">
         <button class="btn btn-default">Edit</button>        
       </a>
+      </td>
+      <td>
       <a href="/remove?id=<%= r._id %>">
         <button class="btn btn-default">Delete</button>        
       </a>
+      </td>
+      <td>
       <a href="/rate?id=<%= r._id %>">
         <button class="btn btn-default">Rate</button>        
       </a>
-       <a href="/read">
+      </td>
+      <td>
+      <a href="/read">
         <button class="btn btn-default">Go back</button>
       </a>
+      </td>
+    </tr>
+</table>
     </div>
     <a href="/gps?id=<%= r._id %>">Google Map</a>
 </BODY>
