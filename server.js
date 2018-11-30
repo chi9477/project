@@ -294,7 +294,8 @@ app.get('/rate',function(req,res) {
 app.post('/rate',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-		if (req.session.username != req.body.name) {
+		db.collection("grades").find({user: req.session.username}).toArray(function(err,items){
+		if (items == null) {
 			db.collection('grades').insertOne({
 					"r_id": req.body.id,
 					"rname": req.body.name,
