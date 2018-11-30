@@ -291,7 +291,7 @@ app.post('/rate',function(req,res) {
 		assert.equal(err,null);
 		if (req.session.username != req.body.user) {
 			db.collection('grades').insertOne({
-					"_id": ObjectId(req.body.id),
+					"rname": req.body.name,
 			    		"user": req.session.username,     
 			    		"score": req.body.score
 			    		
