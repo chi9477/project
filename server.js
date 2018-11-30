@@ -40,6 +40,10 @@ app.use(fileUpload());
 app.post('/upload', function(req, res) {
     var sampleFile;
 
+    if (!req.files) {
+        res.send('No files were uploaded.');
+        return;
+    }
 
     MongoClient.connect(mongourl,function(err,db) {
       console.log('Connected to mlab.com');
@@ -48,7 +52,7 @@ app.post('/upload', function(req, res) {
         db.close();
         if (result.insertedId != null) {
           res.status(200);
-          res.redirect('/create')
+          res.redirect('/')
         } else {
           res.status(500);
           res.end(JSON.stringify(result));
