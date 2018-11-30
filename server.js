@@ -314,4 +314,34 @@ app.post('/rate',function(req,res) {
 	});
 });
 
+app.get('/gps', function(req,res) {
+	console.log(req.session);
+	if (!req.session.authenticated) {
+		res.redirect('/login');
+	} 
+	else {
+		MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+        	db.collection("restaurants").find().toArray(function(err,items){
+		var item = null;
+		if (req.query.id) {
+		for (i in items) {
+			if (items[i]._id == req.query.id) {
+				item = items[i]
+				break;
+			}
+		}
+		if (item) {
+			res.render('gps', {r: items[i]});							
+		} else {
+			res.status(500).end(req.query.id + ' not found!');
+		}
+	} else {
+		res.status(500).end('id missing!');
+	}
+			});
+		});
+	}
+});
+
 app.listen(process.env.PORT || 8099);
