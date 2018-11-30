@@ -303,7 +303,7 @@ app.post('/rate',function(req,res) {
 			    		"user": req.session.username,     
 			    		"score": req.body.score
 			});
-			res.redirect('/');
+			res.redirect('/read');
 			
 		} else {
 			res.render('cantrate');
