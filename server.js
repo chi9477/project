@@ -123,7 +123,13 @@ app.get('/showdetails', function(req,res) {
 			}
 		}
 		if (item) {
-			res.render('details', {r: items[i]});							
+			db.collection("restaurants").find().toArray(function(err,rnames){
+				for (j in rnames) {
+					if (rnames[j].rname == items[i].name) {
+					res.render('details', {r: items[i], g: rnames[j]});
+					}
+				}
+			});
 		} else {
 			res.status(500).end(req.query.id + ' not found!');
 		}
