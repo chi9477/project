@@ -301,16 +301,18 @@ app.post('/rate',function(req,res) {
         	db.collection("grades").find().toArray(function(err,marks){
 		var mark = null;
 		var user = null;
+		var rid = null;
 		if (req.body.id) {
 			for (i in marks) {
-				if (marks[i].r_id != req.body.id) {
+				if (marks[i].r_id == req.body.id) {
 					mark = marks[i];
 					user = marks[i].user;
+					rid= marks[i].r_id;
 					break;
 				}
 			}	     
 			if (mark) {
-				if(req.session.username != user) {
+				if(req.body.id != rid) {
 					db.collection('grades').insertOne({
 					"r_id": req.body.id,
 					"rname": req.body.name,
