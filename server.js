@@ -294,7 +294,7 @@ app.get('/rate',function(req,res) {
 app.post('/rate',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-		db.collection("grades").find({user: req.session.username}).toArray(function(err,items){
+		db.collection("grades").find().toArray(function(err,items){
 			for (i in items) {
 				if (items[i].user == req.body.user) {
 					if (items[i].r_id == req.body.id) {
