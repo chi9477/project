@@ -63,7 +63,7 @@ app.post('/upload', function(req, res) {
 
 function create(db,bfile,rrr,callback) {
   console.log(bfile);
-  db.collection('restaurant').insertOne({
+  db.collection('restaurants').insertOne({
 	"name":rrr.name,
 	"borough": rrr.borough,
 	"cuisine": rrr.cuisine,
