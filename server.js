@@ -126,16 +126,8 @@ app.get('/showdetails', function(req,res) {
 			}
 		}
 		if (item) {
-			db.collection("grades").find().toArray(function(err,rnames){
-				for (j in rnames) {
-					if (rnames[j].rname == rn) {
-						rest = rnames[j];
-						break;
-					}
-				}
-				if (rest) {
-					res.render('details', {r: items[i], g: rnames[j]});
-					}
+			db.collection("grades").find({rname: rn}).toArray(function(err,rnames){
+					res.render('details', {r: items[i], g: rnames});
 			});
 		} else {
 			res.status(500).end(req.query.id + ' not found!');
