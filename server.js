@@ -31,6 +31,65 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
+var express = require('express');
+var fileUpload = require('express-fileupload');
+
+app.use(fileUpload());   
+
+app.post('/upload', function(req, res) {
+    var sampleFile;
+
+    if (!req.files) {
+        res.send('No files were uploaded.');
+        return;
+    }
+
+    MongoClient.connect(mongourl,function(err,db) {
+      console.log('Connected to mlab.com');
+      assert.equal(null,err);
+      create(db, req.files.sampleFile,req.body, function(result) {
+        db.close();
+        if (result.insertedId != null) {
+          res.status(200);
+          res.redirect('/create')
+        } else {
+          res.status(500);
+          res.end(JSON.stringify(result));
+        }
+      });
+    });
+});
+
+
+function create(db,bfile,rrr,callback) {
+  console.log(bfile);
+  db.collection('restaurant').insertOne({
+	"name":rrr.name,
+	"borough": rrr.borough,
+	"cuisine": rrr.cuisine,
+	"street":rrr.street,
+	"building":rrr.building,
+	"zipcode":rrr.zipcode,
+	"longtitude":rrr.gps1,
+	"latitude":rrr.gps2,
+	"photo" : new Buffer(bfile.data).toString('base64'),
+	"photo mimetype" : bfile.mimetype
+
+	  
+	  
+  }, function(err,result) {
+    if (err) {
+      console.log('insertOne Error: ' + JSON.stringify(err));
+      result = err;
+    } else {
+      console.log("Inserted _id = " + result.insertId);
+    }
+    callback(result);
+  });
+}
+
+
+
 app.get('/',function(req,res) {
 	console.log(req.session);
 	if (!req.session.authenticated) {
