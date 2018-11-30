@@ -297,6 +297,7 @@ app.post('/rate',function(req,res) {
 		db.collection('grades').find().toArray(function(err,mark){
 			for (i in mark) {
 		if (mark[i].r_id != req.body.id) {
+			if (mark[i].user != req.session.username) {
 			db.collection('grades').insertOne({
 					"r_id": req.body.id,
 					"rname": req.body.name,
@@ -304,6 +305,9 @@ app.post('/rate',function(req,res) {
 			    		"score": req.body.score
 			});
 			res.redirect('/');
+			}else {
+			res.render('cantrate');
+		}
 		} else {
 			res.render('cantrate');
 		}
