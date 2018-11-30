@@ -292,25 +292,36 @@ app.get('/rate',function(req,res) {
 });
 
 app.post('/rate',function(req,res) {
-	MongoClient.connect(mongourl, function(err, db) {
+	console.log(req.session);
+	if (!req.session.authenticated) {
+		res.redirect('/login');
+	} else {
+		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-		db.collection('grades').find().toArray(function(err,marks){
+        	db.collection("grades").find().toArray(function(err,marks){
 		var mark = null;
-		for (i in marks) {
-			if (marks[i]._id == req.body.id) {
-				if (marks[i].user != req.session.username) {
-				db.collection('grades').insertOne({
+		var owner = null;
+		if (req.body.id) {
+			for (i in marks) {
+				if (marks[i].r_id == req.body.id) {
+					mark = marks[i];
+					owner = marks[i].user;
+					break;
+				}
+			}	     
+			if (mark) {
+				if(req.session.username != owner) {
+					db.collection('grades').insertOne({
 					"r_id": req.body.id,
+					"rname": req.body.name,
 			    		"user": req.session.username,     
 			    		"score": req.body.score
 				});
-				res.redirect('/');
+					res.redirect('/');
 				} else {
-					res.render('cantrate');	
+					res.render('cantrate');
+					}
 				}
-			} else {
-				res.render('cantrate');	
-			}
 			}
 		});
 	});
