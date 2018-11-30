@@ -306,6 +306,7 @@ app.post('/rate',function(req,res) {
 		} else {
 			res.render('cantrate');
 		}
+		});
 	});
 });
 
