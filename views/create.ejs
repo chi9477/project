@@ -36,7 +36,11 @@
 
    <body>
    
-  <form action="/upload" method="post">
+  <form ref='uploadForm'
+            id='uploadForm'
+            action='/upload'
+            method='post'
+            encType="multipart/form-data">
     Name: <input type="text" name="name"><br>
     borough: <input type="text" name="borough"><br>
     cuisine: <input type="text" name="cuisine"><br>
