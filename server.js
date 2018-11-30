@@ -294,19 +294,16 @@ app.get('/rate',function(req,res) {
 app.post('/rate',function(req,res) {
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
-		db.collection("grades").find().toArray(function(err,rnames){
-		if (req.session.username != rnames.user) {
+		if (req.session.username != req.body.name) {
 			db.collection('grades').insertOne({
 					"rname": req.body.name,
 			    		"user": req.session.username,     
 			    		"score": req.body.score
-			    		
-		});
+			});
 			res.redirect('/');
 		} else {
 			res.render('cantrate');
 		}
-		});
 	});
 });
 
