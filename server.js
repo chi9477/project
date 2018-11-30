@@ -297,7 +297,7 @@ app.post('/rate',function(req,res) {
 		db.collection("grades").find().toArray(function(err,items){
 			var item = null;
 			for (i in items) {
-				if (items[i].user == req.body.user) {
+				if (items[i].user == req.session.username) {
 					if (items[i].r_id == req.body.id) {
 						item = items[i]
 						break;
