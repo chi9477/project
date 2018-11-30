@@ -17,7 +17,8 @@ var SECRETKEY2 = 'Keep this to yourself';
 
 var users = new Array(
 	{name: 'demo', password: ''},
-	{name: 'guest', password: 'guest'}
+	{name: 'guest', password: 'guest'},
+	{name: 'user', password: 'user'}
 );
 
 app.set('view engine','ejs');
