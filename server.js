@@ -115,17 +115,19 @@ app.get('/showdetails', function(req,res) {
 		assert.equal(err,null);
         	db.collection("restaurants").find().toArray(function(err,items){
 		var item = null;
+		var rn = null;
 		if (req.query.id) {
 		for (i in items) {
 			if (items[i]._id == req.query.id) {
-				item = items[i]
+				item = items[i];
+				rn = items[i].name;
 				break;
 			}
 		}
 		if (item) {
 			db.collection("restaurants").find().toArray(function(err,rnames){
 				for (j in rnames) {
-					if (rnames[j].rname == items[i].name) {
+					if (rnames[j].rname == rn) {
 					res.render('details', {r: items[i], g: rnames[j]});
 					}
 				}
