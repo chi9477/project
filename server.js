@@ -308,7 +308,8 @@ app.post('/rate',function(req,res) {
 				} else {
 					res.render('cantrate');	
 			} else {
-				res.render('cantrate');		
+				res.render('cantrate');	
+			}
 		}
 			}
 		});
