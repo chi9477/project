@@ -247,8 +247,6 @@ app.post('/update',function(req,res) {
 			    "name": req.body.name,
 			    "borough": req.body.borough,
 			    "cuisine": req.body.cuisine,
-			    "photo": "no.jpg",
-			    "photo mimetype": "KASDKJ",
 			    "street": req.body.street,
 			    "building": req.body.building,
 			    "zipcode": req.body.zipcode,
