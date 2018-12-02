@@ -216,15 +216,9 @@ app.post('/update', function(req, res) {
     MongoClient.connect(mongourl,function(err,db) {
       console.log('Connected to mlab.com');
       assert.equal(null,err);
-      update(db, req.files.sampleFile,req.body,req.session, function(result2) {
+      update(db, req.files.sampleFile,req.body,req.session {
         db.close();
-        if (result2.updatedId != null) {
-          res.status(200);
-          res.redirect('/')
-        } else {
-          res.status(500);
-          res.end(JSON.stringify(result2));
-        }
+          res.redirect('/');
       });
     });
 });
@@ -246,17 +240,6 @@ function update(db,bfile,rrr,sss,callback) {
 	"photo" : new Buffer(bfile.data).toString('base64'),
 	"photo mimetype" : bfile.mimetype
 	}
-
-	  
-	  
-  }, function(err,result2) {
-    if (err) {
-      console.log('update Error: ' + JSON.stringify(err));
-      result2 = err;
-    } else {
-      console.log("Updated _id = " + result2.updatedId);
-    }
-    callback(result2);
   });
 }
 
