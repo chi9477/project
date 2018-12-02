@@ -205,15 +205,17 @@ app.get('/edit',function(req,res) {
 });
 
 app.post('/update', function(req, res) {
-    var sampleFile;	
-    MongoClient.connect(mongourl,function(err,db) {
-      console.log('Connected to mlab.com');
-      assert.equal(null,err);
-      update(db, req.files.sampleFile,req.body, function(result) {
-        db.close();
-        res.redirect('/');
-      });
-    });
+    var sampleFile;
+    if (req.files.sampleFile) {
+    	MongoClient.connect(mongourl,function(err,db) {
+     	 console.log('Connected to mlab.com');
+      	assert.equal(null,err);
+     	 update(db, req.files.sampleFile,req.body, function(result) {
+       	 db.close();
+       	 res.redirect('/');
+     	 });
+    	});
+    }
 });
 
 function update(db,bfile,rrr,callback) {
