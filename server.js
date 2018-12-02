@@ -209,24 +209,31 @@ app.get('/edit',function(req,res) {
 	}
 });
 
-
 app.post('/update', function(req, res) {
     var sampleFile;
+
+   
 
     MongoClient.connect(mongourl,function(err,db) {
       console.log('Connected to mlab.com');
       assert.equal(null,err);
-      update(db, req.files.sampleFile,req.body,req.session {
+      update(db, req.files.sampleFile,req.body,req.session, function(result2) {
         db.close();
-          res.redirect('/');
+        if (result2.insertedId != null) {
+          res.status(200);
+          res.redirect('/')
+        } else {
+          res.status(500);
+          res.end(JSON.stringify(result2));
+        }
       });
     });
 });
 
 
-function update(db,bfile,rrr,sss) {
+function update(db,bfile,rrr,sss,callback) {
   console.log(bfile);
-  db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
+ db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
   $set: {
 	"name":rrr.name,
 	"borough": rrr.borough,
@@ -240,8 +247,20 @@ function update(db,bfile,rrr,sss) {
 	"photo" : new Buffer(bfile.data).toString('base64'),
 	"photo mimetype" : bfile.mimetype
 	}
+
+	  
+	  
+  }, function(err,result2) {
+    if (err) {
+      console.log('insertOne Error: ' + JSON.stringify(err));
+      result2 = err;
+    } else {
+      console.log("Inserted _id = " + result2.insertId);
+    }
+    callback(result2);
   });
 }
+
 
 app.get('/remove',function(req,res) {
 	console.log(req.session);
