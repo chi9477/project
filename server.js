@@ -209,29 +209,56 @@ app.get('/edit',function(req,res) {
 	}
 });
 
-app.post('/update',function(req,res) {
-	MongoClient.connect(mongourl, function(err, db) {
-		assert.equal(err,null);
-			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
-			$set: {
-			    "name": req.body.name,
-			    "borough": req.body.borough,
-			    "cuisine": req.body.cuisine,
-			    "street": req.body.street,
-			    "building": req.body.building,
-			    "zipcode": req.body.zipcode,
-			    "gps1": req.body.gps1,
-			    "gps2": req.body.gps2
-			}
-			});
-			db.collection('grades').update({r_id: req.body.id}, {
-			$set: {
-			    "rname": req.body.name
-			}
-			});	
-	});
-	res.redirect('/');
+
+app.post('/update', function(req, res) {
+    var sampleFile;
+
+    MongoClient.connect(mongourl,function(err,db) {
+      console.log('Connected to mlab.com');
+      assert.equal(null,err);
+      update(db, req.files.sampleFile,req.body,req.session, function(result2) {
+        db.close();
+        if (result2.updatedId != null) {
+          res.status(200);
+          res.redirect('/')
+        } else {
+          res.status(500);
+          res.end(JSON.stringify(result2));
+        }
+      });
+    });
 });
+
+
+function update(db,bfile,rrr,sss,callback) {
+  console.log(bfile);
+  db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
+  $set: {
+	"name":rrr.name,
+	"borough": rrr.borough,
+	"cuisine": rrr.cuisine,
+	"street":rrr.street,
+	"building":rrr.building,
+	"zipcode":rrr.zipcode,
+	"gps1":rrr.gps1,
+	"gps2":rrr.gps2,
+	"owner":sss.username,
+	"photo" : new Buffer(bfile.data).toString('base64'),
+	"photo mimetype" : bfile.mimetype
+	}
+
+	  
+	  
+  }, function(err,result2) {
+    if (err) {
+      console.log('update Error: ' + JSON.stringify(err));
+      result2 = err;
+    } else {
+      console.log("Updated _id = " + result2.updatedId);
+    }
+    callback(result2);
+  });
+}
 
 app.get('/remove',function(req,res) {
 	console.log(req.session);
