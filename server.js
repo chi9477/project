@@ -254,7 +254,6 @@ app.post('/update',function(req,res) {
 			    "gps2": req.body.gps2
 			}
 			});
-			db.close();
 			db.collection('grades').update({r_id: req.body.id}, {
 			$set: {
 			    "rname": req.body.name
