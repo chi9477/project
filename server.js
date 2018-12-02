@@ -33,12 +33,6 @@ app.use(fileUpload());
 
 app.post('/upload', function(req, res) {
     var sampleFile;
-
-    if (!req.files.sampleFile) {
-        res.render('cantcreate');
-	return;
-    }
-
     MongoClient.connect(mongourl,function(err,db) {
       console.log('Connected to mlab.com');
       assert.equal(null,err);
@@ -55,7 +49,6 @@ app.post('/upload', function(req, res) {
     });
 });
 
-
 function create(db,bfile,rrr,sss,callback) {
   console.log(bfile);
   db.collection('restaurants').insertOne({
@@ -69,9 +62,7 @@ function create(db,bfile,rrr,sss,callback) {
 	"gps2":rrr.gps2,
 	"owner":sss.username,
 	"photo" : new Buffer(bfile.data).toString('base64'),
-	"photo mimetype" : bfile.mimetype
-
-	  
+	"photo mimetype" : bfile.mimetype	  
 	  
   }, function(err,result) {
     if (err) {
@@ -83,8 +74,6 @@ function create(db,bfile,rrr,sss,callback) {
     callback(result);
   });
 }
-
-
 
 app.get('/',function(req,res) {
 	console.log(req.session);
