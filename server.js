@@ -215,7 +215,7 @@ app.post('/update', function(req, res) {
     MongoClient.connect(mongourl,function(err,db) {
       console.log('Connected to mlab.com');
       assert.equal(null,err);
-      update(db, req.files.sampleFile,req.body,req.session, function(result) {
+      update(db, req.files.sampleFile,req.body, function(result) {
         db.close();
         if (result.insertedId != null) {
           res.status(200);
@@ -228,18 +228,18 @@ app.post('/update', function(req, res) {
     });
 });
 
-function update(db,bfile,rrr,sss,callback) {
+function update(db,bfile,rrr,callback) {
   console.log(bfile);
  db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
 			$set: {
-			    "name": req.body.name,
-			    "borough": req.body.borough,
-			    "cuisine": req.body.cuisine,
-			    "street": req.body.street,
-			    "building": req.body.building,
-			    "zipcode": req.body.zipcode,
-			    "gps1": req.body.gps1,
-			    "gps2": req.body.gps2,
+			    "name": rrr.body.name,
+			    "borough": rrr.body.borough,
+			    "cuisine": rrr.body.cuisine,
+			    "street": rrr.body.street,
+			    "building": rrr.body.building,
+			    "zipcode": rrr.body.zipcode,
+			    "gps1": rrr.body.gps1,
+			    "gps2": rrr.body.gps2,
 			    "photo" : new Buffer(bfile.data).toString('base64'),
 			    "photo mimetype" : bfile.mimetype
 			}	  
