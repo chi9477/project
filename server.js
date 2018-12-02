@@ -230,7 +230,7 @@ app.post('/update', function(req, res) {
 
 function update(db,bfile,rrr,callback) {
   console.log(bfile);
- db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
+ db.collection('restaurants').update({_id: ObjectId(rrr.id)}, {
 			$set: {
 			    "name": rrr.name,
 			    "borough": rrr.borough,
