@@ -205,25 +205,13 @@ app.get('/edit',function(req,res) {
 });
 
 app.post('/update', function(req, res) {
-    var sampleFile;
-    
-     if (!req.files.sampleFile) {
-        res.render('cantupdate');
-	return;
-    }
-	
+    var sampleFile;	
     MongoClient.connect(mongourl,function(err,db) {
       console.log('Connected to mlab.com');
       assert.equal(null,err);
       update(db, req.files.sampleFile,req.body, function(result) {
         db.close();
-        if (result.updatedId != null) {
-          res.status(200);
-          res.redirect('/')
-        } else {
-          res.status(500);
-          res.end(JSON.stringify(result));
-        }
+        res.redirect('/');
       });
     });
 });
@@ -245,12 +233,6 @@ function update(db,bfile,rrr,callback) {
 			}	  
 	  
   }, function(err,result) {
-    if (err) {
-      console.log('insertOne Error: ' + JSON.stringify(err));
-      result = err;
-    } else {
-      console.log("Inserted _id = " + result.updateId);
-    }
     callback(result);
   });
 }
