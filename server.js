@@ -190,7 +190,7 @@ app.get('/showdetails', function(req,res) {
 			}
 		}
 		if (item) {
-			db.collection("grades").find({r_id: rid}).toArray(function(err,rnames){
+			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('details', {r: items[i], g: rnames});
 			});
 		} else {
