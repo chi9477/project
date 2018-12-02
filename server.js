@@ -232,14 +232,14 @@ function update(db,bfile,rrr,callback) {
   console.log(bfile);
  db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
 			$set: {
-			    "name": rrr.body.name,
-			    "borough": rrr.body.borough,
-			    "cuisine": rrr.body.cuisine,
-			    "street": rrr.body.street,
-			    "building": rrr.body.building,
-			    "zipcode": rrr.body.zipcode,
-			    "gps1": rrr.body.gps1,
-			    "gps2": rrr.body.gps2,
+			    "name": rrr.name,
+			    "borough": rrr.borough,
+			    "cuisine": rrr.cuisine,
+			    "street": rrr.street,
+			    "building": rrr.building,
+			    "zipcode": rrr.zipcode,
+			    "gps1": rrr.gps1,
+			    "gps2": rrr.gps2,
 			    "photo" : new Buffer(bfile.data).toString('base64'),
 			    "photo mimetype" : bfile.mimetype
 			}	  
