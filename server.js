@@ -255,7 +255,7 @@ app.post('/update',function(req,res) {
 			}
 			});
 			db.close();
-			db.collection('grades').update({r_id: ObjectId(req.body.id)}, {
+			db.collection('grades').update({r_id: req.body.id}, {
 			$set: {
 			    "rname": req.body.name
 			}
