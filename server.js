@@ -145,27 +145,6 @@ app.get('/create',function(req,res) {
 		res.render('create',{name:req.session.username});
 	}
 });
-
-app.post('/create',function(req,res) {
-	MongoClient.connect(mongourl, function(err, db) {
-		assert.equal(err,null);
-		
-		db.collection('restaurants').insertOne({
-			    "name": req.body.name,
-			    "borough": req.body.borough,
-			    "cuisine": req.body.cuisine,
-			    "photo": "no.jpg",
-			    "photo mimetype": "KASDKJ",
-			    "street": req.body.street,
-			    "building": req.body.building,
-			    "zipcode": req.body.zipcode,
-			    "gps1": req.body.gps1,
-			    "gps2": req.body.gps2,
-			    "owner":req.session.username
-			});
-		});
-	res.redirect('/');
-});
 	
 app.get('/showdetails', function(req,res) {
 	console.log(req.session);
@@ -177,15 +156,10 @@ app.get('/showdetails', function(req,res) {
 		assert.equal(err,null);
         	db.collection("restaurants").find().toArray(function(err,items){
 		var item = null;
-		var rest = null;
-		var rn = null;
-		var rid = null;
 		if (req.query.id) {
 		for (i in items) {
 			if (items[i]._id == req.query.id) {
 				item = items[i];
-				rn = items[i].name;
-				rid = items[i]._id;
 				break;
 			}
 		}
