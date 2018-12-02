@@ -224,7 +224,7 @@ app.post('/update', function(req, res) {
 });
 
 
-function update(db,bfile,rrr,sss,callback) {
+function update(db,bfile,rrr,sss) {
   console.log(bfile);
   db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
   $set: {
