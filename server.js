@@ -35,8 +35,7 @@ app.post('/upload', function(req, res) {
     var sampleFile;
 
     if (!req.files.sampleFile) {
-        res.send('No files were uploaded.');
-        return;
+        res.render('cantcreate');
     }
 
     MongoClient.connect(mongourl,function(err,db) {
