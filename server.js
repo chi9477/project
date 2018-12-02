@@ -255,9 +255,6 @@ app.post('/update',function(req,res) {
 			}
 			});
 			db.close();
-	});
-	MongoClient.connect(mongourl, function(err, db) {
-		assert.equal(err,null);
 			db.collection('grades').update({r_id: ObjectId(req.body.id)}, {
 			$set: {
 			    "rname": req.body.name
