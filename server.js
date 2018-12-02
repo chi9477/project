@@ -208,7 +208,7 @@ app.post('/update', function(req, res) {
     var sampleFile;
     
      if (!req.files.sampleFile) {
-        res.render('cantcreate');
+        res.render('cantupdate');
 	return;
     }
 	
@@ -217,7 +217,7 @@ app.post('/update', function(req, res) {
       assert.equal(null,err);
       update(db, req.files.sampleFile,req.body, function(result) {
         db.close();
-        if (result.insertedId != null) {
+        if (result.updatedId != null) {
           res.status(200);
           res.redirect('/')
         } else {
@@ -249,7 +249,7 @@ function update(db,bfile,rrr,callback) {
       console.log('insertOne Error: ' + JSON.stringify(err));
       result = err;
     } else {
-      console.log("Inserted _id = " + result.insertId);
+      console.log("Inserted _id = " + result.updateId);
     }
     callback(result);
   });
