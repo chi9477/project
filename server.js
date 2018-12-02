@@ -217,21 +217,17 @@ app.post('/update', function(req, res) {
     MongoClient.connect(mongourl,function(err,db) {
       console.log('Connected to mlab.com');
       assert.equal(null,err);
-      update(db, req.files.sampleFile,req.body,req.session, function(result2) {
+      update(db, req.files.sampleFile,req.body, function(result2) {
         db.close();
-        if (result2.insertedId != null) {
-          res.status(200);
-          res.redirect('/')
-        } else {
-          res.status(500);
-          res.end(JSON.stringify(result2));
-        }
+       
+          res.redirect('/');
+        
       });
     });
 });
 
 
-function update(db,bfile,rrr,sss,callback) {
+function update(db,bfile,rrr,callback) {
   console.log(bfile);
  db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
   $set: {
@@ -243,7 +239,6 @@ function update(db,bfile,rrr,sss,callback) {
 	"zipcode":rrr.zipcode,
 	"gps1":rrr.gps1,
 	"gps2":rrr.gps2,
-	"owner":sss.username,
 	"photo" : new Buffer(bfile.data).toString('base64'),
 	"photo mimetype" : bfile.mimetype
 	}
@@ -251,12 +246,6 @@ function update(db,bfile,rrr,sss,callback) {
 	  
 	  
   }, function(err,result2) {
-    if (err) {
-      console.log('insertOne Error: ' + JSON.stringify(err));
-      result2 = err;
-    } else {
-      console.log("Inserted _id = " + result2.insertId);
-    }
     callback(result2);
   });
 }
