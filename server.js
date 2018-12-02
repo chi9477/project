@@ -225,7 +225,6 @@ app.post('/update', function(req, res) {
      		 });
     		});
     }
-    }
 });
 
 function update(db,bfile,rrr,callback) {
