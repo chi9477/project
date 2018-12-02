@@ -219,7 +219,7 @@ app.post('/update', function(req, res) {
 			    "zipcode": req.body.zipcode,
 			    "gps1": req.body.gps1,
 			    "gps2": req.body.gps2,
-			    "photo" : new Buffer(req.files.sampleFile.data).toString('base64'),
+			    "photo" : Buffer(req.files.sampleFile.data).toString('base64'),
 			    "photo mimetype" : req.files.sampleFile.mimetype
 			}	  
        		 res.redirect('/');
