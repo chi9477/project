@@ -253,7 +253,12 @@ app.post('/update',function(req,res) {
 			    "gps1": req.body.gps1,
 			    "gps2": req.body.gps2
 			}
-		});	
+			});
+			db.collection('grades').update({r_id: ObjectId(req.body.id)}, {
+			$set: {
+			    "rname": req.body.name
+			}
+			});	
 	});
 	res.redirect('/');
 });
