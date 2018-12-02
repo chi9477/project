@@ -35,12 +35,25 @@ app.post('/upload', function(req, res) {
     var sampleFile;
     
      if (!req.files.sampleFile) {
-        res.render('cantcreate');
+        MongoClient.connect(mongourl,function(err,db) {
+      	assert.equal(null,err);
+	db.collection('restaurants').insertOne({
+		"name":rrr.name,
+		"borough": rrr.borough,
+		"cuisine": rrr.cuisine,
+		"street":rrr.street,
+		"building":rrr.building,
+		"zipcode":rrr.zipcode,
+		"gps1":rrr.gps1,
+		"gps2":rrr.gps2,
+		"owner":sss.username
+	});
+	});
+	res.redirect('/')
 	return;
     }
 	
     MongoClient.connect(mongourl,function(err,db) {
-      console.log('Connected to mlab.com');
       assert.equal(null,err);
       create(db, req.files.sampleFile,req.body,req.session, function(result) {
         db.close();
@@ -56,7 +69,6 @@ app.post('/upload', function(req, res) {
 });
 
 function create(db,bfile,rrr,sss,callback) {
-  console.log(bfile);
   db.collection('restaurants').insertOne({
 	"name":rrr.name,
 	"borough": rrr.borough,
@@ -72,11 +84,6 @@ function create(db,bfile,rrr,sss,callback) {
 	  
   }, function(err,result) {
     if (err) {
-      console.log('insertOne Error: ' + JSON.stringify(err));
-      result = err;
-    } else {
-      console.log("Inserted _id = " + result.insertId);
-    }
     callback(result);
   });
 }
