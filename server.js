@@ -206,10 +206,7 @@ app.get('/edit',function(req,res) {
 
 app.post('/update', function(req, res) {
     var sampleFile;
-    if (!req.files.sampleFile) {
-        res.render('cantupdate');
-	return;
-    }
+    
     	MongoClient.connect(mongourl,function(err,db) {
      	 console.log('Connected to mlab.com');
       	assert.equal(null,err);
