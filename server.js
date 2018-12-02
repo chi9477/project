@@ -204,10 +204,33 @@ app.get('/edit',function(req,res) {
 	}
 });
 
-app.post('/update',function(req,res) {
-	MongoClient.connect(mongourl, function(err, db) {
-		assert.equal(err,null);
-			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
+app.post('/update', function(req, res) {
+    var sampleFile;
+    
+     if (!req.files.sampleFile) {
+        res.render('cantcreate');
+	return;
+    }
+	
+    MongoClient.connect(mongourl,function(err,db) {
+      console.log('Connected to mlab.com');
+      assert.equal(null,err);
+      update(db, req.files.sampleFile,req.body,req.session, function(result) {
+        db.close();
+        if (result.insertedId != null) {
+          res.status(200);
+          res.redirect('/')
+        } else {
+          res.status(500);
+          res.end(JSON.stringify(result));
+        }
+      });
+    });
+});
+
+function update(db,bfile,rrr,sss,callback) {
+  console.log(bfile);
+ db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
 			$set: {
 			    "name": req.body.name,
 			    "borough": req.body.borough,
@@ -216,18 +239,21 @@ app.post('/update',function(req,res) {
 			    "building": req.body.building,
 			    "zipcode": req.body.zipcode,
 			    "gps1": req.body.gps1,
-			    "gps2": req.body.gps2
-			}
-			});
-			db.collection('grades').update({r_id: req.body.id}, {
-			$set: {
-			    "rname": req.body.name
-			}
-			});	
-	});
-	res.redirect('/');
-});
-
+			    "gps2": req.body.gps2,
+			    "photo" : new Buffer(bfile.data).toString('base64'),
+			    "photo mimetype" : bfile.mimetype
+			}	  
+	  
+  }, function(err,result) {
+    if (err) {
+      console.log('insertOne Error: ' + JSON.stringify(err));
+      result = err;
+    } else {
+      console.log("Inserted _id = " + result.insertId);
+    }
+    callback(result);
+  });
+}
 
 app.get('/remove',function(req,res) {
 	console.log(req.session);
