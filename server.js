@@ -9,9 +9,7 @@ var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
 var mongourl = 'mongodb://doublechi123:doublechi123@ds149682.mlab.com:49682/chi94';  // use your mlab database
 var formidable = require('formidable');
-
-app = express();
-app.set('view engine','ejs');
+var fileUpload = require('express-fileupload');
 
 var SECRETKEY1 = 'project';
 var SECRETKEY2 = 'ouhk';
@@ -30,10 +28,6 @@ app.use(session({
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-
-var express = require('express');
-var fileUpload = require('express-fileupload');
 
 app.use(fileUpload());   
 
