@@ -179,16 +179,18 @@ app.get('/showdetails', function(req,res) {
 		var item = null;
 		var rest = null;
 		var rn = null;
+		var rid = null;
 		if (req.query.id) {
 		for (i in items) {
 			if (items[i]._id == req.query.id) {
 				item = items[i];
 				rn = items[i].name;
+				rid = items[i]._id;
 				break;
 			}
 		}
 		if (item) {
-			db.collection("grades").find({rname: rn}).toArray(function(err,rnames){
+			db.collection("grades").find({rname: rn, r_id: rid}).toArray(function(err,rnames){
 					res.render('details', {r: items[i], g: rnames});
 			});
 		} else {
