@@ -38,15 +38,15 @@ app.post('/upload', function(req, res) {
         MongoClient.connect(mongourl,function(err,db) {
       	assert.equal(null,err);
 	db.collection('restaurants').insertOne({
-		"name":rrr.name,
-		"borough": rrr.borough,
-		"cuisine": rrr.cuisine,
-		"street":rrr.street,
-		"building":rrr.building,
-		"zipcode":rrr.zipcode,
-		"gps1":rrr.gps1,
-		"gps2":rrr.gps2,
-		"owner":sss.username
+		"name":req.body.name,
+		"borough": req.body.borough,
+		"cuisine": req.body.cuisine,
+		"street":req.body.street,
+		"building":req.body.building,
+		"zipcode":req.body.zipcode,
+		"gps1":req.body.gps1,
+		"gps2":req.body.gps2,
+		"owner":req.session.username
 	});
 	});
 	res.redirect('/')
