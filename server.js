@@ -34,7 +34,7 @@ app.use(fileUpload());
 app.post('/upload', function(req, res) {
     var sampleFile;
 
-    if (!req.files) {
+    if (!req.files.sampleFile) {
         res.send('No files were uploaded.');
         return;
     }
