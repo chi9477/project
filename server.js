@@ -36,6 +36,7 @@ app.post('/upload', function(req, res) {
 
     if (!req.files.sampleFile) {
         res.render('cantcreate');
+	break;
     }
 
     MongoClient.connect(mongourl,function(err,db) {
