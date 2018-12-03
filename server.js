@@ -460,8 +460,9 @@ MongoClient.connect(mongourl, function(err, db) {
     result =db.collection("restaurants").find(			 
 			{borough:"Homantin"}
 			);
-    res.status(200).json(result).end();
 	});
+    res.status(200).json(result).end();
+	
 });
 
 
