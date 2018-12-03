@@ -441,7 +441,7 @@ app.post('/api/restaurant',function(req,res){
 			"name": req.body.name;
 			"owner": req.session.username;
 		});
-			res.sendStatus(200);
+			res.sendStatus(200).end('success');
 	});	
 });
 
