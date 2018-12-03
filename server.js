@@ -425,16 +425,10 @@ app.get('/gps', function(req,res) {
 	}
 });
 
-app.get('/api/restaurant/:test1/:test2',function(req,res){
-
-    var result = {};
-    var t1 = {};
-    var t2 = {};
+app.get('/api/restaurant/borough/:test2',function(req,res){ 
 MongoClient.connect(mongourl, function(err, db) {
 	assert.equal(err,null);
-	result.test1 = t1;
-	result.test2 = t2;
-    db.collection("restaurants").find({t1: t2}).toArray(function(err,items){
+  db.collection("restaurants").find({borough: req.query.test2).toArray(function(err,items){
 	res.status(200).json(items).end();
 	
 });
