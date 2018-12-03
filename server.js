@@ -152,22 +152,7 @@ app.get('/showdetails', function(req,res) {
 				break;
 			}
 		}
-		if (!items[i].photo&&!items[i].gps1) {			
-			
-			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
-				
-					res.render('detailsnophotonmap', {r: items[i], g: rnames});
-					
-			});
-		} 
-		if (!items[i].photo&&!items[i].gps2) {			
-			
-			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
-				
-					res.render('detailsnophotonmap', {r: items[i], g: rnames});
-					
-			});
-		} 
+
 		if (!items[i].photo) {	
 			
 			
