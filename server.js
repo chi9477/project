@@ -453,4 +453,13 @@ app.get('/gps', function(req,res) {
 	}
 });
 
+app.get('api/restaurant/borough/Homantin',function(req,res){
+    var result = {};
+    result =db.collection("restaurants").find(			 
+			{borough:Homantin}
+			)
+    res.status(200).json(result).end();
+});
+
+
 app.listen(process.env.PORT || 8099);
