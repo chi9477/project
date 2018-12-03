@@ -156,8 +156,8 @@ app.get('/showdetails', function(req,res) {
 			
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 				if (!items[i].gps1) {res.render('detailsnophotonmap', {r: items[i], g: rnames});}
-				if (!items[i].gps2) {res.render('detailsnophotonmap', {r: items[i], g: rnames});}
-					res.render('detailsnophoto', {r: items[i], g: rnames});
+				else if (!items[i].gps2) {res.render('detailsnophotonmap', {r: items[i], g: rnames});}
+				else res.render('detailsnophoto', {r: items[i], g: rnames});
 			});
 		}
 		if (!items[i].gps1) {
