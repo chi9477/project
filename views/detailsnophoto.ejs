@@ -40,7 +40,7 @@
 <p>Street: <%= r.street %></p>
 <p>Building: <%= r.building %></p>
 <p>Zipcode: <%= r.zipcode %></p>
-<p>GPS: no map </p>
+<p>GPS: <%= r.gps1 %>, <%= r.gps2 %></p>
 <p>Rating:</p>
  <ol>
   <% g.forEach(function(grade) { %>
@@ -62,5 +62,6 @@
         <button class="btn btn-default">Go back</button>
       </a>
     </div>
+    <a href="/gps?id=<%= r._id %>">Google Map</a>
 </BODY>
 </HTML>
