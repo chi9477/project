@@ -233,7 +233,7 @@ app.get('/showdetails', function(req,res) {
 		} 
 		if (item) {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
-					res.render('detailsnophoto', {r: items[i], g: rnames});
+					res.render('details', {r: items[i], g: rnames});
 			});
 		} else {
 			res.status(500).end(req.query.id + ' not found!');
