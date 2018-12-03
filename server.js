@@ -433,9 +433,9 @@ app.post('/api/restaurant',function(req,res){
 		assert.equal(err,null);
  		db.collection("restaurants").insert({
 			"name": req.body.name,
-			"owner": req.body.user;
-			res.status(200).end('Connection closed');
+			"owner": req.body.user
 		});
+		res.status(200).end('Connection closed');
 	});
 });
 
