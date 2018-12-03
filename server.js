@@ -76,13 +76,8 @@ app.get('/logout',function(req,res) {
 });
 
 app.get('/create',function(req,res) {
-	console.log(req.session);
-	if (!req.session.authenticated) {
-		res.redirect('/login');
-	} else {
 		res.status(200);
 		res.render('create',{name:req.session.username});
-	}
 });
 
 app.post('/upload', function(req, res) {
