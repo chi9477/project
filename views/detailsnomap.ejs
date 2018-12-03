@@ -32,9 +32,6 @@
   .table-scroll thead > tr > th {
       border: none;
   }
-  .hideme {
-      color: white;
-  }
 </style>
 <BODY>
 <img src="data:<%= r.photomimetype %>;base64,<%= r.photo %>"/>
@@ -44,7 +41,6 @@
 <p>Street: <%= r.street %></p>
 <p>Building: <%= r.building %></p>
 <p>Zipcode: <%= r.zipcode %></p>
-<p>GPS: <%= r.gps1 %>, <%= r.gps2 %> </p>
 <p>Rating:</p>
  <ol>
   <% g.forEach(function(grade) { %>
@@ -66,6 +62,5 @@
         <button class="btn btn-default">Go back</button>
       </a>
     </div>
-    <a class="hideme" href="/gps?id=<%= r._id %>">Google Map</a>
 </BODY>
 </HTML>
