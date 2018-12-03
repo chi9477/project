@@ -17,7 +17,7 @@ var SECRETKEY2 = 'ouhk';
 var users = new Array(
 	{name: 'demo', password: ''},
 	{name: 'guest', password: 'guest'},
-	{name: 'user', password: 'user'}
+	{name: 'student', password: ''}
 );
 
 app.set('view engine','ejs');
