@@ -155,7 +155,7 @@ app.get('/showdetails', function(req,res) {
 			}
 		}
 		if (!items[i].photo && !items[i].gps1 && !items[i].gps2) {
-			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
+			db.collection('restaurants').update({_id: ObjectId(req.query.id)}, {
 			$set: {
 			    "gps1": "000",
 			    "gps2": "000"
@@ -166,7 +166,7 @@ app.get('/showdetails', function(req,res) {
 			});
 		}
 		if (!items[i].photo && !items[i].gps1) {
-			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
+			db.collection('restaurants').update({_id: ObjectId(req.query.id)}, {
 			$set: {
 			    "gps1": "000"
 			}
@@ -176,7 +176,7 @@ app.get('/showdetails', function(req,res) {
 			});
 		}
 		if (!items[i].photo && !items[i].gps2) {
-			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
+			db.collection('restaurants').update({_id: ObjectId(req.query.id)}, {
 			$set: {
 			    "gps2": "000"
 			}
@@ -191,7 +191,7 @@ app.get('/showdetails', function(req,res) {
 			});
 		} 
 		if (items[i].photo_mimetype == "application/pdf" && !items[i].gps1 && !items[i].gps2) {
-			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
+			db.collection('restaurants').update({_id: ObjectId(req.query.id)}, {
 			$set: {
 			    "gps1": "000",
 			    "gps2": "000"
@@ -202,7 +202,7 @@ app.get('/showdetails', function(req,res) {
 			});
 		}
 		if (items[i].photo_mimetype == "application/pdf" && !items[i].gps1) {
-			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
+			db.collection('restaurants').update({_id: ObjectId(req.query.id)}, {
 			$set: {
 			    "gps1": "000"
 			}
@@ -212,7 +212,7 @@ app.get('/showdetails', function(req,res) {
 			});
 		}
 		if (items[i].photo_mimetype == "application/pdf" && !items[i].gps2) {
-			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
+			db.collection('restaurants').update({_id: ObjectId(req.query.id)}, {
 			$set: {
 			    "gps2": "000"
 			}
@@ -227,7 +227,7 @@ app.get('/showdetails', function(req,res) {
 			});
 		}
 		if (!items[i].gps1 && !items[i].gps2) {
-			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
+			db.collection('restaurants').update({_id: ObjectId(req.query.id)}, {
 			$set: {
 			    "gps1": "000",
 			    "gps2": "000"
@@ -238,7 +238,7 @@ app.get('/showdetails', function(req,res) {
 			});
 		}
 		if (!items[i].gps1) {
-			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
+			db.collection('restaurants').update({_id: ObjectId(req.query.id)}, {
 			$set: {
 			    "gps1": "000"
 			}
@@ -248,7 +248,7 @@ app.get('/showdetails', function(req,res) {
 			});
 		}
 		if (!items[i].gps2) {
-			db.collection('restaurants').update({_id: ObjectId(req.body.id)}, {
+			db.collection('restaurants').update({_id: ObjectId(req.query.id)}, {
 			$set: {
 			    "gps2": "000"
 			}
