@@ -456,7 +456,10 @@ app.get('/gps', function(req,res) {
 app.get('/api/restaurant/borough/Homantin',function(req,res){
 
     var result = {};
-    result ="abc";
+MongoClient.connect(mongourl, function(err, db) {
+	assert.equal(err,null);
+    result =db.collection("restaurants").find().toArray;
+});
 
     res.status(200).json(result).end();
 	
