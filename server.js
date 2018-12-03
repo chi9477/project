@@ -456,7 +456,7 @@ app.get('/gps', function(req,res) {
 app.get('/api/restaurant/borough/Homantin',function(req,res){
 
     var result = {};
-    result ="abc"
+    result ="abc";
 
     res.status(200).json(result).end();
 	
