@@ -425,16 +425,76 @@ app.get('/gps', function(req,res) {
 	}
 });
 
-app.get('/api/restaurant/borough/:search',function(req,res){ 
-MongoClient.connect(mongourl, function(err, db) {
-	assert.equal(err,null);
-  db.collection("restaurants").find({borough: req.params.search}).toArray(function(err,items){
-	res.status(200).json(items).end();
-	
-});
-	});
-	
+app.get('/api/restaurant/name/:search',function(req,res){ 
+	MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+ 		db.collection("restaurants").find({name: req.params.search}).toArray(function(err,items){
+			res.status(200).json(items).end();
+		});
+	});	
 });
 
+app.get('/api/restaurant/borough/:search',function(req,res){ 
+	MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+ 		db.collection("restaurants").find({borough: req.params.search}).toArray(function(err,items){
+			res.status(200).json(items).end();
+		});
+	});	
+});
+
+app.get('/api/restaurant/cuisine/:search',function(req,res){ 
+	MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+ 		db.collection("restaurants").find({cuisine: req.params.search}).toArray(function(err,items){
+			res.status(200).json(items).end();
+		});
+	});	
+});
+
+app.get('/api/restaurant/street/:search',function(req,res){ 
+	MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+ 		db.collection("restaurants").find({street: req.params.search}).toArray(function(err,items){
+			res.status(200).json(items).end();
+		});
+	});	
+});
+
+app.get('/api/restaurant/building/:search',function(req,res){ 
+	MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+ 		db.collection("restaurants").find({building: req.params.search}).toArray(function(err,items){
+			res.status(200).json(items).end();
+		});
+	});	
+});
+
+app.get('/api/restaurant/zipcode/:search',function(req,res){ 
+	MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+ 		db.collection("restaurants").find({zipcode: req.params.search}).toArray(function(err,items){
+			res.status(200).json(items).end();
+		});
+	});	
+});
+
+app.get('/api/restaurant/zipcode/:search',function(req,res){ 
+	MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+ 		db.collection("restaurants").find({zipcode: req.params.search}).toArray(function(err,items){
+			res.status(200).json(items).end();
+		});
+	});	
+});
+
+app.get('/api/restaurant/owner/:search',function(req,res){ 
+	MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+ 		db.collection("restaurants").find({owner: req.params.search}).toArray(function(err,items){
+			res.status(200).json(items).end();
+		});
+	});	
+});
 
 app.listen(process.env.PORT || 8099);
