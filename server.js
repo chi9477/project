@@ -429,16 +429,7 @@ app.get('/api/restaurant',function(req,res){
 	});	
 });
 
-app.post('/',function(req,res){ 
-	MongoClient.connect(mongourl, function(err, db) {
-		assert.equal(err,null);
- 		db.collection("restaurants").insert({
-			"name": req.body.rname;
-			"owner": req.body.name;
-		});
-			res.status(200).end('Connection closed');
-	});	
-});
+
 
 app.get('/api/restaurant/name/:search',function(req,res){ 
 	MongoClient.connect(mongourl, function(err, db) {
