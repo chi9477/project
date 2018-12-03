@@ -153,24 +153,10 @@ app.get('/showdetails', function(req,res) {
 				break;
 			}
 		}
-		if ((!items[i].photo) || (items[i].photo_mimetype == "application/pdf") && (!items[i].gps1) || (!items[i].gps2)) {
-			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
-					res.render('detailsnpnm', {r: items[i], g: rnames});
-			});
-		} 
-		if ((!items[i].photo) || (items[i].photo_mimetype == "application/pdf")) {	
-			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
-					res.render('detailsnophoto', {r: items[i], g: rnames});	
-			});
-		} 
-		if ((!items[i].gps1) || (!items[i].gps2)) {
-			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
-					res.render('detailsnomap', {r: items[i], g: rnames});
-			});
-		} 
+		
 		if (item) {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
-					res.render('details', {r: items[i], g: rnames});
+					res.render('detailsnpnm', {r: items[i], g: rnames});
 			});
 		} else {
 			res.status(500).end(req.query.id + ' not found!');
