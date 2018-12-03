@@ -430,8 +430,8 @@ app.get('/api/restaurant/borough/Homantin',function(req,res){
     var result = {};
 MongoClient.connect(mongourl, function(err, db) {
 	assert.equal(err,null);
-    result =db.collection("restaurants").find().toArray(function(err,items){
-	res.status(200).json(result).end();
+    db.collection("restaurants").find({borough: "Homantin"}).toArray(function(err,items){
+	res.status(200).json(items).end();
 	
 });
 	});
