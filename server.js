@@ -86,18 +86,7 @@ app.get('/create',function(req,res) {
 });
 
 app.post('/upload', function(req, res) {
-    var sampleFile;
-      
-      if (!req.body.gps1 && !req.body.gps2) {
-        MongoClient.connect(mongourl,function(err,db) {
-     	  assert.equal(null,err);
-     	  create4(db, req.files.sampleFile,req.body,req.session, function(result) {
-      		  db.close();
-       		  res.redirect('/');
-		  return;
-     	 });
-    	 });
-      }		
+    var sampleFile;	
     
       if (!req.body.gps1) {
           MongoClient.connect(mongourl,function(err,db) {
