@@ -155,11 +155,22 @@ app.get('/showdetails', function(req,res) {
 		if (!items[i].photo) {			
 			
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
-				if (!items[i].gps1) {res.render('detailsnophotonmap', {r: items[i], g: rnames});}
-				else if (!items[i].gps2) {res.render('detailsnophotonmap', {r: items[i], g: rnames});}
-				else res.render('detailsnophoto', {r: items[i], g: rnames});
+				if (!items[i].gps1) {
+					 if (!items[i].gps2) {
+						 res.render('detailsnophotonmap', {r: items[i], g: rnames});
+					 } else {
+						res.render('detailsnophotonmap', {r: items[i], g: rnames});
+					 }
+				} else {
+					if (!items[i].gps2) {
+						res.render('detailsnophotonmap', {r: items[i], g: rnames});
+					} else {
+						res.render('detailsnophotonmap', {r: items[i], g: rnames});
+					}
+					
+				}
 			});
-		}
+		} 
 		if (!items[i].gps1) {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnomap', {r: items[i], g: rnames});
