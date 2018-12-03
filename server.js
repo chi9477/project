@@ -436,7 +436,7 @@ app.post('/api/restaurant',function(req,res){
 			"name": req.body.name,
 			"owner": req.body.user
 		});
-		db.collection("restaurants").find().toArray(function(err,items){
+		db.collection("restaurants").find({"name": req.body.name}).toArray(function(err,items){
 			if (items._id) {
 				res.status(200).json("status: ok," + items._id).end();
 			} else {
