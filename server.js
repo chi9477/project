@@ -437,8 +437,11 @@ app.get('/api/restaurant',function(req,res){
 app.post('/api/restaurant',function(req,res){ 
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
- 		db.collection("restaurants").find().toArray(function(err,items){
-			res.status(200).json(items).end();
+ 		db.collection("restaurants").insert({
+			"name": req.body.name;
+			"owner": req.session.username;
+		});
+			res.sendStatus(200);
 		});
 	});	
 });
