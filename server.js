@@ -189,15 +189,13 @@ app.get('/showdetails', function(req,res) {
 			});
 		}*/
 		if (!items[i].gps1) {
-			items[i].gps1 == "000";
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
-					res.render('detailsnomap', {r: items[i], g: rnames});
+					res.render('detailsnomap1', {r: items[i], g: rnames});
 			});
 		}
 		if (!items[i].gps2) {
-			items[i].gps2 == "000";
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
-					res.render('detailsnomap', {r: items[i], g: rnames});
+					res.render('detailsnomap2', {r: items[i], g: rnames});
 			});
 		}
 		if (item) {
