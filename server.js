@@ -164,7 +164,7 @@ app.get('/showdetails', function(req,res) {
 					res.render('detailsnophoto', {r: items[i], g: rnames});
 			});
 		} 
-		if (!item[i].gps1 || !item[i].gps2) {
+		if (!items[i].gps1 || !items[i].gps2) {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnomap', {r: items[i], g: rnames});
 			});
