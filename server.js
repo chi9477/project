@@ -425,12 +425,16 @@ app.get('/gps', function(req,res) {
 	}
 });
 
-app.get('/api/restaurant/borough/Homantin',function(req,res){
+app.get('/api/restaurant/:test1/:test2',function(req,res){
 
     var result = {};
+    var t1 = {};
+    var t2 = {};
 MongoClient.connect(mongourl, function(err, db) {
 	assert.equal(err,null);
-    db.collection("restaurants").find({borough: "Homantin"}).toArray(function(err,items){
+	result.test1 = t1;
+	result.test2 = t2;
+    db.collection("restaurants").find({t1: t2}).toArray(function(err,items){
 	res.status(200).json(items).end();
 	
 });
