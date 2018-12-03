@@ -87,6 +87,25 @@ app.get('/create',function(req,res) {
 
 app.post('/upload', function(req, res) {
     var sampleFile;
+
+      if (!req.body.gps1 && !req.body.gps2) {
+        MongoClient.connect(mongourl,function(err,db) {
+      	assert.equal(null,err);
+	db.collection('restaurants').insertOne({
+		"name":req.body.name,
+		"borough": req.body.borough,
+		"cuisine": req.body.cuisine,
+		"street":req.body.street,
+		"building":req.body.building,
+		"zipcode":req.body.zipcode,
+		"gps1":"000",
+		"gps2":"000",
+		"owner":req.session.username
+	});
+	});
+	res.redirect('/')
+	return;
+      }		
     
       if (!req.body.gps1) {
         MongoClient.connect(mongourl,function(err,db) {
