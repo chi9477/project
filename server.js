@@ -436,6 +436,7 @@ app.post('/api/restaurant',function(req,res){
 			"name": req.body.name,
 			"owner": req.body.user
 		});
+		res.status(200).end('success!');
 	});
 });
 
