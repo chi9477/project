@@ -196,17 +196,17 @@ app.get('/showdetails', function(req,res) {
 					res.render('detailsnophoto', {r: items[i], g: rnames});	
 			});
 		} 
-		if (items[i].photo_mimetype == "application/pdf" && items[i].gps1 == "000" && items[i].gps2 == "000") {
+		if ((items[i].photo_mimetype == "application/pdf") && (items[i].gps1 == "000") && (items[i].gps2 == "000")) {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnpnm', {r: items[i], g: rnames});
 			});
 		} 
-		if (items[i].photo_mimetype == "application/pdf" && items[i].gps1 == "000") {
+		if ((items[i].photo_mimetype == "application/pdf") && (items[i].gps1 == "000")) {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnpnm', {r: items[i], g: rnames});
 			});
 		}
-		if (items[i].photo_mimetype == "application/pdf" && items[i].gps2 == "000") {
+		if ((items[i].photo_mimetype == "application/pdf") && (items[i].gps2 == "000")) {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnpnm', {r: items[i], g: rnames});
 			});
