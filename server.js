@@ -454,13 +454,10 @@ app.get('/gps', function(req,res) {
 });
 
 app.get('/api/restaurant/borough/Homantin',function(req,res){
-MongoClient.connect(mongourl, function(err, db) {
-		assert.equal(err,null);
+
     var result = {};
-    result =db.collection("restaurants").find(			 
-			{borough:"Homantin"}
-			);
-	});
+    result ="abc"
+
     res.status(200).json(result).end();
 	
 });
