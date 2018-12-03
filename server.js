@@ -152,7 +152,23 @@ app.get('/showdetails', function(req,res) {
 				break;
 			}
 		}
-
+		if (!items[i].photo&&!items[i].gps1) {			
+			
+			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
+				
+					res.render('detailsnophotonmap', {r: items[i], g: rnames});
+					
+			});
+		} 
+			
+		if (!items[i].photo&&!items[i].gps2) {			
+			
+			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
+				
+					res.render('detailsnophotonmap', {r: items[i], g: rnames});
+					
+			});
+		} 
 		if (!items[i].photo) {	
 			
 			
@@ -427,10 +443,10 @@ app.get('/gps', function(req,res) {
 		if (item) {
 			res.render('gps', {r: items[i]});							
 		} else {
-			res.status(500).end(req.query.id + ' not found!');
+			res.render('gps', {r: items[i]});							
 		}
 	} else {
-		res.status(500).end('id missing!');
+			res.render('gps', {r: items[i]});							
 	}
 			});
 		});
