@@ -90,59 +90,32 @@ app.post('/upload', function(req, res) {
 
       if (!req.body.gps1 && !req.body.gps2) {
         MongoClient.connect(mongourl,function(err,db) {
-      	assert.equal(null,err);
-	db.collection('restaurants').insertOne({
-		"name":req.body.name,
-		"borough": req.body.borough,
-		"cuisine": req.body.cuisine,
-		"street":req.body.street,
-		"building":req.body.building,
-		"zipcode":req.body.zipcode,
-		"gps1":"000",
-		"gps2":"000",
-		"owner":req.session.username
-	});
-	});
-	res.redirect('/')
-	return;
+     	  assert.equal(null,err);
+     	  create4(db, req.files.sampleFile,req.body,req.session, function(result) {
+      		  db.close();
+       		  res.redirect('/')
+     	 });
+    	 });
       }		
     
       if (!req.body.gps1) {
-        MongoClient.connect(mongourl,function(err,db) {
-      	assert.equal(null,err);
-	db.collection('restaurants').insertOne({
-		"name":req.body.name,
-		"borough": req.body.borough,
-		"cuisine": req.body.cuisine,
-		"street":req.body.street,
-		"building":req.body.building,
-		"zipcode":req.body.zipcode,
-		"gps1":"000",
-		"gps2":req.body.gps2,
-		"owner":req.session.username
-	});
-	});
-	res.redirect('/')
-	return;
+          MongoClient.connect(mongourl,function(err,db) {
+     	  assert.equal(null,err);
+     	  create2(db, req.files.sampleFile,req.body,req.session, function(result) {
+      		  db.close();
+       		  res.redirect('/')
+     	 });
+    	 });	
      }	
 	
      if (!req.body.gps2) {
-        MongoClient.connect(mongourl,function(err,db) {
-      	assert.equal(null,err);
-	db.collection('restaurants').insertOne({
-		"name":req.body.name,
-		"borough": req.body.borough,
-		"cuisine": req.body.cuisine,
-		"street":req.body.street,
-		"building":req.body.building,
-		"zipcode":req.body.zipcode,
-		"gps1":req.body.gps1,
-		"gps2":"000",
-		"owner":req.session.username
-	});
-	});
-	res.redirect('/')
-	return;
+         MongoClient.connect(mongourl,function(err,db) {
+     	  assert.equal(null,err);
+     	  create3(db, req.files.sampleFile,req.body,req.session, function(result) {
+      		  db.close();
+       		  res.redirect('/')
+     	 });
+    	 });
      }		
 	
      if (!req.files.sampleFile) {
@@ -183,6 +156,63 @@ function create(db,bfile,rrr,sss,callback) {
 	"zipcode":rrr.zipcode,
 	"gps1":rrr.gps1,
 	"gps2":rrr.gps2,
+	"owner":sss.username,
+	"photo" : new Buffer(bfile.data).toString('base64'),
+	"photo_mimetype" : bfile.mimetype	  
+	  
+  }, function(err,result) {
+    callback(result);
+  });
+}
+
+function create2(db,bfile,rrr,sss,callback) {
+  db.collection('restaurants').insertOne({
+	"name":rrr.name,
+	"borough": rrr.borough,
+	"cuisine": rrr.cuisine,
+	"street":rrr.street,
+	"building":rrr.building,
+	"zipcode":rrr.zipcode,
+	"gps1":"000",
+	"gps2":rrr.gps2,
+	"owner":sss.username,
+	"photo" : new Buffer(bfile.data).toString('base64'),
+	"photo_mimetype" : bfile.mimetype	  
+	  
+  }, function(err,result) {
+    callback(result);
+  });
+}
+
+function create3(db,bfile,rrr,sss,callback) {
+  db.collection('restaurants').insertOne({
+	"name":rrr.name,
+	"borough": rrr.borough,
+	"cuisine": rrr.cuisine,
+	"street":rrr.street,
+	"building":rrr.building,
+	"zipcode":rrr.zipcode,
+	"gps1":rrr.gps1,
+	"gps2":"000",
+	"owner":sss.username,
+	"photo" : new Buffer(bfile.data).toString('base64'),
+	"photo_mimetype" : bfile.mimetype	  
+	  
+  }, function(err,result) {
+    callback(result);
+  });
+}
+
+function create4(db,bfile,rrr,sss,callback) {
+  db.collection('restaurants').insertOne({
+	"name":rrr.name,
+	"borough": rrr.borough,
+	"cuisine": rrr.cuisine,
+	"street":rrr.street,
+	"building":rrr.building,
+	"zipcode":rrr.zipcode,
+	"gps1":"000",
+	"gps2":"000",
 	"owner":sss.username,
 	"photo" : new Buffer(bfile.data).toString('base64'),
 	"photo_mimetype" : bfile.mimetype	  
