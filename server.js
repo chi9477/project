@@ -154,17 +154,39 @@ app.get('/showdetails', function(req,res) {
 				break;
 			}
 		}
-		if (!items[i].photo && !items[i].gps1 && !items[i].gps2) {
+		if (!items[i].gps1 && !items[i].gps2) {
+			db.collection('restaurants').update({_id: ObjectId(req.query.id)}, {
+			$set: {
+			    "gps1": "000",
+			    "gps2": "000"
+			}
+			});
+		}
+		if (!items[i].gps1) {
+			db.collection('restaurants').update({_id: ObjectId(req.query.id)}, {
+			$set: {
+			    "gps1": "000"
+			}
+			});
+		}
+		if (!items[i].gps2) {
+			db.collection('restaurants').update({_id: ObjectId(req.query.id)}, {
+			$set: {
+			    "gps2": "000"
+			}
+			});
+		}
+		if (!items[i].photo && items[i].gps1 == "000" && items[i].gps2 == "000") {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnpnm', {r: items[i], g: rnames});
 			});
 		} 
-		if (!items[i].photo && !items[i].gps1) {
+		if (!items[i].photo && items[i].gps1 == "000") {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnpnm', {r: items[i], g: rnames});
 			});
 		}
-		if (!items[i].photo && !items[i].gps2) {
+		if (!items[i].photo && items[i].gps2 == "000") {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnpnm', {r: items[i], g: rnames});
 			});
@@ -174,17 +196,17 @@ app.get('/showdetails', function(req,res) {
 					res.render('detailsnophoto', {r: items[i], g: rnames});	
 			});
 		} 
-		if (items[i].photo_mimetype == "application/pdf" && !items[i].gps1 && items[i].gps2) {
+		if (items[i].photo_mimetype == "application/pdf" && items[i].gps1 == "000" && items[i].gps2 == "000") {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnpnm', {r: items[i], g: rnames});
 			});
 		} 
-		if (items[i].photo_mimetype == "application/pdf" && !items[i].gps1) {
+		if (items[i].photo_mimetype == "application/pdf" && items[i].gps1 == "000") {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnpnm', {r: items[i], g: rnames});
 			});
 		}
-		if (items[i].photo_mimetype == "application/pdf" && !items[i].gps2) {
+		if (items[i].photo_mimetype == "application/pdf" && items[i].gps2 == "000") {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnpnm', {r: items[i], g: rnames});
 			});
@@ -194,17 +216,17 @@ app.get('/showdetails', function(req,res) {
 					res.render('detailsnophoto', {r: items[i], g: rnames});	
 			});
 		} 
-		if (!items[i].gps1 && !items[i].gps2) {
+		if (items[i].gps1 == "000" && items[i].gps2 == "000") {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnomap', {r: items[i], g: rnames});
 			});
 		} 
-		if (!items[i].gps1) {
+		if (items[i].gps1 == "000") {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnomap', {r: items[i], g: rnames});
 			});
 		}
-		if (!items[i].gps2) {
+		if (items[i].gps2 == "000") {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnomap', {r: items[i], g: rnames});
 			});
