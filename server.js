@@ -87,28 +87,6 @@ app.get('/create',function(req,res) {
 
 app.post('/upload', function(req, res) {
     var sampleFile;	
-    
-      if (!req.body.gps1) {
-          MongoClient.connect(mongourl,function(err,db) {
-     	  assert.equal(null,err);
-     	  create2(db, req.files.sampleFile,req.body,req.session, function(result) {
-      		  db.close();
-       		  res.redirect('/');
-		  return;
-     	 });
-    	 });	
-     }	
-	
-     if (!req.body.gps2) {
-         MongoClient.connect(mongourl,function(err,db) {
-     	  assert.equal(null,err);
-     	  create3(db, req.files.sampleFile,req.body,req.session, function(result) {
-      		  db.close();
-       		  res.redirect('/');
-		  return;
-     	 });
-    	 });
-     }		
 	
      if (!req.files.sampleFile) {
         MongoClient.connect(mongourl,function(err,db) {
@@ -149,63 +127,6 @@ function create(db,bfile,rrr,sss,callback) {
 	"zipcode":rrr.zipcode,
 	"gps1":rrr.gps1,
 	"gps2":rrr.gps2,
-	"owner":sss.username,
-	"photo" : new Buffer(bfile.data).toString('base64'),
-	"photo_mimetype" : bfile.mimetype	  
-	  
-  }, function(err,result) {
-    callback(result);
-  });
-}
-
-function create2(db,bfile,rrr,sss,callback) {
-  db.collection('restaurants').insertOne({
-	"name":rrr.name,
-	"borough": rrr.borough,
-	"cuisine": rrr.cuisine,
-	"street":rrr.street,
-	"building":rrr.building,
-	"zipcode":rrr.zipcode,
-	"gps1":"000",
-	"gps2":rrr.gps2,
-	"owner":sss.username,
-	"photo" : new Buffer(bfile.data).toString('base64'),
-	"photo_mimetype" : bfile.mimetype	  
-	  
-  }, function(err,result) {
-    callback(result);
-  });
-}
-
-function create3(db,bfile,rrr,sss,callback) {
-  db.collection('restaurants').insertOne({
-	"name":rrr.name,
-	"borough": rrr.borough,
-	"cuisine": rrr.cuisine,
-	"street":rrr.street,
-	"building":rrr.building,
-	"zipcode":rrr.zipcode,
-	"gps1":rrr.gps1,
-	"gps2":"000",
-	"owner":sss.username,
-	"photo" : new Buffer(bfile.data).toString('base64'),
-	"photo_mimetype" : bfile.mimetype	  
-	  
-  }, function(err,result) {
-    callback(result);
-  });
-}
-
-function create4(db,bfile,rrr,sss,callback) {
-  db.collection('restaurants').insertOne({
-	"name":rrr.name,
-	"borough": rrr.borough,
-	"cuisine": rrr.cuisine,
-	"street":rrr.street,
-	"building":rrr.building,
-	"zipcode":rrr.zipcode,
-	"gps1":"000",
-	"gps2":"000",
 	"owner":sss.username,
 	"photo" : new Buffer(bfile.data).toString('base64'),
 	"photo_mimetype" : bfile.mimetype	  
@@ -260,17 +181,21 @@ app.get('/showdetails', function(req,res) {
 					res.render('detailsnophoto', {r: items[i], g: rnames});	
 			});
 		}
-		if (items[i].gps1 == "000" && items[i].gps2 == "000") {
+		/*if (!items[i].gps1 && !items[i].gps2) {
+			items[i].gps1 == "000";
+			items[i].gps2 == "000";
+			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
+					res.render('detailsnomap', {r: items[i], g: rnames});
+			});
+		}*/
+		if (!items[i].gps1) {
+			items[i].gps1 == "000";
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnomap', {r: items[i], g: rnames});
 			});
 		}
-		if (items[i].gps1 == "000") {
-			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
-					res.render('detailsnomap', {r: items[i], g: rnames});
-			});
-		}
-		if (items[i].gps2 == "000") {
+		if (!items[i].gps2) {
+			items[i].gps2 == "000";
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnomap', {r: items[i], g: rnames});
 			});
