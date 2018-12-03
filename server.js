@@ -145,6 +145,7 @@ app.get('/showdetails', function(req,res) {
 		assert.equal(err,null);
         	db.collection("restaurants").find().toArray(function(err,items){
 		var item = null;
+		var sampleFile;
 		if (req.query.id) {
 		for (i in items) {
 			if (items[i]._id == req.query.id) {
@@ -169,7 +170,7 @@ app.get('/showdetails', function(req,res) {
 					
 			});
 		} */
-		if (!items[i].photo) {	
+		if (items[i].req.files.sampleFile.mimetype == "application/pdf") {	
 			
 			
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
