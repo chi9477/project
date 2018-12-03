@@ -425,6 +425,15 @@ app.get('/gps', function(req,res) {
 	}
 });
 
+app.get('/api/restaurant',function(req,res){ 
+	MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+ 		db.collection("restaurants").find().toArray(function(err,items){
+			res.status(200).json(items).end();
+		});
+	});	
+});
+
 app.get('/api/restaurant/name/:search',function(req,res){ 
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
