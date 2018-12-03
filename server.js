@@ -98,7 +98,7 @@ app.post('/upload', function(req, res) {
 		"street":req.body.street,
 		"building":req.body.building,
 		"zipcode":req.body.zipcode,
-		"gps1":"null",
+		"gps1":"000",
 		"gps2":req.body.gps2,
 		"owner":req.session.username
 	});
@@ -118,7 +118,7 @@ app.post('/upload', function(req, res) {
 		"building":req.body.building,
 		"zipcode":req.body.zipcode,
 		"gps1":req.body.gps1,
-		"gps2":"null",
+		"gps2":"000",
 		"owner":req.session.username
 	});
 	});
