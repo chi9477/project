@@ -67,19 +67,19 @@ app.post('/login',function(req,res) {
 			req.session.username = users[i].name;
 		}
 	}
-	if (!req.body.rname) {
+	if (req.body.rname) {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
  		db.collection("restaurants").insert({
 			"name": req.body.rname;
 			"owner": req.body.name;
-		});
 			res.status(200).end('Connection closed');
-	});
+		});
+		});
+		res.redirect('/');
 	} else {
 		res.redirect('/');
 	}
-	res.redirect('/');
 });
 
 app.get('/logout',function(req,res) {
