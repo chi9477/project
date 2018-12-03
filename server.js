@@ -152,7 +152,7 @@ app.get('/showdetails', function(req,res) {
 				break;
 			}
 		}
-		/*if (!items[i].photo&&!items[i].gps1) {			
+		if (!items[i].photo&&!items[i].gps1) {			
 			
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 				
@@ -168,7 +168,7 @@ app.get('/showdetails', function(req,res) {
 					res.render('detailsnophotonmap', {r: items[i], g: rnames});
 					
 			});
-		} */
+		} 
 		if (!items[i].photo) {	
 			
 			
@@ -178,7 +178,7 @@ app.get('/showdetails', function(req,res) {
 					
 			});
 		} 
-		/*if (!items[i].gps1) {
+		if (!items[i].gps1) {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnomap', {r: items[i], g: rnames});
 			});
@@ -187,7 +187,7 @@ app.get('/showdetails', function(req,res) {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnomap', {r: items[i], g: rnames});
 			});
-		}*/
+		}
 		if (item) {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('details', {r: items[i], g: rnames});
