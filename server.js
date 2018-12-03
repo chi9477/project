@@ -49,7 +49,6 @@ app.get('/read',function(req,res) {
 		MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
         	db.collection("restaurants").find().toArray(function(err,items){
-		db.close();
 		res.render('restaurants',{name:req.session.username, r:items});
 			});
         	});									
@@ -89,6 +88,44 @@ app.get('/create',function(req,res) {
 app.post('/upload', function(req, res) {
     var sampleFile;
     
+      if (!req.body.gps1) {
+        MongoClient.connect(mongourl,function(err,db) {
+      	assert.equal(null,err);
+	db.collection('restaurants').insertOne({
+		"name":req.body.name,
+		"borough": req.body.borough,
+		"cuisine": req.body.cuisine,
+		"street":req.body.street,
+		"building":req.body.building,
+		"zipcode":req.body.zipcode,
+		"gps1":"null",
+		"gps2":req.body.gps2,
+		"owner":req.session.username
+	});
+	});
+	res.redirect('/')
+	return;
+     }	
+	
+     if (!req.body.gps2) {
+        MongoClient.connect(mongourl,function(err,db) {
+      	assert.equal(null,err);
+	db.collection('restaurants').insertOne({
+		"name":req.body.name,
+		"borough": req.body.borough,
+		"cuisine": req.body.cuisine,
+		"street":req.body.street,
+		"building":req.body.building,
+		"zipcode":req.body.zipcode,
+		"gps1":req.body.gps1,
+		"gps2":"null",
+		"owner":req.session.username
+	});
+	});
+	res.redirect('/')
+	return;
+     }		
+	
      if (!req.files.sampleFile) {
         MongoClient.connect(mongourl,function(err,db) {
       	assert.equal(null,err);
@@ -106,7 +143,7 @@ app.post('/upload', function(req, res) {
 	});
 	res.redirect('/')
 	return;
-    }
+     }
 	
     MongoClient.connect(mongourl,function(err,db) {
       assert.equal(null,err);
@@ -181,12 +218,12 @@ app.get('/showdetails', function(req,res) {
 					res.render('detailsnophoto', {r: items[i], g: rnames});	
 			});
 		} 
-		if (!items[i].gps1) {
+		if (items[i].gps1 == "null") {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnomap', {r: items[i], g: rnames});
 			});
 		}
-		if (!items[i].gps2) {
+		if (items[i].gps2 == "null") {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnomap', {r: items[i], g: rnames});
 			});
