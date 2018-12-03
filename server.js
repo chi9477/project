@@ -442,7 +442,6 @@ app.post('/api/restaurant',function(req,res){
 			"owner": req.session.username;
 		});
 			res.sendStatus(200);
-		});
 	});	
 });
 
