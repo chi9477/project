@@ -442,6 +442,7 @@ app.post('/api/restaurant',function(req,res){
 			} else {
 				res.status(5500).json("status: failed").end();
 			}
+		});
 	});
 });
 
