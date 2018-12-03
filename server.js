@@ -67,19 +67,7 @@ app.post('/login',function(req,res) {
 			req.session.username = users[i].name;
 		}
 	}
-	if (req.body.rname) {
-		MongoClient.connect(mongourl, function(err, db) {
-		assert.equal(err,null);
- 		db.collection("restaurants").insert({
-			"name": req.body.rname;
-			"owner": req.body.name;
-			res.status(200).end('Connection closed');
-		});
-		});
 		res.redirect('/');
-	} else {
-		res.redirect('/');
-	}
 });
 
 app.get('/logout',function(req,res) {
@@ -497,10 +485,19 @@ app.get('/api/restaurant/zipcode/:search',function(req,res){
 	});	
 });
 
-app.get('/api/restaurant/zipcode/:search',function(req,res){ 
+app.get('/api/restaurant/gps1/:search',function(req,res){ 
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
- 		db.collection("restaurants").find({zipcode: req.params.search}).toArray(function(err,items){
+ 		db.collection("restaurants").find({gps1: req.params.search}).toArray(function(err,items){
+			res.status(200).json(items).end();
+		});
+	});	
+});
+
+app.get('/api/restaurant/gps2/:search',function(req,res){ 
+	MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+ 		db.collection("restaurants").find({gps2: req.params.search}).toArray(function(err,items){
 			res.status(200).json(items).end();
 		});
 	});	
