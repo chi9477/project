@@ -149,7 +149,8 @@ app.get('/showdetails', function(req,res) {
 			}
 		}
 		if ((items[i].photo_mimetype == "application/pdf") && (!items[i].gps1) || 
-		    (items[i].photo_mimetype == "application/pdf") && (!items[i].gps2)) {
+		    (items[i].photo_mimetype == "application/pdf") && (!items[i].gps2) ||
+		    (!items[i].photo) && (!items[i].gps1) || (!items[i].photo) && (!items[i].gps2)) {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnpnm', {r: items[i], g: rnames});
 			});
@@ -159,15 +160,9 @@ app.get('/showdetails', function(req,res) {
 					res.render('detailsnophoto', {r: items[i], g: rnames});
 			});
 		} 
-		if (!items[i].gps1 || !items[i].gps2) {
-			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
-					res.render('detailsnpnm', {r: items[i], g: rnames});
-			});
-		} else {
-			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
+		db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('details', {r: items[i], g: rnames});			
-			});
-		}
+		});
 		} else {
 			res.status(500).end('id missing!');
 		}
