@@ -432,7 +432,7 @@ app.post('/api/restaurant',function(req,res){
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
  		db.collection("restaurants").insert({
-			"name": req.body.name;
+			"name": req.body.name,
 			"owner": req.body.user;
 			res.status(200).end('Connection closed');
 		});
