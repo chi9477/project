@@ -56,9 +56,8 @@
   <li><a href=/showdetails?id=<%= rest._id %>><%= rest.name %></a></li>
   <% });                        %>
 </ol>
-   <form action="/read" method="post">
-       <input type="text" name="search">
-       <input type="submit" value="Search">
+   <form action="https://jeffappopop.herokuapp.com/api/restaurant" method="post">
+       <input type="hidden" name="name">
    </form>
    </body>
 </html>
