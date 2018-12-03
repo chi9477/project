@@ -159,7 +159,7 @@ app.get('/showdetails', function(req,res) {
 					res.render('detailsnophoto', {r: items[i], g: rnames});	
 			});
 		} 
-		if (items[i].photo_mimetype != "image/jpeg" || items[i].photo_mimetype != "image/png") {	
+		if (items[i].photo_mimetype == "application/pdf") {	
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnophoto', {r: items[i], g: rnames});	
 			});
