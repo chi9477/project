@@ -428,6 +428,7 @@ app.get('/api/restaurant',function(req,res){
 		});
 	});	
 });
+
 app.post('/api/restaurant',function(req,res){ 
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
@@ -435,7 +436,12 @@ app.post('/api/restaurant',function(req,res){
 			"name": req.body.name,
 			"owner": req.body.user
 		});
-		res.status(200).end('Connection closed');
+		db.collection("restaurants").find().toArray(function(err,items){
+			if (items._id) {
+				res.status(200).json("status: ok," + items._id).end();
+			} else {
+				res.status(5500).json("status: failed").end();
+			}
 	});
 });
 
