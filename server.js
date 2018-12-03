@@ -159,9 +159,14 @@ app.get('/showdetails', function(req,res) {
 					res.render('detailsnpnm', {r: items[i], g: rnames});
 			});
 		} 
-		if (items[i].photo_mimetype == "application/pdf") {
+		if (!items[i].photo) {
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
 					res.render('detailsnophoto', {r: items[i], g: rnames});
+			});
+		} 
+		if (!item[i].gps1 || !item[i].gps2) {
+			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
+					res.render('detailsnomap', {r: items[i], g: rnames});
 			});
 		} 
 		db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
