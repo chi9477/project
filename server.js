@@ -87,7 +87,7 @@ app.get('/create',function(req,res) {
 
 app.post('/upload', function(req, res) {
     var sampleFile;
-
+      
       if (!req.body.gps1 && !req.body.gps2) {
         MongoClient.connect(mongourl,function(err,db) {
      	  assert.equal(null,err);
