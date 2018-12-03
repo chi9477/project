@@ -94,6 +94,7 @@ app.post('/upload', function(req, res) {
      	  create4(db, req.files.sampleFile,req.body,req.session, function(result) {
       		  db.close();
        		  res.redirect('/');
+		  return;
      	 });
     	 });
       }		
@@ -104,6 +105,7 @@ app.post('/upload', function(req, res) {
      	  create2(db, req.files.sampleFile,req.body,req.session, function(result) {
       		  db.close();
        		  res.redirect('/');
+		  return;
      	 });
     	 });	
      }	
@@ -114,6 +116,7 @@ app.post('/upload', function(req, res) {
      	  create3(db, req.files.sampleFile,req.body,req.session, function(result) {
       		  db.close();
        		  res.redirect('/');
+		  return;
      	 });
     	 });
      }		
@@ -142,6 +145,7 @@ app.post('/upload', function(req, res) {
       create(db, req.files.sampleFile,req.body,req.session, function(result) {
         db.close();
         res.redirect('/');
+	return;
       });
     });
 });
