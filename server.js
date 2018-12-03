@@ -128,7 +128,7 @@ function create(db,bfile,rrr,sss,callback) {
 	"gps2":rrr.gps2,
 	"owner":sss.username,
 	"photo" : new Buffer(bfile.data).toString('base64'),
-	"photo mimetype" : bfile.mimetype	  
+	"photo_mimetype" : bfile.mimetype	  
 	  
   }, function(err,result) {
     callback(result);
@@ -170,13 +170,14 @@ app.get('/showdetails', function(req,res) {
 					
 			});
 		} */
-		if (items[i].req.files.sampleFile.mimetype == "application/pdf") {	
-			
-			
+		if (!items[i].photo) {	
 			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
-				
-					res.render('detailsnophoto', {r: items[i], g: rnames});
-					
+					res.render('detailsnophoto', {r: items[i], g: rnames});	
+			});
+		} 
+		if (items[i].photo_mimetype == "application/pdf") {	
+			db.collection("grades").find({r_id: req.query.id}).toArray(function(err,rnames){
+					res.render('detailsnophoto', {r: items[i], g: rnames});	
 			});
 		} 
 		/*if (!items[i].gps1) {
@@ -290,7 +291,7 @@ function update(db,bfile,rrr,callback) {
 			    "gps1": rrr.gps1,
 			    "gps2": rrr.gps2,
 			    "photo" : new Buffer(bfile.data).toString('base64'),
-			    "photo mimetype" : bfile.mimetype
+			    "photo_mimetype" : bfile.mimetype
 			}	  
 	  
   }, function(err,result) {
