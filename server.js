@@ -93,7 +93,7 @@ app.post('/upload', function(req, res) {
      	  assert.equal(null,err);
      	  create4(db, req.files.sampleFile,req.body,req.session, function(result) {
       		  db.close();
-       		  res.redirect('/')
+       		  res.redirect('/');
      	 });
     	 });
       }		
@@ -103,7 +103,7 @@ app.post('/upload', function(req, res) {
      	  assert.equal(null,err);
      	  create2(db, req.files.sampleFile,req.body,req.session, function(result) {
       		  db.close();
-       		  res.redirect('/')
+       		  res.redirect('/');
      	 });
     	 });	
      }	
@@ -113,7 +113,7 @@ app.post('/upload', function(req, res) {
      	  assert.equal(null,err);
      	  create3(db, req.files.sampleFile,req.body,req.session, function(result) {
       		  db.close();
-       		  res.redirect('/')
+       		  res.redirect('/');
      	 });
     	 });
      }		
@@ -133,7 +133,7 @@ app.post('/upload', function(req, res) {
 		"owner":req.session.username
 	});
 	});
-	res.redirect('/')
+	res.redirect('/');
 	return;
      }
 	
@@ -141,7 +141,7 @@ app.post('/upload', function(req, res) {
       assert.equal(null,err);
       create(db, req.files.sampleFile,req.body,req.session, function(result) {
         db.close();
-        res.redirect('/')
+        res.redirect('/');
       });
     });
 });
