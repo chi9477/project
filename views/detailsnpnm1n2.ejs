@@ -32,6 +32,9 @@
   .table-scroll thead > tr > th {
       border: none;
   }
+  .hideme {
+      color: white;
+  }
 </style>
 <BODY>
 <H2><%= r.name %></H2>
@@ -62,5 +65,6 @@
         <button class="btn btn-default">Go back</button>
       </a>
     </div>
+     <a class="hideme" href="/gps?id=<%= r._id %>">Google Map</a>
 </BODY>
 </HTML>
