@@ -439,7 +439,7 @@ app.post('/api/restaurant',function(req,res){
 		assert.equal(err,null);
  		db.collection("restaurants").insert({
 			"name": req.body.name;
-			"owner": req.session.username;
+			"owner": req.body.owner;
 		});
 			res.sendStatus(200).end('success');
 	});	
