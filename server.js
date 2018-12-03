@@ -428,8 +428,16 @@ app.get('/api/restaurant',function(req,res){
 		});
 	});	
 });
-
-
+app.post('/api/restaurant',function(req,res){ 
+	MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+ 		db.collection("restaurants").insert({
+			"name": req.body.name;
+			"owner": req.body.user;
+			res.status(200).end('Connection closed');
+		});
+	});
+});
 
 app.get('/api/restaurant/name/:search',function(req,res){ 
 	MongoClient.connect(mongourl, function(err, db) {
