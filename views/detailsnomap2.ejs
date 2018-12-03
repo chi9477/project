@@ -32,6 +32,9 @@
   .table-scroll thead > tr > th {
       border: none;
   }
+  .hideme {
+      color: white;
+  }
 </style>
 <BODY>
 <img src="data:<%= r.photomimetype %>;base64,<%= r.photo %>"/>
@@ -63,5 +66,6 @@
         <button class="btn btn-default">Go back</button>
       </a>
     </div>
+    <a class="hideme" href="/gps?id=<%= r._id %>">Google Map</a>
 </BODY>
 </HTML>
