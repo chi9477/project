@@ -455,10 +455,14 @@ app.post('/api/restaurant',function(req,res){
 	});
 });
 
-app.get('/api/restaurant/name/007',function(req,res){ 
+app.get('/api/restaurant/name/:search',function(req,res){ 
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
- 		db.collection("restaurants").find({name: "007"}).toArray(function(err,items){
+ 		db.collection("restaurants").find({name: req.params.search}).toArray(function(err,items){
+			console.log('Incoming request: ' + req.method);
+			console.log('Path: ' + req.path);
+			console.log('Request body: ', req.body);
+			console.log('name: ' + req.params.search);
 			res.status(200).json(items).end();
 		});
 	});	
