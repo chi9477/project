@@ -441,6 +441,13 @@ app.post('/api/restaurant',function(req,res){
 		assert.equal(err,null);
  		db.collection("restaurants").insert({
 			"name": req.body.name,
+                        "borough":req.body.borough, 
+			"cuisine":req.body.cuisine, 
+			"street":req.body.street, 
+		 	"building":req.body.building, 
+			"zipcode":req.body.zipcode, 
+			"gps1":req.body.gps1, 
+			"gps2":req.body.gps2, 
 			"owner": req.body.user
 		});
 		res.status(200).end('success!');
