@@ -193,13 +193,12 @@ app.get('/edit',function(req,res) {
 				if (items[i]._id == req.query.id) {
 					item = items[i];
 					owner = items[i].owner;
-					name = items[i].name;
 					break;
 				}
 			}	     
 			if (item) {
 				if(req.session.username == owner) {
-					res.render('update', {r: items[i], n: name});
+					res.render('update', {r: items[i]});
 				} else {
 					res.render('cantupdate');
 				}
