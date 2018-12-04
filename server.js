@@ -187,17 +187,19 @@ app.get('/edit',function(req,res) {
         	db.collection("restaurants").find().toArray(function(err,items){
 		var item = null;
 		var owner = null;
+		var name = null;
 		if (req.query.id) {
 			for (i in items) {
 				if (items[i]._id == req.query.id) {
 					item = items[i];
 					owner = items[i].owner;
+					name = items[i].name;
 					break;
 				}
 			}	     
 			if (item) {
 				if(req.session.username == owner) {
-					res.render('update', {r: items[i]});
+					res.render('update', {r: items[i], n: name});
 				} else {
 					res.render('cantupdate');
 				}
