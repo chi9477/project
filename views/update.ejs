@@ -41,7 +41,7 @@
             method='post'
             encType="multipart/form-data">
   <input type="hidden" name="id" value=<%= r._id %>>
-    Name: <input type="text" name="name" value=<%# r.name %>><br>
+    <p>Name: <%= r.name %></p>
     borough: <input type="text" name="borough" value=<%= r.borough %>><br>
     cuisine: <input type="text" name="cuisine" value=<%= r.cuisine %>><br>
     street: <input type="text" name="street"value=<%= r.street %>><br>
