@@ -457,9 +457,9 @@ app.post('/api/restaurant',function(req,res){
 });
 
 app.get('/api/restaurant/name/:search',function(req,res){ 
-	var result = null;
 	MongoClient.connect(mongourl, function(err, db) {
 		assert.equal(err,null);
+		var result = null;
  		result = db.collection("restaurants").find({name: req.params.search});
 			res.status(200).json(result).end();
 	});	
